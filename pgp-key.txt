@@ -1,0 +1,5 @@
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v2
+
+mQENBF7G1DkBCADB7F2... (full key here)
+-----END PGP PUBLIC KEY BLOCK-----
