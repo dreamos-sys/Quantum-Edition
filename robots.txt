@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /architect/
+Disallow: /ghost-mode/
+
+Sitemap: /sitemap.xml
+Crawl-delay: 10
+
+User-agent: Googlebot-Image  
+Allow: /icons/
+Allow: /screenshots/
+
+User-agent: *
+Disallow: /*?*
+Disallow: /*debug=*
