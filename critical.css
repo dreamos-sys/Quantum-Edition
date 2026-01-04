@@ -1,0 +1,3 @@
+/* Minimal CSS for initial render */
+.quantum-header { background: #000814; padding: 15px; }
+.quantum-loader { width: 80px; height: 80px; margin: 0 auto; }
