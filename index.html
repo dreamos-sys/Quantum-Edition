@@ -623,24 +623,25 @@
                     <label for="sarana" class="required">Pilih Sarana</label>
                     <select id="sarana" required>
                         <option value="">-- Pilih Sarana --</option>
-                        <option value="Musholla Al-Ikhlas">Musholla Al-Ikhlas</option>
-                        <option value="Lab Komputer 1">Lab Komputer 1</option>
-                        <option value="Lab Komputer 2">Lab Komputer 2</option>
-                        <option value="Lab Bahasa">Lab Bahasa</option>
-                        <option value="Aula Serbaguna">Aula Serbaguna</option>
+                        <option value="Masjid">Masjid</option>
+                        <option value="Lab Komputer SD">Lab Komputer SD</option>
+                        <option value="Lab Komputer SMP">Lab Komputer SMP</option>
+                        <option value="Lab Komputer SMA">Lab Komputer SMA</option>
+                        <option value="Ruang Serbaguna">Ruang Serbaguna</option>
                         <option value="Lapangan Basket">Lapangan Basket</option>
-                        <option value="Lapangan Futsal">Lapangan Futsal</option>
-                        <option value="Ruang Guru">Ruang Guru</option>
-                        <option value="Ruang Kepala Sekolah">Ruang Kepala Sekolah</option>
-                        <option value="Ruang TU">Ruang TU</option>
-                        <option value="Koperasi Siswa">Koperasi Siswa</option>
-                        <option value="Kantin Sehat">Kantin Sehat</option>
-                        <option value="Perpustakaan">Perpustakaan</option>
-                        <option value="Ruang OSIS">Ruang OSIS</option>
-                        <option value="Ruang Pramuka">Ruang Pramuka</option>
-                        <option value="Green House">Green House</option>
-                        <option value="Taman Baca">Taman Baca</option>
-                        <option value="Parkir Guru">Parkir Guru</option>
+                        <option value="Lapangan Volli">Lapangan Volli</option>
+                        <option value="Lapangan SMA">Lapangan SMA</option>
+                        <option value="Lapangan Rumput">Lapangan Rumput</option>
+                        <option value="Lapangan Depan Masjid">Lapangan Depan Masjid</option>
+                        <option value="Perpustakaan SD">Perpustakaan SD</option>
+                        <option value="Perpustakaan SMP">Perpustakaan SMP</option>
+                        <option value="Perpustakaan SMA">Perpustakaan</option>
+                        <option value="Aula SMP">Aula SMP</option>
+                        <option value="Aula SMA">Aula SMA</option>
+                        <option value="Kantin SMP">Kantin SMP</option>
+                        <option value="Saung Besar">Saung Besar</option>
+                        <option value="Saung Kecil">Saung Kecil</option>
+                        <option value="Lapangan Depan Dapur">Lapangan Depan Dapur</option>
                     </select>
                     <div class="input-error" id="saranaError">Silakan pilih sarana</div>
                 </div>
@@ -729,10 +730,7 @@
                         <option value="">-- Pilih Jenis --</option>
                         <option value="Kerusakan">Kerusakan Fasilitas</option>
                         <option value="Kehilangan">Kehilangan Barang</option>
-                        <option value="Kebersihan">Masalah Kebersihan</option>
-                        <option value="Listrik">Gangguan Listrik</option>
-                        <option value="Plumbing">Kebocoran Air</option>
-                        <option value="Internet">Gangguan Internet</option>
+                        <option value="Kebersihan">Masalah Kebersihan</option>                                                                       
                         <option value="Lainnya">Lainnya</option>
                     </select>
                     <div class="input-error" id="jenisK3Error">Silakan pilih jenis laporan</div>
@@ -806,9 +804,8 @@
                     <label for="shift_security" class="required">Shift</label>
                     <select id="shift_security" required>
                         <option value="">-- Pilih Shift --</option>
-                        <option value="Pagi (06:00 - 14:00)">Pagi (06:00 - 14:00)</option>
-                        <option value="Siang (14:00 - 22:00)">Siang (14:00 - 22:00)</option>
-                        <option value="Malam (22:00 - 06:00)">Malam (22:00 - 06:00)</option>
+                        <option value="Pagi (06:00 - 17:00)">Pagi (06:00 - 17:00)</option>                  
+                        <option value="Malam (17:00 - 06:00)">Malam (17:00 - 06:00)</option>
                     </select>
                     <div class="input-error" id="shiftSecurityError">Silakan pilih shift</div>
                 </div>
@@ -823,10 +820,10 @@
                     <label for="pos_security" class="required">Pos Penjagaan</label>
                     <select id="pos_security" required>
                         <option value="Pos Utama (Gate Depan)">Pos Utama (Gate Depan)</option>
-                        <option value="Pos Belakang">Pos Belakang</option>
-                        <option value="Pos Parkir Guru">Pos Parkir Guru</option>
-                        <option value="Pos Gedung A">Pos Gedung A</option>
-                        <option value="Pos Gedung B">Pos Gedung B</option>
+                        <option value="Pos SMA">Pos SMA</option>
+                        <option value="Gedung SD">Gedung SD</option>
+                        <option value="Gedung SMP">Gedung SMP</option>
+                        <option value="Gedung SMA">Gedung SMA</option>
                         <option value="Patroli">Patroli</option>
                     </select>
                     <div class="input-error" id="posSecurityError">Silakan pilih pos penjagaan</div>
@@ -1344,7 +1341,7 @@
 │ 📅 TANGGAL: ${formatDate(data.tanggal)}
 │ ⏰ WAKTU: ${data.waktu_mulai} - ${data.waktu_selesai}
 │ 👤 PEMESAN: ${data.nama}
-│ 🏫 KELAS/JABATAN: ${data.kelas}
+│ 🏫 KELAS/JABATAN/DIVISI: ${data.kelas}
 │ 📞 WHATSAPP: ${data.whatsapp}
 │ 👥 PESERTA: ${data.jumlah_peserta} orang
 ├─────────────────────────────
