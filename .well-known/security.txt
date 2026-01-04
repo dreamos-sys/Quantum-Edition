@@ -1,1 +1,7 @@
 
+Contact: mailto:dreamos.security@sif.sch.id
+Contact: https://wa.me/628886183954
+Encryption: https://dreamos.sif.sch.id/pgp-key.txt
+Disclosure: 7 days
+Policy: https://dreamos.sif.sch.id/security-policy.html
+Hiring: https://dreamos.sif.sch.id/careers
