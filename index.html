@@ -1500,6 +1500,84 @@
             },
             
             setupEventListeners() {
+ // K3 Form Submission
+document.getElementById('k3FormElement')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    QuantumState.showLoading('Mengirim laporan K3...');
+    try {
+        const formData = {
+            lokasi: document.getElementById('lokasi').value,
+            tanggal: new Date().toISOString(),
+            status: 'pending',
+            created_by: QuantumState.user || 'public'
+        };
+
+        // Send to Supabase
+        const response = await fetch(`${QUANTUM_CONFIG.SUPABASE.URL}/rest/v1/k3_reports`, {
+            method: 'POST',
+            headers: {
+                'apikey': QUANTUM_CONFIG.SUPABASE.ANON_KEY,
+                'Authorization': `Bearer ${QUANTUM_CONFIG.SUPABASE.ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            QuantumState.showNotification('Laporan K3 berhasil dikirim!', 'success');
+            hideAllForms();
+            document.getElementById('k3FormElement').reset();
+        } else {
+            throw new Error('Failed to submit K3 report');
+        }
+    } catch (error) {
+        QuantumState.showNotification('Gagal mengirim laporan K3', 'error');
+        console.error('K3 error:', error);
+    } finally {
+        QuantumState.hideLoading();
+    }
+});
+
+// Security Form Submission
+document.getElementById('securityFormElement')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    QuantumState.showLoading('Mengirim laporan security...');
+    try {
+        const formData = {
+            shift: document.getElementById('shift').value,
+            tanggal: new Date().toISOString().split('T')[0],
+            waktu: new Date().toLocaleTimeString('id-ID'),
+            petugas: QuantumState.user || 'Security',
+            status: 'active'
+        };
+
+        // Send to Supabase
+        const response = await fetch(`${QUANTUM_CONFIG.SUPABASE.URL}/rest/v1/security_reports`, {
+            method: 'POST',
+            headers: {
+                'apikey': QUANTUM_CONFIG.SUPABASE.ANON_KEY,
+                'Authorization': `Bearer ${QUANTUM_CONFIG.SUPABASE.ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            QuantumState.showNotification('Laporan security berhasil dikirim!', 'success');
+            hideAllForms();
+            document.getElementById('securityFormElement').reset();
+        } else {
+            throw new Error('Failed to submit security report');
+        }
+    } catch (error) {
+        QuantumState.showNotification('Gagal mengirim laporan security', 'error');
+        console.error('Security error:', error);
+    } finally {
+        QuantumState.hideLoading();
+    }
+});
                 // Network status
                 window.addEventListener('online', () => {
                     this.online = true;
