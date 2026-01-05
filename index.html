@@ -1100,52 +1100,86 @@
             </section>
         </main>
         
-        <!-- Form Containers -->
-        <div class="forms-container">
-            <!-- Booking Form -->
-            <div class="form-container" id="bookingForm">
-                <div class="form-header">
-                    <h3 class="form-title">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span data-i18n="forms.booking.title">Form Booking Sarana</span>
-                    </h3>
-                    <button class="modal-close" onclick="hideAllForms()">
+        <!-- Forms Container Section -->
+<div class="forms-container">
+    <!-- Booking Form -->
+    <div class="form-container" id="bookingForm">
+        [Booking form existing code...]
+    </div>
+    
+    <!-- K3 Report Form -->
+    <div class="form-container" id="k3Form">
+        <div class="form-header">
+            <h3 class="form-title">
+                <i class="fas fa-shield-alt"></i>
+                <span data-i18n="forms.k3.title">Form Laporan K3</span>
+            </h3>
+            <button class="modal-close" onclick="hideAllForms()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="form-body">
+            <form id="k3FormElement">
+                <div class="form-group">
+                    <label for="lokasi" class="form-label">
+                        <span data-i18n="forms.k3.location">Lokasi Kejadian</span>
+                        <span class="required">*</span>
+                    </label>
+                    <input type="text" id="lokasi" class="form-control" required>
+                </div>
+                <div class="flex gap-3">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-i18n="forms.submit">Kirim Laporan</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="hideAllForms()">
                         <i class="fas fa-times"></i>
+                        <span data-i18n="forms.cancel">Batal</span>
                     </button>
                 </div>
-                
-                <div class="form-body">
-                    <form id="bookingFormElement">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="sarana" class="form-label">
-                                    <span data-i18n="forms.booking.facility">Pilih Sarana</span>
-                                    <span class="required">*</span>
-                                </label>
-                                <select id="sarana" class="form-control" required>
-                                    <option value="">-- <span data-i18n="forms.select">Pilih Sarana</span> --</option>
-                                    <option value="Masjid">Masjid</option>
-                                    <option value="Lab Komputer">Lab Komputer</option>
-                                    <option value="Aula">Aula</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="flex gap-3">
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <i class="fas fa-paper-plane"></i>
-                                <span data-i18n="forms.submit">Kirim Booking</span>
-                            </button>
-                            <button type="button" class="btn btn-secondary" onclick="hideAllForms()">
-                                <i class="fas fa-times"></i>
-                                <span data-i18n="forms.cancel">Batal</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
+    
+    <!-- Security Report Form -->
+    <div class="form-container" id="securityForm">
+        <div class="form-header">
+            <h3 class="form-title">
+                <i class="fas fa-user-shield"></i>
+                <span data-i18n="forms.security.title">Form Laporan Security</span>
+            </h3>
+            <button class="modal-close" onclick="hideAllForms()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="form-body">
+            <form id="securityFormElement">
+                <div class="form-group">
+                    <label for="shift" class="form-label">
+                        <span data-i18n="forms.security.shift">Shift</span>
+                        <span class="required">*</span>
+                    </label>
+                    <select id="shift" class="form-control" required>
+                        <option value="">-- Pilih Shift --</option>
+                        <option value="pagi">Pagi (07.00-15.00)</option>
+                        <option value="sore">Sore (15.00-23.00)</option>
+                        <option value="malam">Malam (23.00-07.00)</option>
+                    </select>
+                </div>
+                <div class="flex gap-3">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-paper-plane"></i>
+                        <span data-i18n="forms.submit">Kirim Laporan</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="hideAllForms()">
+                        <i class="fas fa-times"></i>
+                        <span data-i18n="forms.cancel">Batal</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     
     <!-- Status Bar -->
     <div class="status-bar">
