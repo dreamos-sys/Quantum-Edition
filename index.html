@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#10b981">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Dream OS Quantum">
+    <meta name="application-name" content="Dream OS Quantum">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Enterprise Management System - SIF Al Fikri - ISO 27001 Certified PWA">
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://via.placeholder.com/32">
+    <link rel="apple-touch-icon" href="https://via.placeholder.com/192">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    
+    <title>Dream OS Quantum v4.2 - SIF Al Fikri Enterprise System</title>
+    
+    <style>
+        /* =========== SYSTEM VARIABLES =========== */
+        :root {
+            --iso-primary: #10b981;      
+            --iso-secondary: #3b82f6;    
+            --iso-success: #059669;      
+            --iso-warning: #f59e0b;      
+            --iso-danger: #dc2626;       
+            --iso-info: #0ea5e9;         
+            --iso-bg-primary: #0f172a;   
+            --iso-bg-secondary: #1e293b; 
+            --iso-bg-tertiary: #334155;  
+            --iso-text-primary: #f8fafc; 
+            --iso-text-secondary: #cbd5e1; 
+            --iso-text-tertiary: #94a3b8; 
+            --iso-border-primary: #475569;
+            --arabic-bg: linear-gradient(135deg, #1a472a 0%, #14532d 100%);
+            --arabic-gold: #fbbf24;
+            --radius-iso-xl: 1rem;
+            --z-iso-modal: 1050;
+        }
+
+        /* REVISI: Pastikan Class Hidden Bekerja */
+        .hidden { display: none !important; }
+
+        /* =========== CSS RESET =========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--iso-bg-primary);
+            color: var(--iso-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+        
+        /* =========== ARABIC HEADER =========== */
+        .arabic-header {
+            background: var(--arabic-bg);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-bottom: 3px solid var(--arabic-gold);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+        }
+        
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--arabic-gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .arabic-translation {
+            font-size: 0.9rem;
+            color: #d1fae5;
+            opacity: 0.9;
+        }
+
+        /* =========== SYSTEM HEADER =========== */
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+        
+        .system-header {
+            background: var(--iso-bg-secondary);
+            border-radius: var(--radius-iso-xl);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 2px solid var(--iso-border-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .system-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--iso-primary) 0%, var(--iso-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* =========== DASHBOARD GRID =========== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .dashboard-card {
+            background: var(--iso-bg-secondary);
+            border-radius: var(--radius-iso-xl);
+            padding: 1.75rem;
+            border-left: 5px solid var(--iso-primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .card-description { color: var(--iso-text-tertiary); font-size: 0.875rem; }
+
+        /* =========== FORMS =========== */
+        .form-container {
+            background: var(--iso-bg-secondary);
+            border-radius: var(--radius-iso-xl);
+            border: 2px solid var(--iso-border-primary);
+            margin-top: 2rem;
+            overflow: hidden;
+            display: none;
+        }
+        .form-container.active { display: block; animation: slideUp 0.4s ease; }
+        .form-header { padding: 1.5rem; background: var(--iso-bg-tertiary); display: flex; justify-content: space-between; }
+        .form-body { padding: 1.5rem; }
+        .form-control {
+            width: 100%; padding: 0.875rem; background: var(--iso-bg-primary); 
+            border: 2px solid var(--iso-border-primary); border-radius: 0.75rem; color: white; margin-bottom: 1rem;
+        }
+
+        /* =========== STATUS BAR =========== */
+        .status-bar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--iso-bg-secondary);
+            padding: 0.75rem 1.5rem;
+            border-top: 2px solid var(--iso-border-primary);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1020; backdrop-filter: blur(10px);
+        }
+
+        /* =========== MODAL =========== */
+        .modal-backdrop {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(8px);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+        }
+        .modal-backdrop.active { display: flex; }
+        .modal-container { background: var(--iso-bg-secondary); border-radius: 1rem; width: 90%; max-width: 400px; padding: 20px; }
+
+        /* =========== NOTIFICATION =========== */
+        .notification-container { position: fixed; top: 1rem; right: 1rem; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
+        .notification { background: var(--iso-bg-secondary); border-left: 4px solid var(--iso-primary); padding: 1rem; border-radius: 0.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3); animation: slideIn 0.3s ease; }
+
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <div id="installPrompt" class="hidden" style="position: fixed; top: 20px; left: 20px; right: 20px; background: var(--iso-bg-secondary); padding: 1.5rem; border-radius: 1rem; border: 2px solid var(--iso-primary); z-index: 9999; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="font-size: 2.5rem;">📱</div>
+            <div style="flex: 1;">
+                <h4 style="margin:0">Dream OS Quantum v4.2</h4>
+                <p style="font-size: 0.8rem; color: var(--iso-text-tertiary); margin: 5px 0;">Instal aplikasi untuk pengalaman penuh & akses offline.</p>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button onclick="installPWA()" style="background: var(--iso-primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">INSTALL</button>
+                    <button onclick="document.getElementById('installPrompt').classList.add('hidden')" style="background: transparent; border: 1px solid var(--iso-border-primary); color: white; padding: 8px 15px; border-radius: 5px;">NANTI</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="arabic-header">
+        <div class="arabic-text">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+        <div class="arabic-translation">Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang</div>
+        <div style="width: 150px; height: 2px; background: var(--arabic-gold); margin: 1rem auto; opacity: 0.5;"></div>
+        <div class="arabic-text" style="font-size: 1.5rem;">اَللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ</div>
+    </div>
+
+    <div class="main-container">
+        <header class="system-header">
+            <div id="logoSection">
+                <h1 class="system-title">DREAM OS QUANTUM v4.2</h1>
+                <p style="font-size: 0.75rem; color: var(--iso-text-tertiary);">SIF Al Fikri • ISO 27001 Certified System</p>
+            </div>
+            
+            <div class="auth-section">
+                <button id="loginBtn" class="btn-primary" style="background: var(--iso-primary); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600;" onclick="showLoginModal()">
+                    <i class="fas fa-sign-in-alt"></i> SYSTEM LOGIN
+                </button>
+                
+                <div id="userBadge" class="hidden" style="display: flex; align-items: center; gap: 10px; background: var(--iso-bg-tertiary); padding: 5px 15px; border-radius: 10px;">
+                    <i class="fas fa-user-shield" style="color: var(--iso-primary);"></i>
+                    <div style="font-size: 0.8rem;">
+                        <b id="userRoleDisplay">Admin</b><br>
+                        <small id="sessionTimer" style="color: var(--iso-warning);">30:00</small>
+                    </div>
+                    <button onclick="logout()" style="background:none; border:none; color: var(--iso-danger); margin-left:10px;"><i class="fas fa-power-off"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="publicSection">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--iso-border-primary); padding-bottom: 10px;">
+                    <h2 style="font-size: 1.2rem;"><i class="fas fa-users" style="color: var(--iso-primary);"></i> PUBLIC ACCESS</h2>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" onclick="showForm('booking')">
+                        <div class="card-icon">📅</div>
+                        <h3 class="card-title">Booking Sarana</h3>
+                        <p class="card-description">Sistem pemesanan sarana sekolah dengan validasi otomatis.</p>
+                    </div>
+                    <div class="dashboard-card" onclick="showForm('k3')">
+                        <div class="card-icon">🛡️</div>
+                        <h3 class="card-title">Laporan K3</h3>
+                        <p class="card-description">Pelaporan isu Kesehatan & Keselamatan Kerja (K3).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="securitySection" class="hidden" style="margin-top: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--iso-border-primary); padding-bottom: 10px;">
+                    <h2 style="font-size: 1.2rem;"><i class="fas fa-shield-alt" style="color: var(--iso-info);"></i> SECURITY ACCESS</h2>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" onclick="showForm('security')" style="border-left-color: var(--iso-info);">
+                        <div class="card-icon">📋</div>
+                        <h3 class="card-title">Laporan Security</h3>
+                        <p class="card-description">Sistem pelaporan harian shift security SIF Al Fikri.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="adminSection" class="hidden" style="margin-top: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--iso-border-primary); padding-bottom: 10px;">
+                    <h2 style="font-size: 1.2rem;"><i class="fas fa-cogs" style="color: var(--iso-warning);"></i> ADMIN PANEL</h2>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" style="border-left-color: var(--iso-warning);">
+                        <div class="card-icon">🏢</div>
+                        <h3 class="card-title">Management Tools</h3>
+                        <p class="card-description">Full system control, analytics, and reporting.</p>
+                    </div>
+                    <div id="ghostCard" class="dashboard-card hidden" style="border-left-color: #a855f7;">
+                        <div class="card-icon">👻</div>
+                        <h3 class="card-title">Ghost Mode</h3>
+                        <p class="card-description">Architect Developer Tools (Mr. M Access Only).</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="formsContainer">
+            <div id="k3Form" class="form-container">
+                <div class="form-header">
+                    <h3><i class="fas fa-shield-alt"></i> Form Laporan K3</h3>
+                    <button onclick="hideAllForms()" style="background:none; border:none; color:white; font-size:1.5rem;"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="form-body">
+                    <label>Lokasi Kejadian</label>
+                    <input type="text" id="k3_lokasi" class="form-control" placeholder="Contoh: Gedung A Lantai 2">
+                    <label>Deskripsi Masalah</label>
+                    <textarea id="k3_deskripsi" class="form-control" rows="4" placeholder="Jelaskan detail masalah K3..."></textarea>
+                    <button class="btn-primary" onclick="submitK3()" style="width:100%; background: var(--iso-primary); border:none; padding:15px; border-radius:10px; color:white; font-weight:bold;">KIRIM LAPORAN</button>
+                </div>
+            </div>
+
+            <div id="securityForm" class="form-container">
+                <div class="form-header">
+                    <h3><i class="fas fa-user-shield"></i> Laporan Harian Security</h3>
+                    <button onclick="hideAllForms()" style="background:none; border:none; color:white; font-size:1.5rem;"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="form-body">
+                    <label>Shift</label>
+                    <select id="sec_shift" class="form-control">
+                        <option value="Pagi">Pagi (07:00 - 15:00)</option>
+                        <option value="Sore">Sore (15:00 - 23:00)</option>
+                        <option value="Malam">Malam (23:00 - 07:00)</option>
+                    </select>
+                    <label>Kondisi Lingkungan</label>
+                    <select id="sec_kondisi" class="form-control">
+                        <option value="Aman">Aman Terkendali</option>
+                        <option value="Waspada">Waspada / Ada Gangguan</option>
+                    </select>
+                    <button class="btn-primary" onclick="submitSecurity()" style="width:100%; background: var(--iso-info); border:none; padding:15px; border-radius:10px; color:white; font-weight:bold;">SIMPAN LAPORAN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <div style="text-align:center;" onclick="hideAllForms()">
+            <i class="fas fa-home"></i><br><small>Home</small>
+        </div>
+        <div id="connectionStatus" style="text-align:center;">
+            <span id="connectionDot" style="display:inline-block; width:8px; height:8px; background:var(--iso-success); border-radius:50%; margin-right:5px;"></span>
+            <small>Online</small><br>
+            <small id="currentTime">00:00</small>
+        </div>
+        <div style="text-align:center;" id="gpsDisplay">
+            <i class="fas fa-map-marker-alt"></i><br><small>GPS: OK</small>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal-backdrop">
+        <div class="modal-container">
+            <h3 style="text-align:center; margin-bottom:1.5rem;"><i class="fas fa-lock"></i> AUTHENTICATION</h3>
+            <label style="font-size: 0.8rem;">Access Level</label>
+            <select id="loginRole" class="form-control">
+                <option value="security">Petugas Security</option>
+                <option value="admin">Administrator System</option>
+                <option value="architect">Mr. M Architect</option>
+            </select>
+            <label style="font-size: 0.8rem;">Security Password</label>
+            <input type="password" id="loginPassword" class="form-control" placeholder="••••••••">
+            <div style="display: flex; gap: 10px;">
+                <button onclick="processLogin()" style="flex:1; background: var(--iso-primary); border:none; padding:12px; border-radius:8px; color:white; font-weight:bold;">LOGIN</button>
+                <button onclick="closeLoginModal()" style="flex:1; background: var(--iso-bg-tertiary); border:none; padding:12px; border-radius:8px; color:white;">BATAL</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="modal-backdrop" style="background: rgba(15, 23, 42, 0.98);">
+        <div style="text-align:center;">
+            <div style="width:50px; height:50px; border:4px solid var(--iso-primary); border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+            <p id="loadingText">Menginisialisasi Quantum OS...</p>
+        </div>
+    </div>
+
+    <script>
+        // ================= STATE MANAGEMENT =================
+        const State = {
+            role: 'public',
+            user: null,
+            online: navigator.onLine,
+            
+            init() {
+                this.updateClock();
+                this.setupNetworkListeners();
+                this.checkPWA();
+                this.loadSession();
+            },
+
+            updateClock() {
+                setInterval(() => {
+                    const now = new Date();
+                    document.getElementById('currentTime').innerText = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+                }, 1000);
+            },
+
+            setupNetworkListeners() {
+                window.addEventListener('online', () => this.updateNetwork(true));
+                window.addEventListener('offline', () => this.updateNetwork(false));
+            },
+
+            updateNetwork(online) {
+                const dot = document.getElementById('connectionDot');
+                dot.style.background = online ? 'var(--iso-success)' : 'var(--iso-danger)';
+                this.showNotification(online ? 'Sistem Terhubung (Online)' : 'Sistem Terputus (Offline Mode)', online ? 'success' : 'error');
+            },
+
+            showNotification(msg, type = 'success') {
+                const container = document.getElementById('notificationContainer');
+                const notif = document.createElement('div');
+                notif.className = 'notification';
+                notif.style.borderLeftColor = type === 'success' ? 'var(--iso-success)' : 'var(--iso-danger)';
+                notif.innerText = msg;
+                container.appendChild(notif);
+                setTimeout(() => notif.remove(), 4000);
+            },
+
+            checkPWA() {
+                let deferredPrompt;
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    document.getElementById('installPrompt').classList.remove('hidden');
+                    
+                    window.installPWA = () => {
+                        deferredPrompt.prompt();
+                        document.getElementById('installPrompt').classList.add('hidden');
+                    };
+                });
+            },
+
+            loadSession() {
+                const saved = localStorage.getItem('dreamos_session');
+                if(saved) {
+                    const data = JSON.parse(saved);
+                    this.applyLogin(data.role);
+                }
+            },
+
+            applyLogin(role) {
+                this.role = role;
+                document.getElementById('loginBtn').classList.add('hidden');
+                document.getElementById('userBadge').classList.remove('hidden');
+                document.getElementById('userRoleDisplay').innerText = role.toUpperCase();
+                
+                // REVISI: Buka Menu Sesuai Role
+                if(role === 'security' || role === 'admin' || role === 'architect') {
+                    document.getElementById('securitySection').classList.remove('hidden');
+                }
+                if(role === 'admin' || role === 'architect') {
+                    document.getElementById('adminSection').classList.remove('hidden');
+                }
+                if(role === 'architect') {
+                    document.getElementById('ghostCard').classList.remove('hidden');
+                }
+            }
+        };
+
+        // ================= UI FUNCTIONS =================
+        function showLoginModal() { document.getElementById('loginModal').classList.add('active'); }
+        function closeLoginModal() { document.getElementById('loginModal').classList.remove('active'); }
+
+        function processLogin() {
+            const role = document.getElementById('loginRole').value;
+            const pass = document.getElementById('loginPassword').value;
+
+            // Database Password ISO Standard
+            const DB_PASS = {
+                security: '@sec_Sif-Af2026',
+                admin: '@dm1n_Sec2026',
+                architect: '418626'
+            };
+
+            if(pass === DB_PASS[role]) {
+                State.showNotification('Otentikasi Berhasil!', 'success');
+                State.applyLogin(role);
+                localStorage.setItem('dreamos_session', JSON.stringify({role, time: Date.now()}));
+                closeLoginModal();
+            } else {
+                State.showNotification('Password Salah!', 'error');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('dreamos_session');
+            location.reload();
+        }
+
+        function showForm(id) {
+            hideAllForms();
+            const form = document.getElementById(id + 'Form');
+            if(form) form.classList.add('active');
+        }
+
+        function hideAllForms() {
+            document.querySelectorAll('.form-container').forEach(f => f.classList.remove('active'));
+        }
+
+        function submitK3() {
+            const lokasi = document.getElementById('k3_lokasi').value;
+            if(!lokasi) return State.showNotification('Lokasi wajib diisi', 'error');
+            State.showNotification('Laporan K3 Terkirim ke Server', 'success');
+            hideAllForms();
+        }
+
+        function submitSecurity() {
+            State.showNotification('Laporan Shift Berhasil Disimpan', 'success');
+            hideAllForms();
+        }
+
+        // ================= INITIALIZE =================
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+                State.init();
+            }, 1500);
+        };
+    </script>
+
+    <style> @keyframes spin { to { transform: rotate(360deg); } } </style>
+</body>
+</html>
