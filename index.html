@@ -99,7 +99,86 @@
             --z-iso-tooltip: 1070;
             --z-iso-toast: 1080;
         }
-        
+        /* Tambahkan di CSS section */
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--iso-bg-tertiary);
+    border-bottom: 2px solid var(--iso-border-primary);
+}
+
+.form-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--iso-text-primary);
+}
+
+.form-body {
+    padding: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--iso-text-secondary);
+}
+
+.form-label .required {
+    color: var(--iso-danger);
+    margin-left: 0.25rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.gap-3 {
+    gap: 0.75rem;
+}
+
+.btn-block {
+    flex: 1;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--iso-text-tertiary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--radius-iso-md);
+    transition: all var(--transition-iso-fast);
+}
+
+.modal-close:hover {
+    background: var(--iso-bg-tertiary);
+    color: var(--iso-danger);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
         /* =========== CSS RESET - ISO SECURITY STANDARD =========== */
         *, *::before, *::after {
             margin: 0;
