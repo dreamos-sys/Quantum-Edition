@@ -1,0 +1,120 @@
+<style>
+    :root { 
+        --p: #10b981; --gold: #fbbf24; --bg: #022c22;
+        --glass: rgba(255, 255, 255, 0.07); --border: rgba(255, 255, 255, 0.1);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: radial-gradient(circle at top, #065f46 0%, #022c22 100%); color: #f8fafc; min-height: 100vh; overflow-x: hidden; padding-bottom: 120px; }
+    
+    /* Logo DD Interlocking & Mirror */
+    .logo-wrap { position: relative; width: 85px; height: 55px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
+    .aura { position: absolute; width: 120px; height: 120px; background: radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%); animation: pulse 4s infinite; }
+    .dd { position: absolute; width: 48px; height: 48px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.8rem; border: 2px solid rgba(0,0,0,0.2); }
+    
+    /* D AWAL TERBALIK (MIRROR) */
+    .d-green { background: linear-gradient(135deg, #10b981, #064e3b); left: 0; z-index: 2; color: white; transform: scaleX(-1); box-shadow: 5px 0 15px rgba(0,0,0,0.4); }
+    .d-gold { background: linear-gradient(135deg, #fbbf24, #b45309); right: 0; z-index: 1; color: #022c22; transform: scale(0.95); }
+    
+    @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.8; } }
+
+    /* UI Elements */
+    .q-card { background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--border); border-radius: 25px; padding: 20px; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .btn-menu { background: var(--glass); padding: 20px 5px; border-radius: 20px; text-align: center; border: 1px solid var(--border); transition: 0.3s; color: inherit; }
+    .btn-menu i { font-size: 1.8rem; color: var(--p); margin-bottom: 8px; display: block; }
+    
+    /* Navigation DFLASH Style */
+    .bot-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(2, 44, 34, 0.95); backdrop-filter: blur(20px); display: grid; grid-template-columns: repeat(5, 1fr); padding: 15px 5px; border-top: 1px solid var(--border); z-index: 1000; }
+    .nav-item { text-align: center; color: #64748b; font-size: 0.65rem; }
+    .nav-item i { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+    .nav-item.active { color: var(--p); }
+
+    .hidden { display: none !important; }
+    @media print { body * { visibility: hidden; } #v-admin, #v-admin * { visibility: visible; } #v-admin { position: absolute; left: 0; top: 0; width: 100%; color: black !important; background: white !important; } }
+</style>
+
+<div class="iso-header" style="padding: 40px 15px 20px; text-align: center;">
+    <div class="logo-wrap">
+        <div class="aura"></div>
+        <div class="dd d-green">D</div>
+        <div class="dd d-gold">D</div>
+    </div>
+    <div class="bismillah" id="admin-trigger" style="font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--gold); cursor: pointer;">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <div class="shalawat" style="font-family: 'Amiri', serif; font-size: 1.1rem; opacity: 0.9;">اَللهم صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِ سَيِّدِنَا مُحَمَّدٍ</div>
+    <p style="font-size: 0.8rem; font-weight: 800; letter-spacing: 2px; color: var(--p);">"THE POWER SOUL OF SHALAWAT"</p>
+</div>
+
+<div class="container" style="padding: 0 15px;">
+    <div id="v-home" class="view">
+        <div class="q-card" style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="clock" style="font-family: 'JetBrains Mono'; color: var(--p);">00:00</h2>
+            <div style="text-align: right;"><small style="color: var(--gold);">AURA HEALING</small><br><small>QUANTUM v5.0</small></div>
+        </div>
+        <div class="grid">
+            <div class="btn-menu" onclick="navTo('Booking')"><i class="fas fa-calendar-check"></i><span>Booking</span></div>
+            <div class="btn-menu" onclick="navTo('K3')"><i class="fas fa-tools"></i><span>Lapor K3</span></div>
+            <div class="btn-menu" onclick="navTo('Security')"><i class="fas fa-shield-alt"></i><span>Security</span></div>
+        </div>
+    </div>
+
+    <div id="v-admin" class="view hidden">
+        <div class="q-card">
+            <h3 style="color: var(--gold); margin-bottom: 15px;"><i class="fas fa-user-check"></i> ADMIN COMMANDER</h3>
+            <div class="grid">
+                <div class="btn-menu" onclick="window.print()"><i class="fas fa-print"></i><span>Cetak A4</span></div>
+                <div class="btn-menu" onclick="alert('Scanner Ready...')"><i class="fas fa-barcode"></i><span>ISO Scan</span></div>
+                <div class="btn-menu" onclick="alert('ISO System Ready')"><i class="fas fa-warehouse"></i><span>Gudang</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="v-dev" class="view hidden">
+        <div class="q-card" style="background: #000; border: 1px solid #0f0; font-family: 'JetBrains Mono'; color: #0f0; font-size: 0.7rem;">
+            > MANDELAY_KERNEL_v5.0 ACTIVE...<br>
+            > DEV_TEAM: Mr.M, DSeek, Qwen, Gemini<br>
+            > [STATUS: ALL SYSTEMS GREEN]
+            <button onclick="goHome()" style="margin-top:20px; color:#0f0; background:transparent; border:1px solid #0f0; width:100%; padding:10px;">EXIT_MATRIX</button>
+        </div>
+    </div>
+</div>
+
+<div class="bot-nav">
+    <div class="nav-item active" onclick="goHome()"><i class="fas fa-home"></i>Home</div>
+    <div class="nav-item" onclick="alert('Riwayat Kosong')"><i class="fas fa-history"></i>Riwayat</div>
+    <div class="nav-item" onclick="alert('Scanner Active')" style="transform: translateY(-15px);">
+        <div style="background: var(--p); width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:4px solid var(--bg); color:white;"><i class="fas fa-expand-alt"></i></div>
+    </div>
+    <div class="nav-item" onclick="accessAdmin()"><i class="fas fa-user-shield"></i>Admin</div>
+    <div class="nav-item"><i class="fas fa-cog"></i>Setelan</div>
+</div>
+
+<script>
+    const ADMIN_WA = "628886183954";
+
+    function goHome() { 
+        document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+        document.getElementById('v-home').classList.remove('hidden');
+    }
+
+    function accessAdmin() {
+        if(prompt("INPUT ADMIN KEY:") === "123") {
+            document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+            document.getElementById('v-admin').classList.remove('hidden');
+        } else { alert("Akses Ditolak!"); }
+    }
+
+    // MANDELAY BYPASS (Tahan tulisan Bismillah 3 detik)
+    let t;
+    document.getElementById('admin-trigger').addEventListener('touchstart', () => {
+        t = setTimeout(() => { if(prompt("DEV_CODE:") === "418626") {
+            document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+            document.getElementById('v-dev').classList.remove('hidden');
+        }}, 3000);
+    });
+    document.getElementById('admin-trigger').addEventListener('touchend', () => clearTimeout(t));
+
+    setInterval(() => {
+        const d = new Date();
+        document.getElementById('clock').innerText = d.getHours().toString().padStart(2,'0') + ":" + d.getMinutes().toString().padStart(2,'0');
+    }, 1000);
+</script>
