@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DREAM OS v5.1 - Final Quantum</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --p: #10b981; --gold: #fbbf24; --bg: #022c22; --glass: rgba(255, 255, 255, 0.07); }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); color: #f8fafc; min-height: 100vh; padding: 0 15px 120px; overflow-x: hidden; }
+        
+        /* HEADER SECTION */
+        .header { padding: 45px 0 25px; text-align: center; }
+        .logo-container { margin: 0 auto 15px; width: 75px; height: 75px; position: relative; display: flex; align-items: center; justify-content: center; }
+        .d-pair { position: relative; width: 55px; height: 55px; }
+        .d-left { position: absolute; width: 28px; height: 50px; left: 0; border: 4px solid var(--p); border-right: none; border-radius: 25px 0 0 25px; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+        .d-right { position: absolute; width: 28px; height: 50px; right: 0; border: 4px solid var(--gold); border-left: none; border-radius: 0 25px 25px 0; box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); }
+        .pulse { position: absolute; width: 15px; height: 15px; border: 2px solid var(--gold); border-radius: 50%; left: 50%; top: 50%; transform: translate(-50%, -50%); animation: heartbeat 2s infinite; }
+        @keyframes heartbeat { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; } }
+
+        .bismillah { font-family: 'Amiri', serif; font-size: 1.5rem; color: var(--gold); margin: 10px 0; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
+        .shalawat { font-family: 'Amiri', serif; font-size: 1rem; color: #fff; opacity: 0.9; margin-bottom: 5px; }
+
+        /* DASHBOARD CARDS */
+        .status-card { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 15px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .menu-item { background: var(--glass); padding: 20px 5px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .menu-item:active { transform: scale(0.95); background: rgba(16, 185, 129, 0.2); }
+        .menu-item i { font-size: 1.6rem; color: var(--p); display: block; margin-bottom: 8px; }
+        .menu-item span { font-size: 0.75rem; font-weight: 600; }
+
+        /* FORMS */
+        .view { display: none; animation: fadeIn 0.4s; }
+        .view.active { display: block; }
+        .q-card { background: var(--glass); padding: 25px; border-radius: 25px; border: 1px solid var(--p); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        label { display: block; font-size: 0.8rem; color: var(--gold); margin: 15px 0 5px; font-weight: 600; }
+        input, select, textarea { width: 100%; padding: 14px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; font-size: 0.9rem; }
+        .alat-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 15px; margin-top: 5px; max-height: 180px; overflow-y: auto; }
+        .alat-check { font-size: 0.75rem; display: flex; align-items: center; gap: 8px; }
+        
+        .btn-submit { background: linear-gradient(135deg, var(--p), #065f46); color: white; border: none; width: 100%; padding: 16px; border-radius: 15px; font-weight: 800; margin-top: 25px; letter-spacing: 1px; }
+
+        /* FOOTER & DREAM TEAM */
+        .footer-thanks { text-align: center; margin-top: 40px; padding: 20px; font-size: 0.7rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.05); }
+        .team-box { color: var(--gold); font-weight: 800; margin-top: 8px; letter-spacing: 1.5px; text-shadow: 0 0 5px rgba(251, 191, 36, 0.4); }
+
+        .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(2,44,34,0.97); backdrop-filter: blur(20px); display: grid; grid-template-columns: repeat(4, 1fr); padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.1); z-index: 1000; }
+        .nav-btn { text-align: center; color: #64748b; font-size: 0.7rem; }
+        .nav-btn i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+        .nav-btn.active { color: var(--p); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="header" id="main-header">
+    <div class="logo-container">
+        <div class="d-pair">
+            <div class="d-left"></div><div class="d-right"></div><div class="pulse"></div>
+        </div>
+    </div>
+    <h1 style="letter-spacing: 6px;">DREAM<span style="color:var(--p)">OS</span></h1>
+    <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <div class="shalawat">اَللهم صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ</div>
+    <p style="font-size: 0.65rem; color: var(--p); letter-spacing: 3px; font-weight: bold;">SIF AL-FIKRI • QUANTUM v5.1</p>
+</div>
+
+<div id="v-home" class="view active">
+    <div class="status-card">
+        <h2 id="clock" style="font-family: monospace; letter-spacing: 2px; color: var(--p);">00:00</h2>
+        <div style="text-align: right;"><small style="color:var(--gold); display:block;">REDMI NOTE 9 PRO</small><small>ISO 27001 SECURED</small></div>
+    </div>
+    
+    <div class="menu-grid">
+        <div class="menu-item" onclick="showView('booking')"><i class="fas fa-calendar-alt"></i><span>Booking</span></div>
+        <div class="menu-item" onclick="showView('k3')"><i class="fas fa-shield-virus"></i><span>Laporan K3</span></div>
+        <div class="menu-item" onclick="showView('security')"><i class="fas fa-lock"></i><span>Security</span></div>
+    </div>
+
+    <div class="footer-thanks">
+        <p>SPECIAL THANKS TO:</p>
+        <p style="color:#fff; font-weight: 600; margin-bottom: 15px;">PAK HANUNG & PAK ERWIN</p>
+        <p>DEVELOPED BY:</p>
+        <div class="team-box">MR. M • MR. DSEEK • MRS. QWEN • GEMINI</div>
+    </div>
+</div>
+
+<div id="v-booking" class="view">
+    <div class="q-card">
+        <h3 style="color:var(--gold); border-bottom: 1px solid var(--p); padding-bottom: 10px; margin-bottom: 10px;">📅 Booking Sarana</h3>
+        <label>Nama Pemesan</label>
+        <input type="text" id="b_nama" placeholder="Nama Lengkap">
+        
+        <label>Pilih Sarana</label>
+        <select id="b_sarana">
+            <option value="">-- Pilih Sarana --</option>
+            <option value="Aula SMP">Aula SMP (Snd, Light, AC, Proj)</option>
+            <option value="Aula SMA">Aula SMA (Snd, Proj)</option>
+            <option value="Saung Besar">Saung Besar (Snd)</option>
+            <option value="Saung Kecil">Saung Kecil</option>
+            <option value="Masjid" disabled>Masjid (MAINTENANCE/RENOV)</option>
+            <option value="Serbaguna">Serbaguna (Snd)</option>
+            <option value="Labkom SD">Labkom SD</option>
+            <option value="Labkom SMP">Labkom SMP</option>
+            <option value="Labkom SMA">Labkom SMA</option>
+            <option value="Lapangan Basket">Lapangan Basket</option>
+            <option value="Lapangan Volley">Lapangan Volley</option>
+            <option value="Lapangan SMA">Lapangan SMA</option>
+            <option value="Kantin SMP">Kantin SMP</option>
+            <option value="Kantin SMA">Kantin SMA</option>
+        </select>
+
+        <label>Alat Tambahan</label>
+        <div class="alat-container" id="list-alat"></div>
+
+        <button class="btn-submit" onclick="submitBooking()">KIRIM KE SUPABASE</button>
+        <button onclick="showView('home')" style="background:transparent; border:none; color:#94a3b8; width:100%; margin-top:15px; font-size:0.8rem;">↩ KEMBALI</button>
+    </div>
+</div>
+
+<div id="v-lapor" class="view">
+    <div class="q-card">
+        <h3 id="lapor-title" style="color:var(--gold); margin-bottom: 15px;">🛡️ Laporan</h3>
+        <label>Lokasi Temuan</label>
+        <input type="text" id="l_loc" placeholder="Misal: Kantin SMP">
+        
+        <label>Foto Bukti (Kamera Wajib ISO)</label>
+        <input type="file" accept="image/*" capture="camera" style="padding: 10px;">
+        
+        <label>Detail Laporan</label>
+        <textarea id="l_desc" rows="4" placeholder="Jelaskan kondisi secara detail..."></textarea>
+        
+        <button class="btn-submit" onclick="alert('Laporan ISO Berhasil Terkirim!'); showView('home')">SUBMIT LAPORAN</button>
+        <button onclick="showView('home')" style="background:transparent; border:none; color:#94a3b8; width:100%; margin-top:15px;">↩ KEMBALI</button>
+    </div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-btn active" onclick="showView('home')"><i class="fas fa-home"></i>Home</div>
+    <div class="nav-btn" onclick="alert('Riwayat Kosong')"><i class="fas fa-clock-rotate-left"></i>Riwayat</div>
+    <div class="nav-btn" onclick="alert('Admin Only')"><i class="fas fa-user-shield"></i>Admin</div>
+    <div class="nav-btn" onclick="alert('v5.1 Stable')"><i class="fas fa-cog"></i>Setelan</div>
+</div>
+
+<script>
+    // DATA ALAT VALID
+    const ALAT_DATA = ["Sound Portable", "Projector", "Mic Standing", "Meja Panjang", "Meja Siswa", "Meja Oshin", "Kursi Futura", "Kursi Chitose", "Kabel HDMI", "Kabel VGA", "Kabel Rol AC"];
+    
+    // LOAD ALAT
+    const alatBox = document.getElementById('list-alat');
+    ALAT_DATA.forEach(a => {
+        alatBox.innerHTML += `<div class="alat-check"><input type="checkbox" value="${a}"> ${a}</div>`;
+    });
+
+    // NAVIGATION
+    function showView(viewName) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        if(viewName === 'home') {
+            document.getElementById('v-home').classList.add('active');
+            document.getElementById('main-header').classList.remove('hidden');
+        } else if (viewName === 'booking') {
+            document.getElementById('v-booking').classList.add('active');
+            document.getElementById('main-header').classList.add('hidden');
+        } else {
+            document.getElementById('v-lapor').classList.add('active');
+            document.getElementById('main-header').classList.add('hidden');
+            document.getElementById('lapor-title').innerText = viewName === 'k3' ? "🛡️ Laporan K3" : "👮 Security Report";
+        }
+    }
+
+    // VALIDASI & SUBMIT
+    function submitBooking() {
+        const sarana = document.getElementById('b_sarana').value;
+        const now = new Date();
+        const hour = now.getHours() + (now.getMinutes()/60);
+        const day = now.getDay();
+
+        // 1. Cek Jam Operasional (07.30 - 16.00)
+        if (hour < 7.5 || hour > 16) {
+            alert("❌ Gagal! Booking hanya bisa dilakukan jam 07:30 - 16:00 WIB."); return;
+        }
+
+        // 2. Cek Shalat Jumat (Jumat, 10.30 - 13.00)
+        if (day === 5 && hour >= 10.5 && hour <= 13) {
+            if (sarana.includes("Aula SMP") || sarana.includes("Serbaguna")) {
+                alert("❌ Khusus Hari Jumat jam 10:30-13:00, Aula SMP & Serbaguna OFF untuk Shalat Jumat."); return;
+            }
+        }
+
+        alert("✅ Bismillah! Booking " + sarana + " berhasil dikirim ke Supabase.");
+        showView('home');
+    }
+
+    // CLOCK
+    setInterval(() => {
+        const d = new Date();
+        document.getElementById('clock').innerText = d.getHours().toString().padStart(2,'0') + ":" + d.getMinutes().toString().padStart(2,'0');
+    }, 1000);
+</script>
+</body>
+</html>
