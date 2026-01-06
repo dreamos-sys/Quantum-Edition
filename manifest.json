@@ -1,0 +1,60 @@
+{
+  "name": "Dream OS Quantum v6.0",
+  "short_name": "DreamOS",
+  "description": "SIF Al Fikri Enterprise Management System",
+  "theme_color": "#10b981",
+  "background_color": "#022c22",
+  "display": "standalone",
+  "orientation": "portrait",
+  
+  /* 🔥 PERBAIKAN KRITIS: SCOPE & START_URL */
+  "scope": "./",
+  "start_url": "./index.html",
+  
+  /* 🎯 UNTUK GITHUB PAGES */
+  "id": "./",
+  
+  "categories": ["business", "productivity", "education"],
+  "icons": [
+    {
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  
+  /* ⚡ OPTIMASI GITHUB PAGES */
+  "prefer_related_applications": false,
+  "shortcuts": [],
+  "screenshots": []
+}
