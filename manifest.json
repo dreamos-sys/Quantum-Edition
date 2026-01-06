@@ -1,23 +1,56 @@
+
 {
-  "name": "Quantum Soul Dream OS",
-  "short_name": "Quantum",
-  "description": "Dream OS v5.0 - Aura Healing Edition",
-  "start_url": "index.html",
-  "display": "standalone",
+  "name": "Dream OS Quantum v6.0",
+  "short_name": "DreamOS",
+  "description": "SIF Al Fikri Enterprise Management System - ISO 27001 Certified",
+  "theme_color": "#10b981",
   "background_color": "#022c22",
-  "theme_color": "#022c22",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
-      "src": "https://via.placeholder.com/192/10b981/ffffff?text=DD",
-      "sizes": "192x192",
-      "type": "image/png",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23022c22' stroke='%2310b981' stroke-width='4'/><path d='M48 20 C30 20,20 35,20 50 C20 65,30 80,48 80 L48 72 C35 72,28 62,28 50 C28 38,35 28,48 28 L48 20Z' fill='%2310b981'/><path d='M52 20 C70 20,80 35,80 50 C80 65,70 80,52 80 L52 72 C65 72,72 62,72 50 C72 38,65 28,52 28 L52 20Z' fill='%23fbbf24'/></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "education", "utilities"],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "shortcuts": [
+    {
+      "name": "New Booking",
+      "short_name": "Booking",
+      "description": "Create facility booking",
+      "url": "/?action=booking",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%2310b981' d='M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z'/></svg>",
+          "sizes": "96x96"
+        }
+      ]
     },
     {
-      "src": "https://via.placeholder.com/512/fbbf24/022c22?text=DD",
-      "sizes": "512x512",
-      "type": "image/png"
+      "name": "QR Scanner",
+      "short_name": "Scanner",
+      "description": "Scan asset QR codes",
+      "url": "/?action=scanner",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23fbbf24' d='M4 4h4v4H4zm12 0h4v4h-4zM4 16h4v4H4zm12 0h4v4h-4zM16 4v4H8V4zM8 20v-4h8v4z'/></svg>",
+          "sizes": "96x96"
+        }
+      ]
     }
+  ],
+  "permissions": [
+    "camera",
+    "geolocation",
+    "notifications",
+    "clipboard-write"
   ]
 }
-
