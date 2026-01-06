@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream OS - Offline Mode</title>
+    <style>
+        :root {
+            --green: #10b981;
+            --gold: #fbbf24;
+            --dark: #022c22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark) 0%, #064e3b 100%);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 500px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        h1 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+        
+        p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .shalawat {
+            color: var(--green);
+            font-size: 1.2rem;
+            margin: 25px 0;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid var(--gold);
+        }
+        
+        .features {
+            text-align: left;
+            margin: 25px 0;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .features h3 {
+            color: var(--green);
+            margin-bottom: 10px;
+        }
+        
+        .features ul {
+            padding-left: 20px;
+        }
+        
+        .features li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "✓";
+            color: var(--green);
+            position: absolute;
+            left: -20px;
+        }
+        
+        .button {
+            background: linear-gradient(135deg, var(--green), #059669);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .button:active {
+            transform: translateY(0);
+        }
+        
+        .button-secondary {
+            background: transparent;
+            border: 2px solid var(--green);
+            margin-left: 10px;
+        }
+        
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .connection-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ef4444;
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .logo {
+            margin-bottom: 30px;
+        }
+        
+        .logo svg {
+            width: 80px;
+            height: 80px;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .icon {
+                font-size: 3.5rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .button {
+                display: block;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .button-secondary {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="#022c22" stroke="#10b981" stroke-width="2"/>
+                <path d="M40 30 Q25 50 40 70 L40 62 Q30 50 40 38 Z" fill="#10b981"/>
+                <path d="M60 30 Q75 50 60 70 L60 62 Q70 50 60 38 Z" fill="#fbbf24"/>
+                <line x1="50" y1="20" x2="50" y2="80" stroke="white" stroke-opacity="0.3" stroke-width="1"/>
+            </svg>
+        </div>
+        
+        <div class="icon">📡</div>
+        
+        <h1>Mode Offline</h1>
+        
+        <p>
+            Anda sedang dalam mode offline. Dream OS Quantum tetap berfungsi 
+            dengan fitur terbatas. Koneksi akan otomatis sinkron ketika online.
+        </p>
+        
+        <div class="shalawat">
+            اَللّٰهُمَّ صَلِّ عَلٰى سَيِّدِنَا مُحَمَّدٍ
+        </div>
+        
+        <div class="features">
+            <h3>🎯 Fitur yang tetap berfungsi:</h3>
+            <ul>
+                <li>Pembuatan booking baru (disimpan sementara)</li>
+                <li>Laporan K3 dengan foto</li>
+                <li>Scan QR code inventory</li>
+                <li>Lihat data yang sudah tersimpan</li>
+                <li>Kalender dan jadwal</li>
+            </ul>
+        </div>
+        
+        <div class="status">
+            <span class="connection-indicator"></span>
+            Status: <strong>Offline</strong> - Menunggu koneksi...
+        </div>
+        
+        <button class="button" onclick="location.reload()">
+            🔄 Coba Koneksi Ulang
+        </button>
+        
+        <button class="button button-secondary" onclick="history.back()">
+            ← Kembali
+        </button>
+    </div>
+    
+    <script>
+        // Check connection status periodically
+        function checkConnection() {
+            if (navigator.onLine) {
+                console.log('Connection restored!');
+                window.location.href = '/';
+            }
+        }
+        
+        // Check every 5 seconds
+        setInterval(checkConnection, 5000);
+        
+        // Also check on connection restore
+        window.addEventListener('online', function() {
+            console.log('Browser connection restored!');
+            window.location.href = '/';
+        });
+        
+        // Store current path for redirect back
+        if (!sessionStorage.getItem('offline_redirect')) {
+            sessionStorage.setItem('offline_redirect', document.referrer || '/');
+        }
+    </script>
+</body>
+</html>
