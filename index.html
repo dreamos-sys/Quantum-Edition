@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#064e3b">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Amiri&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>Quantum v4.5 - DFLASH Style</title>
+    <style>
+        :root { --p: #10b981; --s: #3b82f6; --bg: #0f172a; --c: #1e293b; --gold: #fbbf24; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--bg); color: #f8fafc; overflow-x: hidden; padding-bottom: 90px; }
+        .hidden { display: none !important; }
+
+        /* Header & Logo Dream OS */
+        .iso-header {
+            background: linear-gradient(135deg, #064e3b, #022c22);
+            padding: 20px 15px; text-align: center; border-bottom: 3px solid var(--gold);
+        }
+        .dream-logo {
+            width: 45px; height: 45px; background: var(--p); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 10px; font-weight: 800; font-size: 1.5rem; color: white;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        .bismillah { font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--gold); cursor: pointer; }
+
+        /* Dashboard Items */
+        .container { padding: 15px; }
+        .sys-card { background: var(--c); border-radius: 15px; padding: 15px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        
+        /* 3-Column Grid DFLASH Style */
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .menu-item { 
+            background: var(--c); padding: 18px 5px; border-radius: 15px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.08); transition: 0.2s;
+        }
+        .menu-item i { font-size: 1.6rem; color: var(--p); margin-bottom: 8px; display: block; }
+        .menu-item span { font-size: 0.65rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
+
+        /* Bottom Nav fixed ala APK Pulsa */
+        .bot-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: #1e293b; display: grid; grid-template-columns: repeat(5, 1fr);
+            padding: 12px 5px; border-top: 1px solid rgba(255,255,255,0.1); z-index: 1000;
+        }
+        .nav-btn { text-align: center; color: #94a3b8; font-size: 0.6rem; cursor: pointer; }
+        .nav-btn i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+        .nav-btn.active { color: var(--p); }
+
+        /* Smart UI Panels */
+        .form-window { background: var(--c); border-radius: 20px; padding: 20px; border: 1px solid var(--p); }
+        input, textarea, select { width: 100%; padding: 12px; margin: 8px 0; background: #0f172a; border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 10px; font-size: 0.9rem; }
+        .btn-p { width: 100%; padding: 15px; background: var(--p); border: none; border-radius: 10px; color: white; font-weight: 800; }
+
+        /* Settings Style */
+        .set-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+
+    <div class="iso-header">
+        <div class="dream-logo">D</div>
+        <div class="bismillah" id="secret-trigger">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+        <p style="font-size: 0.5rem; color: var(--gold); letter-spacing: 2px; margin-top: 5px;">SIF AL FIKRI • QUANTUM v4.5</p>
+    </div>
+
+    <div class="container">
+        <div id="main-view" class="view-panel">
+            <div class="sys-card" style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="clock" style="color: var(--p);">00:00</h3>
+                <small style="color: var(--gold);"><i class="fas fa-bolt"></i> ZERO COAST</small>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item" onclick="openPage('form-booking')"><i class="fas fa-calendar-check" style="color: #3b82f6;"></i><span>Booking</span></div>
+                <div class="menu-item" onclick="openPage('form-k3')"><i class="fas fa-tools" style="color: #f59e0b;"></i><span>Lapor K3</span></div>
+                <div class="menu-item" onclick="openPage('form-security')"><i class="fas fa-shield-alt" style="color: #ef4444;"></i><span>Security</span></div>
+                <div class="menu-item" onclick="alert('UMKM Module Ready')"><i class="fas fa-store" style="color: #ec4899;"></i><span>UMKM</span></div>
+                <div class="menu-item" onclick="alert('Checking ISO Asset...')"><i class="fas fa-boxes" style="color: #8b5cf6;"></i><span>Assets</span></div>
+                <div class="menu-item" onclick="location.reload()"><i class="fas fa-sync" style="color: #64748b;"></i><span>Reload</span></div>
+            </div>
+        </div>
+
+        <div id="settings-view" class="view-panel hidden">
+            <h4 style="margin-bottom: 15px; color: var(--p);">PENGATURAN SISTEM</h4>
+            <div class="set-item" onclick="alert('Ubin Temp: 32°C (Optimal)')"><span>Status Suhu HP</span><i class="fas fa-thermometer-half"></i></div>
+            <div class="set-item" onclick="localStorage.clear(); alert('Cache Bersih!'); location.reload();"><span>Hapus Cache</span><i class="fas fa-broom"></i></div>
+            <div class="set-item"><span>Versi OS</span><small>v4.5 Quantum</small></div>
+        </div>
+
+        <div id="form-view" class="view-panel hidden">
+            <div class="form-window">
+                <h3 id="form-title" style="font-size: 1rem; margin-bottom: 15px;">FORM</h3>
+                <div id="form-body"></div>
+                <button class="btn-p" style="background: #475569; margin-top: 10px;" onclick="showDashboard()">KEMBALI</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bot-nav">
+        <div class="nav-btn active" onclick="showDashboard()"><i class="fas fa-home"></i>Home</div>
+        <div class="nav-btn" onclick="alert('Fitur Riwayat Segera Datang!')"><i class="fas fa-history"></i>Riwayat</div>
+        <div class="nav-btn" onclick="runScanner()" style="transform: translateY(-8px);"><i class="fas fa-expand-alt" style="color: var(--p); font-size: 1.8rem;"></i>Scan</div>
+        <div class="nav-btn" onclick="openAdmin()"><i class="fas fa-user-shield"></i>Admin</div>
+        <div class="nav-btn" onclick="showSettings()"><i class="fas fa-cog"></i>Setelan</div>
+    </div>
+
+    <script>
+        // NAVIGATION LOGIC
+        function showDashboard() {
+            hideAll();
+            document.getElementById('main-view').classList.remove('hidden');
+            setActiveNav(0);
+        }
+        function showSettings() {
+            hideAll();
+            document.getElementById('settings-view').classList.remove('hidden');
+            setActiveNav(4);
+        }
+        function openPage(type) {
+            hideAll();
+            document.getElementById('form-view').classList.remove('hidden');
+            document.getElementById('form-title').innerText = type.replace('form-', '').toUpperCase();
+            document.getElementById('form-body').innerHTML = `<input placeholder="Nama Pelapor"><textarea placeholder="Detail Laporan..."></textarea><button class="btn-p" onclick="sendWA()">KIRIM LAPORAN</button>`;
+        }
+        function hideAll() {
+            document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        }
+        function setActiveNav(index) {
+            document.querySelectorAll('.nav-btn')[index].classList.add('active');
+        }
+
+        // SMART SCANNER (Universal)
+        function runScanner() {
+            let res = prompt("UNIVERSAL SCANNER\nScan QR Code (Link/Teks/Aset):");
+            if(res) {
+                if(res.startsWith('http')) window.open(res, '_blank');
+                else alert("Hasil Scan: " + res);
+            }
+        }
+
+        // ADMIN ACCESS (Long Press Bismillah)
+        let timer;
+        document.getElementById('secret-trigger').addEventListener('touchstart', () => {
+            timer = setTimeout(() => {
+                let p = prompt("ARCHITECT KEY:");
+                if(p === '418626') alert("Access Granted, Mr. M!");
+            }, 3000);
+        });
+        document.getElementById('secret-trigger').addEventListener('touchend', () => clearTimeout(timer));
+
+        function sendWA() { window.open("https://wa.me/628886183954?text=Halo Pak Erwin, ada laporan baru dari Quantum OS.", "_blank"); }
+
+        // CLOCK
+        setInterval(() => {
+            let d = new Date();
+            document.getElementById('clock').innerText = d.getHours().toString().padStart(2,'0') + ":" + d.getMinutes().toString().padStart(2,'0');
+        }, 1000);
+    </script>
+</body>
+</html>
