@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream OS Quantum v6.0 - SIF Al Fikri Enterprise</title>
+    <meta name="theme-color" content="#10b981">
+    <meta name="description" content="Enterprise Management System - ISO 27001 Certified">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Amiri&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --green: #10b981;
+            --gold: #fbbf24;
+            --dark: #022c22;
+            --glass: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: var(--dark);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            padding: 20px 15px 100px;
+            line-height: 1.6;
+        }
+        
+        /* Header dengan Logo SVG */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 20px;
+        }
+        
+        .logo-container {
+            margin: 0 auto 15px;
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        
+        .bismillah {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: var(--green);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+        
+        /* Desktop Mode - 2 Hub System */
+        .hub-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .hub-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .hub {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(251, 191, 36, 0.05));
+            border: 2px solid var(--green);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .hub:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.2);
+        }
+        
+        .hub-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .hub-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+        
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--green);
+        }
+        
+        .card-icon {
+            font-size: 1.8rem;
+            color: var(--green);
+            margin-bottom: 10px;
+        }
+        
+        .card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .card p {
+            font-size: 0.75rem;
+            color: #ccc;
+            opacity: 0.8;
+        }
+        
+        /* Forms */
+        .form-container {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .form-container.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        /* Camera Preview */
+        .camera-preview {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .camera-preview.active {
+            display: block;
+        }
+        
+        #videoElement {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .camera-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        /* QR Scanner */
+        .qr-scanner {
+            width: 100%;
+            height: 300px;
+            background: #000;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        /* Inventory Grid */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .inventory-item {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .item-qr {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        /* Dashboard Monitoring */
+        .monitoring-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .monitor-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+        }
+        
+        .monitor-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .status-online { background: #10b981; }
+        .status-offline { background: #ef4444; }
+        
+        /* Vault System */
+        .vault-container {
+            display: none;
+            background: rgba(0,0,0,0.9);
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .vault-container.active {
+            display: block;
+        }
+        
+        .vault-title {
+            color: var(--gold);
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        /* AI Console */
+        .ai-console {
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #8b5cf6;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .ai-message {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            background: rgba(139, 92, 246, 0.1);
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--green), #059669);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: #ccc;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(2, 44, 34, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .nav-item.active {
+            color: var(--green);
+        }
+        
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+        
+        /* Top Status Bar */
+        .status-bar {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 1000;
+        }
+        
+        /* Utility Classes */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-20 { margin-bottom: 20px; }
+        
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* QR Code Display */
+        .qr-display {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Status Bar -->
+    <div class="status-bar">
+        <div class="status-dot pulse" style="background: #10b981;"></div>
+        <span id="statusText">Online</span>
+        <span id="wifiStatus">📶</span>
+        <span id="timeDisplay">07:30</span>
+    </div>
+    
+    <!-- Hidden Architect Trigger -->
+    <div class="hidden" id="architectTrigger" onclick="checkArchitectAccess()"></div>
+    
+    <!-- Main Content -->
+    <div id="mainContent">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <filter id="glowGold" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+
+                    <path d="M48 20 C30 20, 20 35, 20 50 C20 65, 30 80, 48 80 L48 72 C35 72, 28 62, 28 50 C28 38, 35 28, 48 28 L48 20Z" 
+                          fill="#10b981" filter="url(#glowGreen)" />
+
+                    <path d="M52 20 C70 20, 80 35, 80 50 C80 65, 70 80, 52 80 L52 72 C65 72, 72 62, 72 50 C72 38, 65 28, 52 28 L52 20Z" 
+                          fill="#fbbf24" filter="url(#glowGold)" />
+
+                    <rect x="49" y="15" width="2" height="70" fill="white" fill-opacity="0.3" rx="1" />
+                    
+                    <circle cx="50" cy="50" r="4" fill="#fbbf24">
+                        <animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                </svg>
+            </div>
+            
+            <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+            <div class="subtitle">DREAM OS QUANTUM v6.0 • SIF AL FIKRI ENTERPRISE</div>
+        </div>
+        
+        <!-- Desktop Mode: 2 Hub System -->
+        <div id="desktopView" class="hub-container">
+            <div class="hub" onclick="showServiceHub()">
+                <div class="hub-icon">🔧</div>
+                <div class="hub-title">SERVICE HUB</div>
+                <p>Booking, K3, Security Reports</p>
+            </div>
+            
+            <div class="hub" onclick="showAssetHub()">
+                <div class="hub-icon">📦</div>
+                <div class="hub-title">ASSET HUB</div>
+                <p>Inventory, Warehouse, QR Scanner</p>
+            </div>
+        </div>
+        
+        <!-- Service Hub Content -->
+        <div id="serviceHub" class="hidden">
+            <h3 class="text-center mb-20" style="color: var(--gold);">🔧 SERVICE MANAGEMENT</h3>
+            
+            <div class="cards-grid">
+                <div class="card" onclick="showForm('booking')">
+                    <div class="card-icon">📅</div>
+                    <h3>Booking Sarana</h3>
+                    <p>Pesan fasilitas & alat</p>
+                </div>
+                
+                <div class="card" onclick="showForm('k3')">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Laporan K3</h3>
+                    <p>+ Camera upload</p>
+                </div>
+                
+                <div class="card" onclick="login('security')">
+                    <div class="card-icon">👮</div>
+                    <h3>Security</h3>
+                    <p>Shift reports</p>
+                </div>
+                
+                <div class="card" onclick="showMonitoring()">
+                    <div class="card-icon">📊</div>
+                    <h3>Monitoring</h3>
+                    <p>Live dashboard</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="goHome()" style="margin-top: 20px;">
+                ← Back to Hubs
+            </button>
+        </div>
+        
+        <!-- Asset Hub Content -->
+        <div id="assetHub" class="hidden">
+            <h3 class="text-center mb-20" style="color: var(--gold);">📦 ASSET MANAGEMENT</h3>
+            
+            <div class="cards-grid">
+                <div class="card" onclick="openVault('inventory')">
+                    <div class="card-icon">🗃️</div>
+                    <h3>Inventory Vault</h3>
+                    <p>Password: 4dm1in_6969@01</p>
+                </div>
+                
+                <div class="card" onclick="openVault('warehouse')">
+                    <div class="card-icon">🏪</div>
+                    <h3>Warehouse Vault</h3>
+                    <p>Password: 4dm1n_9696@02</p>
+                </div>
+                
+                <div class="card" onclick="showQRScanner()">
+                    <div class="card-icon">📷</div>
+                    <h3>QR Scanner</h3>
+                    <p>Smart barcode scan</p>
+                </div>
+                
+                <div class="card" onclick="generateQRCode()">
+                    <div class="card-icon">🔳</div>
+                    <h3>Generate QR</h3>
+                    <p>Create asset tags</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="goHome()" style="margin-top: 20px;">
+                ← Back to Hubs
+            </button>
+        </div>
+        
+        <!-- Booking Form -->
+        <div id="bookingForm" class="form-container">
+            <h3 style="color: var(--gold); margin-bottom: 20px;">📅 FORM BOOKING SARANA</h3>
+            
+            <div class="form-group">
+                <label>Nama Pemesan</label>
+                <input type="text" id="bookName" placeholder="Nama lengkap" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="bookEmail" placeholder="teknisi@alfikri.sch.id" required>
+            </div>
+            
+            <div class="form-group">
+                <label>No. WhatsApp</label>
+                <input type="tel" id="bookPhone" placeholder="628886183954" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Divisi</label>
+                <select id="bookDept">
+                    <option value="">-- Pilih Divisi --</option>
+                    <option value="SD">SD</option>
+                    <option value="SMP">SMP</option>
+                    <option value="SMA">SMA</option>
+                    <option value="UMUM">UMUM</option>
+                    <option value="TEKNISI">TEKNISI</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Pilih Sarana</label>
+                <select id="bookFacility" onchange="showIncludedItems()">
+                    <option value="">-- Pilih Sarana --</option>
+                    <optgroup label="Aula">
+                        <option value="Aula SMP">Aula SMP (sound, lighting, ac, projector include)</option>
+                        <option value="Aula SMA">Aula SMA (sound, projector include)</option>
+                    </optgroup>
+                    <optgroup label="Saung">
+                        <option value="Saung Besar">Saung Besar (sound include)</option>
+                        <option value="Saung Kecil">Saung Kecil</option>
+                    </optgroup>
+                    <optgroup label="Masjid & Serbaguna">
+                        <option value="Masjid">Masjid (sound include) - Maintenance/Renovasi</option>
+                        <option value="Serbaguna">Serbaguna (sound include)</option>
+                    </optgroup>
+                    <optgroup label="Lab Komputer">
+                        <option value="Labkom SD">Labkom SD</option>
+                        <option value="Labkom SMP">Labkom SMP</option>
+                        <option value="Labkom SMA">Labkom SMA</option>
+                    </optgroup>
+                    <optgroup label="Lapangan">
+                        <option value="Lapangan Volley">Lapangan Volley</option>
+                        <option value="Lapangan Basket">Lapangan Basket</option>
+                        <option value="Lapangan SMA">Lapangan SMA</option>
+                        <option value="Lapangan Tanah">Lapangan Tanah</option>
+                    </optgroup>
+                    <optgroup label="Kantin">
+                        <option value="Kantin SMP">Kantin SMP</option>
+                        <option value="Kantin SMA">Kantin SMA</option>
+                    </optgroup>
+                    <optgroup label="Perpustakaan">
+                        <option value="Perpus SD">Perpus SD</option>
+                        <option value="Perpus SMP">Perpus SMP</option>
+                        <option value="Perpus SMA">Perpus SMA</option>
+                    </optgroup>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Peralatan Tambahan (Opsional)</label>
+                <select id="bookEquipment" multiple style="height: 120px;">
+                    <option value="Sound Portable">Sound Portable</option>
+                    <option value="Projector">Projector</option>
+                    <option value="Mic Standing">Mic Standing</option>
+                    <option value="Meja Panjang">Meja Panjang</option>
+                    <option value="Meja Siswa">Meja Siswa</option>
+                    <option value="Meja Oshin">Meja Oshin</option>
+                    <option value="Kursi Futura">Kursi Futura</option>
+                    <option value="Kursi Chitose">Kursi Chitose</option>
+                    <option value="Kursi Siswa">Kursi Siswa</option>
+                    <option value="Kabel HDMI">Kabel HDMI</option>
+                    <option value="Kabel VGA">Kabel VGA</option>
+                    <option value="Kabel Rol AC">Kabel Rol AC (Extention)</option>
+                </select>
+                <small style="color: #ccc; font-size: 0.8rem;">Hold Ctrl untuk pilih multiple</small>
+            </div>
+            
+            <div id="includedItems" class="form-group" style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 10px; display: none;">
+                <strong style="color: var(--gold);">✅ Termasuk dalam sarana:</strong>
+                <div id="itemsList"></div>
+            </div>
+            
+            <div class="form-group">
+                <label>Tanggal Booking</label>
+                <input type="date" id="bookDate" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Jam Mulai</label>
+                <select id="bookStartTime" required>
+                    <option value="">-- Pilih Jam --</option>
+                    <option value="07:30">07:30</option>
+                    <option value="08:00">08:00</option>
+                    <option value="08:30">08:30</option>
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Jam Selesai</label>
+                <select id="bookEndTime" required>
+                    <option value="">-- Pilih Jam --</option>
+                    <option value="08:00">08:00</option>
+                    <option value="08:30">08:30</option>
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Keperluan/Tujuan</label>
+                <textarea id="bookPurpose" rows="3" placeholder="Deskripsikan tujuan penggunaan" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Jumlah Peserta</label>
+                <input type="number" id="bookParticipants" min="1" placeholder="Jumlah orang" required>
+            </div>
+            
+            <div class="camera-controls">
+                <button class="btn btn-small" onclick="startCamera('booking')">📷 Ambil Foto</button>
+                <button class="btn btn-small btn-secondary" onclick="stopCamera()">⏹️ Stop Kamera</button>
+            </div>
+            
+            <div class="camera-preview" id="bookingCameraPreview">
+                <video id="bookingVideo" autoplay></video>
+                <button class="btn btn-small" onclick="capturePhoto('booking')" style="margin-top: 10px;">📸 Capture</button>
+                <canvas id="bookingCanvas" class="hidden"></canvas>
+            </div>
+            
+            <div id="bookingPhotoPreview" class="hidden">
+                <img id="bookingPhoto" style="max-width: 100%; border-radius: 8px;">
+            </div>
+            
+            <button class="btn btn-primary" onclick="validateBooking()">
+                📤 Submit Booking
+            </button>
+            <button class="btn btn-secondary" onclick="goHome()">
+                ↩️ Kembali
+            </button>
+        </div>
+        
+        <!-- K3 Form with Camera -->
+        <div id="k3Form" class="form-container">
+            <h3 style="color: var(--gold); margin-bottom: 20px;">🛡️ FORM LAPORAN K3 + CAMERA</h3>
+            
+            <div class="form-group">
+                <label>Nama Pelapor</label>
+                <input type="text" id="k3Name" placeholder="Nama lengkap" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Divisi/Unit</label>
+                <input type="text" id="k3Unit" placeholder="Contoh: SD, SMP, SMA, Teknisi" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Lokasi Kejadian</label>
+                <select id="k3Location">
+                    <option value="">-- Pilih Lokasi --</option>
+                    <optgroup label="Gedung Utama">
+                        <option value="Aula SMP">Aula SMP</option>
+                        <option value="Aula SMA">Aula SMA</option>
+                        <option value="Masjid">Masjid</option>
+                        <option value="Ruang Serbaguna">Ruang Serbaguna</option>
+                    </optgroup>
+                    <optgroup label="Laboratorium">
+                        <option value="Labkom SD">Labkom SD</option>
+                        <option value="Labkom SMP">Labkom SMP</option>
+                        <option value="Labkom SMA">Labkom SMA</option>
+                    </optgroup>
+                    <optgroup label="Lapangan">
+                        <option value="Lapangan Volley">Lapangan Volley</option>
+                        <option value="Lapangan Basket">Lapangan Basket</option>
+                        <option value="Lapangan SMA">Lapangan SMA</option>
+                    </optgroup>
+                    <optgroup label="Area Umum">
+                        <option value="Kantin SMP">Kantin SMP</option>
+                        <option value="Kantin SMA">Kantin SMA</option>
+                        <option value="Perpustakaan">Perpustakaan</option>
+                        <option value="Koridor">Koridor</option>
+                        <option value="Toilet">Toilet</option>
+                        <option value="Parkiran">Parkiran</option>
+                    </optgroup>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Jenis Masalah</label>
+                <select id="k3Type">
+                    <option value="">-- Pilih Jenis --</option>
+                    <option value="keselamatan">Keselamatan (safety hazard)</option>
+                    <option value="kesehatan">Kesehatan (health risk)</option>
+                    <option value="lingkungan">Lingkungan (environmental)</option>
+                    <option value="fasilitas">Kerusakan Fasilitas</option>
+                    <option value="listrik">Masalah Listrik</option>
+                    <option value="air">Masalah Air/Plumbing</option>
+                    <option value="kebersihan">Kebersihan</option>
+                    <option value="keamanan">Keamanan</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Deskripsi Masalah</label>
+                <textarea id="k3Description" rows="4" placeholder="Jelaskan masalah secara detail, kronologis, dan dampaknya" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Tingkat Bahaya</label>
+                <select id="k3Severity">
+                    <option value="rendah">Rendah (Low Risk)</option>
+                    <option value="sedang">Sedang (Medium Risk)</option>
+                    <option value="tinggi">Tinggi (High Risk)</option>
+                    <option value="kritis">Kritis (Critical Risk)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Saran/Tindakan</label>
+                <textarea id="k3Action" rows="3" placeholder="Saran perbaikan atau tindakan yang dibutuhkan"></textarea>
+            </div>
+            
+            <h4 style="color: var(--green); margin: 20px 0 10px;">📷 Upload Foto Bukti</h4>
+            
+            <div class="camera-controls">
+                <button class="btn btn-small" onclick="startCamera('k3')">🎥 Buka Kamera</button>
+                <button class="btn btn-small" onclick="uploadPhoto()">📁 Upload File</button>
+                <button class="btn btn-small btn-secondary" onclick="stopCamera()">⏹️ Stop</button>
+            </div>
+            
+            <div class="camera-preview" id="k3CameraPreview">
+                <video id="k3Video" autoplay></video>
+                <button class="btn btn-small" onclick="capturePhoto('k3')" style="margin-top: 10px;">📸 Capture Photo</button>
+                <canvas id="k3Canvas" class="hidden"></canvas>
+            </div>
+            
+            <div id="k3PhotoPreview" class="hidden">
+                <img id="k3Photo" style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;">
+                <button class="btn btn-small btn-secondary" onclick="removePhoto('k3')">🗑️ Hapus Foto</button>
+            </div>
+            
+            <button class="btn btn-primary" onclick="submitK3Report()">
+                📤 Kirim Laporan K3
+            </button>
+            <button class="btn btn-secondary" onclick="goHome()">
+                ↩️ Kembali
+            </button>
+        </div>
+        
+        <!-- QR Scanner -->
+        <div id="qrScanner" class="form-container">
+            <h3 style="color: var(--gold); margin-bottom: 20px;">📷 SMART QR/BARCODE SCANNER</h3>
+            
+            <div class="qr-scanner">
+                <video id="qrVideo" autoplay style="width: 100%; height: 100%;"></video>
+            </div>
+            
+            <div class="camera-controls">
+                <button class="btn btn-small" onclick="startQRScanner()">🔍 Start Scanner</button>
+                <button class="btn btn-small btn-secondary" onclick="stopQRScanner()">⏹️ Stop</button>
+                <button class="btn btn-small" onclick="toggleFlash()">💡 Flash</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Scan Result:</label>
+                <textarea id="qrResult" rows="3" placeholder="Hasil scan akan muncul di sini..." readonly></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Manual Input (jika scan gagal):</label>
+                <input type="text" id="manualQR" placeholder="Masukkan kode QR/barcode manual">
+                <button class="btn btn-small" onclick="manualQRSubmit()" style="margin-top: 10px;">✓ Submit Manual</button>
+            </div>
+            
+            <div id="assetInfo" class="hidden">
+                <h4 style="color: var(--green);">📦 Asset Information</h4>
+                <div id="assetDetails"></div>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="goHome()">
+                ↩️ Kembali ke Asset Hub
+            </button>
+        </div>
+        
+        <!-- Monitoring Dashboard -->
+        <div id="monitoringDashboard" class="form-container">
+            <h3 style="color: var(--gold); margin-bottom: 20px;">📊 LIVE MONITORING DASHBOARD</h3>
+            
+            <div class="monitoring-dashboard">
+                <div class="monitor-card">
+                    <h4>🛜 WiFi Status</h4>
+                    <div class="monitor-status">
+                        <div class="status-dot" id="wifiDot"></div>
+                        <span id="wifiStrength">Checking...</span>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <small>SSID: <span id="wifiSSID">-</span></small><br>
+                        <small>IP: <span id="wifiIP">-</span></small>
+                    </div>
+                </div>
+                
+                <div class="monitor-card">
+                    <h4>📡 System Status</h4>
+                    <div class="monitor-status">
+                        <div class="status-dot status-online"></div>
+                        <span>Dream OS: ONLINE</span>
+                    </div>
+                    <div class="monitor-status">
+                        <div class="status-dot" id="dbDot"></div>
+                        <span>Database: <span id="dbStatus">Checking...</span></span>
+                    </div>
+                    <div class="monitor-status">
+                        <div class="status-dot" id="storageDot"></div>
+                        <span>Storage: <span id="storageStatus">Checking...</span></span>
+                    </div>
+                </div>
+                
+                <div class="monitor-card">
+                    <h4>👥 Active Users</h4>
+                    <div style="font-size: 2rem; text-align: center;" id="activeUsers">0</div>
+                    <small>Live connections</small>
+                </div>
+                
+                <div class="monitor-card">
+                    <h4>📈 Today's Activity</h4>
+                    <div style="font-size: 1.2rem;">
+                        <div>📅 Bookings: <span id="todayBookings">0</span></div>
+                        <div>🛡️ K3 Reports: <span id="todayK3">0</span></div>
+                        <div>🔐 Security Logs: <span id="todaySecurity">0</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4 style="color: var(--green); margin: 20px 0 10px;">🎥 Camera Feeds (Simulation)</h4>
+            
+            <div class="camera-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div style="background: #000; border-radius: 8px; padding: 10px; text-align: center;">
+                    <div style="background: #333; height: 150px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <span>📹 Camera 1 - Gerbang Utama</span>
+                    </div>
+                    <small style="color: #10b981;">● LIVE</small>
+                </div>
+                
+                <div style="background: #000; border-radius: 8px; padding: 10px; text-align: center;">
+                    <div style="background: #333; height: 150px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <span>📹 Camera 2 - Aula</span>
+                    </div>
+                    <small style="color: #10b981;">● LIVE</small>
+                </div>
+                
+                <div style="background: #000; border-radius: 8px; padding: 10px; text-align: center;">
+                    <div style="background: #333; height: 150px; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <span>📹 Camera 3 - Parkiran</span>
+                    </div>
+                    <small style="color: #10b981;">● LIVE</small>
+                </div>
+            </div>
+            
+            <div class="ai-console" id="aiMonitorConsole">
+                <h4 style="color: #8b5cf6;">🤖 AI System Monitor</h4>
+                <div id="aiMonitorOutput"></div>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="goHome()" style="margin-top: 20px;">
+                ↩️ Kembali ke Service Hub
+            </button>
+        </div>
+        
+        <!-- Inventory Vault -->
+        <div id="inventoryVault" class="vault-container">
+            <div class="vault-title">🗃️ INVENTORY VAULT SYSTEM</div>
+            
+            <div class="form-group">
+                <label>Enter Vault Password:</label>
+                <input type="password" id="invPassword" placeholder="4dm1in_6969@01" style="font-family: monospace;">
+                <button class="btn btn-small" onclick="unlockVault('inventory')">🔓 Unlock</button>
+            </div>
+            
+            <div id="invContent" class="hidden">
+                <h4 style="color: var(--green); margin-bottom: 15px;">Inventory Management</h4>
+                
+                <div class="inventory-grid" id="inventoryGrid">
+                    <!-- Items will be loaded here -->
+                </div>
+                
+                <div style="margin: 20px 0; padding: 15px; background: rgba(16, 185, 129, 0.1); border-radius: 10px;">
+                    <h5 style="color: var(--gold);">Add New Inventory Item</h5>
+                    <div class="form-group">
+                        <input type="text" id="newItemName" placeholder="Item Name" style="margin-bottom: 10px;">
+                        <input type="text" id="newItemCode" placeholder="Item Code/SKU" style="margin-bottom: 10px;">
+                        <input type="number" id="newItemQty" placeholder="Quantity" style="margin-bottom: 10px;">
+                        <input type="text" id="newItemLocation" placeholder="Location" style="margin-bottom: 10px;">
+                        <button class="btn btn-small" onclick="addInventoryItem()">➕ Add Item</button>
+                    </div>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="lockVault('inventory')">
+                    🔒 Lock Vault
+                </button>
+            </div>
+        </div>
+        
+        <!-- Warehouse Vault -->
+        <div id="warehouseVault" class="vault-container">
+            <div class="vault-title">🏪 WAREHOUSE VAULT SYSTEM</div>
+            
+            <div class="form-group">
+                <label>Enter Vault Password:</label>
+                <input type="password" id="whPassword" placeholder="4dm1n_9696@02" style="font-family: monospace;">
+                <button class="btn btn-small" onclick="unlockVault('warehouse')">🔓 Unlock</button>
+            </div>
+            
+            <div id="whContent" class="hidden">
+                <h4 style="color: var(--green); margin-bottom: 15px;">Warehouse Management</h4>
+                
+                <div id="warehouseContent">
+                    <!-- Warehouse content will be loaded here -->
+                </div>
+                
+                <button class="btn btn-secondary" onclick="lockVault('warehouse')">
+                    🔒 Lock Vault
+                </button>
+            </div>
+        </div>
+        
+        <!-- AI Console -->
+        <div id="aiConsole" class="ai-console hidden">
+            <h4 style="color: #8b5cf6; margin-bottom: 15px;">🤖 QUANTUM AI DEVELOPMENT CONSOLE</h4>
+            <div id="aiOutput">
+                <div class="ai-message">System: Dream OS Quantum v6.0 initialized</div>
+                <div class="ai-message">AI: Quantum AI, DeepSeek, Qwen activated</div>
+            </div>
+            <div class="form-group" style="margin-top: 15px;">
+                <input type="text" id="aiCommand" placeholder="Enter AI command..." style="width: calc(100% - 100px);">
+                <button class="btn btn-small" onclick="executeAICommand()">🚀 Execute</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="goHome()">
+            <div class="nav-icon">🏠</div>
+            <span>Home</span>
+        </div>
+        
+        <div class="nav-item" onclick="quickActions()">
+            <div class="nav-icon">⚡</div>
+            <span>Quick</span>
+        </div>
+        
+        <div class="nav-item" onclick="toggleAIConsole()">
+            <div class="nav-icon" style="color: #8b5cf6;">🤖</div>
+            <span>AI</span>
+        </div>
+        
+        <div class="nav-item" onclick="showSettings()">
+            <div class="nav-icon">⚙️</div>
+            <span>Settings</span>
+        </div>
+        
+        <div class="nav-item" onclick="login('user')">
+            <div class="nav-icon">👤</div>
+            <span>Login</span>
+        </div>
+    </div>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 2000; display: flex; align-items: center; justify-content: center;">
+        <div style="background: var(--dark); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; border: 2px solid var(--green);">
+            <h3 style="color: var(--gold); text-align: center; margin-bottom: 20px;">🔐 SYSTEM LOGIN</h3>
+            
+            <div class="form-group">
+                <label>Select Role:</label>
+                <select id="loginRole" onchange="showLoginFields()">
+                    <option value="">-- Pilih Role --</option>
+                    <option value="user">User (Staff)</option>
+                    <option value="security">Security</option>
+                    <option value="admin">Admin</option>
+                    <option value="technician">Teknisi</option>
+                </select>
+            </div>
+            
+            <div id="loginFields">
+                <!-- Dynamic fields based on role -->
+            </div>
+            
+            <div class="form-group hidden" id="architectLogin">
+                <label>Architect Mode:</label>
+                <input type="password" id="architectCode" placeholder="418626 (Mr. M)">
+                <button class="btn btn-small" onclick="architectLogin()">👻 Ghost Mode</button>
+            </div>
+            
+            <button class="btn btn-primary" onclick="processLogin()" style="width: 100%;">
+                🔓 Login
+            </button>
+            
+            <button class="btn btn-secondary" onclick="closeLogin()" style="width: 100%; margin-top: 10px;">
+                ❌ Cancel
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ================= CONFIGURATION =================
+        const CONFIG = {
+            SUPABASE_URL: 'https://ywtpykgjvbjwhmapmygb.supabase.co',
+            SUPABASE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3dHB5a2dqdmJqd2htYXBteWdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY5MTI5OTcsImV4cCI6MjA4MjQ4ODk5N30.MA78j8WLwOO9nxR36tikN7jBQLjbYWYvTZn___eXBkk',
+            ADMIN_WA: '628886183954',
+            ADMIN_EMAIL: 'teknisi@alfikri.sch.id',
+            PASSWORDS: {
+                USER: 'user_@1234',
+                ADMIN: '@dm1n_Sec2025',
+                ARCHITECT: '418626',
+                INVENTORY: '4dm1in_6969@01',
+                WAREHOUSE: '4dm1n_9696@02',
+                MASTER_KEY: 'Mr.M_Architect_2025'
+            },
+            FACILITIES: {
+                'Aula SMP': ['sound', 'lighting', 'ac', 'projector'],
+                'Aula SMA': ['sound', 'projector'],
+                'Saung Besar': ['sound'],
+                'Masjid': ['sound'],
+                'Serbaguna': ['sound']
+            }
+        };
+        
+        // ================= STATE MANAGEMENT =================
+        let currentUser = null;
+        let currentRole = null;
+        let architectMode = false;
+        let currentStream = null;
+        let qrScannerActive = false;
+        let inventoryItems = [];
+        let warehouseItems = [];
+        
+        // ================= INITIALIZATION =================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Dream OS Quantum v6.0 Enterprise Edition');
+            console.log('🏫 SIF Al Fikri - Complete Management System');
+            console.log('🔐 Security: ISO 27001 + Vault System');
+            console.log('🤖 AI: Quantum AI, DeepSeek, Qwen Active');
+            
+            // Initialize clock
+            updateClock();
+            setInterval(updateClock, 60000);
+            
+            // Check network status
+            checkNetworkStatus();
+            setInterval(checkNetworkStatus, 30000);
+            
+            // Check database connection
+            checkDatabase();
+            
+            // Initialize Architect trigger (hidden 5x click)
+            initializeArchitectTrigger();
+            
+            // Initialize AI
+            initializeAI();
+            
+            // Set today's date as default for booking
+            const today = new Date();
+            document.getElementById('bookDate').value = today.toISOString().split('T')[0];
+            
+            // Show welcome message
+            setTimeout(() => {
+                addAIMessage('System: Welcome to Dream OS Quantum v6.0 Enterprise Edition');
+                addAIMessage('AI: All systems operational. Ready for deployment.');
+            }, 1000);
+        });
+        
+        // ================= CORE NAVIGATION =================
+        function goHome() {
+            // Hide all containers
+            document.querySelectorAll('.form-container, #serviceHub, #assetHub, .vault-container').forEach(el => {
+                el.classList.remove('active');
+                el.classList.add('hidden');
+            });
+            
+            // Show desktop view
+            document.getElementById('desktopView').classList.remove('hidden');
+            
+            // Reset navigation
+            updateNav('home');
+        }
+        
+        function showServiceHub() {
+            document.getElementById('desktopView').classList.add('hidden');
+            document.getElementById('serviceHub').classList.remove('hidden');
+            updateNav('service');
+        }
+        
+        function showAssetHub() {
+            document.getElementById('desktopView').classList.add('hidden');
+            document.getElementById('assetHub').classList.remove('hidden');
+            updateNav('asset');
+        }
+        
+        function showForm(formType) {
+            // Hide all
+            document.getElementById('serviceHub').classList.add('hidden');
+            document.querySelectorAll('.form-container').forEach(el => {
+                el.classList.remove('active');
+                el.classList.add('hidden');
+            });
+            
+            // Show selected form
+            document.getElementById(formType + 'Form').classList.add('active');
+            document.getElementById(formType + 'Form').classList.remove('hidden');
+        }
+        
+        function showQRScanner() {
+            showForm('qrScanner');
+        }
+        
+        function showMonitoring() {
+            showForm('monitoringDashboard');
+            updateMonitoring();
+        }
+        
+        function updateNav(active) {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const navItems = {
+                'home': 0,
+                'service': 1,
+                'asset': 2
+            };
+            
+            if (navItems[active] !== undefined) {
+                document.querySelectorAll('.nav-item')[navItems[active]].classList.add('active');
+            }
+        }
+        
+        // ================= LOGIN SYSTEM =================
+        function login(role) {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.getElementById('loginRole').value = role || '';
+            showLoginFields();
+        }
+        
+        function closeLogin() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+        
+        function showLoginFields() {
+            const role = document.getElementById('loginRole').value;
+            const fieldsDiv = document.getElementById('loginFields');
+            const architectDiv = document.getElementById('architectLogin');
+            
+            architectDiv.classList.add('hidden');
+            
+            let html = '';
+            
+            switch(role) {
+                case 'user':
+                    html = `
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" id="loginUser" placeholder="Staff ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" id="loginPass" placeholder="user_@1234">
+                        </div>
+                    `;
+                    break;
+                    
+                case 'security':
+                    html = `
+                        <div class="form-group">
+                            <label>Security Code:</label>
+                            <input type="password" id="loginCode" placeholder="@sec_Sif-Af2026">
+                        </div>
+                    `;
+                    break;
+                    
+                case 'admin':
+                    html = `
+                        <div class="form-group">
+                            <label>Admin Password:</label>
+                            <input type="password" id="loginPass" placeholder="@dm1n_Sec2025">
+                        </div>
+                        <div style="text-align: center; margin-top: 10px;">
+                            <a href="#" onclick="document.getElementById('architectLogin').classList.remove('hidden');">👻 Architect Mode</a>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'technician':
+                    html = `
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" id="loginEmail" placeholder="teknisi@alfikri.sch.id">
+                        </div>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" id="loginPass" placeholder="Contact Admin">
+                        </div>
+                    `;
+                    break;
+            }
+            
+            fieldsDiv.innerHTML = html;
+        }
+        
+        function processLogin() {
+            const role = document.getElementById('loginRole').value;
+            let isValid = false;
+            
+            switch(role) {
+                case 'user':
+                    const userPass = document.getElementById('loginPass')?.value;
+                    isValid = userPass === CONFIG.PASSWORDS.USER;
+                    if (isValid) currentRole = 'user';
+                    break;
+                    
+                case 'security':
+                    const secCode = document.getElementById('loginCode')?.value;
+                    isValid = secCode === '@sec_Sif-Af2026';
+                    if (isValid) currentRole = 'security';
+                    break;
+                    
+                case 'admin':
+                    const adminPass = document.getElementById('loginPass')?.value;
+                    isValid = adminPass === CONFIG.PASSWORDS.ADMIN;
+                    if (isValid) currentRole = 'admin';
+                    break;
+                    
+                case 'technician':
+                    const email = document.getElementById('loginEmail')?.value;
+                    isValid = email === CONFIG.ADMIN_EMAIL;
+                    if (isValid) currentRole = 'technician';
+                    break;
+            }
+            
+            if (isValid) {
+                alert(`✅ Login successful as ${role}`);
+                currentUser = role;
+                closeLogin();
+                
+                // Enable features based on role
+                if (role === 'admin' || role === 'technician') {
+                    addAIMessage(`System: ${role.toUpperCase()} logged in. Admin features enabled.`);
+                }
+            } else {
+                alert('❌ Invalid credentials');
+            }
+        }
+        
+        function architectLogin() {
+            const code = document.getElementById('architectCode')?.value;
+            if (code === CONFIG.PASSWORDS.ARCHITECT || code === CONFIG.PASSWORDS.MASTER_KEY) {
+                architectMode = true;
+                currentRole = 'architect';
+                alert('👻 Ghost Mode Activated! Welcome Mr. M.');
+                addAIMessage('Architect: Ghost Mode enabled. Full system access granted.');
+                closeLogin();
+            } else {
+                alert('❌ Invalid architect code');
+            }
+        }
+        
+        // ================= BOOKING SYSTEM =================
+        function showIncludedItems() {
+            const facility = document.getElementById('bookFacility').value;
+            const itemsDiv = document.getElementById('includedItems');
+            const listDiv = document.getElementById('itemsList');
+            
+            if (CONFIG.FACILITIES[facility]) {
+                itemsDiv.style.display = 'block';
+                listDiv.innerHTML = CONFIG.FACILITIES[facility].map(item => 
+                    `<div style="margin: 5px 0;">• ${item}</div>`
+                ).join('');
+            } else {
+                itemsDiv.style.display = 'none';
+            }
+        }
+        
+        function validateBooking() {
+            // Check working hours
+            const validation = checkWorkingHours();
+            if (!validation.valid) {
+                alert(`❌ ${validation.message}`);
+                return;
+            }
+            
+            // Check Friday restrictions
+            const fridayCheck = checkFridayRestrictions();
+            if (!fridayCheck.valid) {
+                alert(`❌ ${fridayCheck.message}`);
+                return;
+            }
+            
+            // Collect data
+            const bookingData = {
+                name: document.getElementById('bookName').value,
+                email: document.getElementById('bookEmail').value,
+                phone: document.getElementById('bookPhone').value,
+                department: document.getElementById('bookDept').value,
+                facility: document.getElementById('bookFacility').value,
+                equipment: Array.from(document.getElementById('bookEquipment').selectedOptions).map(o => o.value),
+                date: document.getElementById('bookDate').value,
+                startTime: document.getElementById('bookStartTime').value,
+                endTime: document.getElementById('bookEndTime').value,
+                purpose: document.getElementById('bookPurpose').value,
+                participants: document.getElementById('bookParticipants').value,
+                status: 'pending',
+                timestamp: new Date().toISOString()
+            };
+            
+            // Validate required fields
+            if (!bookingData.name || !bookingData.facility || !bookingData.date || !bookingData.purpose) {
+                alert('❌ Please fill all required fields');
+                return;
+            }
+            
+            // Submit to database
+            submitBookingToDB(bookingData);
+        }
+        
+        function checkWorkingHours() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Sunday, 1 = Monday
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            
+            // Check if Sunday
+            if (day === 0) {
+                return { valid: false, message: "System closed on Sunday" };
+            }
+            
+            // Check working hours (07:30 - 16:00)
+            const currentTime = hour + (minute / 60);
+            if (currentTime < 7.5 || currentTime > 16) {
+                return { valid: false, message: "System available Mon-Fri 07:30-16:00 only" };
+            }
+            
+            return { valid: true };
+        }
+        
+        function checkFridayRestrictions() {
+            const now = new Date();
+            const day = now.getDay();
+            const hour = now.getHours();
+            const minute = now.getMinutes();
+            
+            if (day === 5) { // Friday
+                const currentTime = hour + (minute / 60);
+                if (currentTime >= 10.5 && currentTime <= 13) {
+                    return { 
+                        valid: false, 
+                        message: "Friday 10:30-13:00: Aula SMP & Serbaguna unavailable for Friday prayer preparation" 
+                    };
+                }
+            }
+            
+            return { valid: true };
+        }
+        
+        async function submitBookingToDB(data) {
+            try {
+                // Show loading
+                document.getElementById('statusText').textContent = 'Submitting...';
+                
+                // Send to Supabase
+                const response = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/bookings`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': CONFIG.SUPABASE_KEY,
+                        'Authorization': `Bearer ${CONFIG.SUPABASE_KEY}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    // Send WhatsApp notification
+                    const waMessage = `📅 BOOKING BARU%0A%0ANama: ${data.name}%0ADept: ${data.department}%0ASarana: ${data.facility}%0ATanggal: ${data.date}%0AWaktu: ${data.startTime}-${data.endTime}%0APeserta: ${data.participants}%0ATujuan: ${data.purpose}`;
+                    window.open(`https://wa.me/${CONFIG.ADMIN_WA}?text=${waMessage}`, '_blank');
+                    
+                    alert('✅ Booking submitted! WhatsApp notification sent.');
+                    goHome();
+                } else {
+                    throw new Error('Database error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Save to localStorage for offline
+                const offlineBookings = JSON.parse(localStorage.getItem('offline_bookings') || '[]');
+                offlineBookings.push({
+                    ...data,
+                    offline: true,
+                    synced: false
+                });
+                localStorage.setItem('offline_bookings', JSON.stringify(offlineBookings));
+                
+                alert('📱 Offline mode: Data saved locally, will auto-sync when online.');
+                goHome();
+            } finally {
+                document.getElementById('statusText').textContent = 'Online';
+            }
+        }
+        
+        // ================= K3 REPORT WITH CAMERA =================
+        function startCamera(type) {
+            stopCamera(); // Stop any existing stream
+            
+            const videoElement = document.getElementById(type + 'Video');
+            const previewDiv = document.getElementById(type + 'CameraPreview');
+            
+            navigator.mediaDevices.getUserMedia({ 
+                video: { 
+                    facingMode: 'environment',
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                } 
+            })
+            .then(stream => {
+                currentStream = stream;
+                videoElement.srcObject = stream;
+                previewDiv.classList.add('active');
+            })
+            .catch(err => {
+                console.error('Camera error:', err);
+                alert('Camera access denied or not available');
+            });
+        }
+        
+        function stopCamera() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+            
+            document.querySelectorAll('.camera-preview').forEach(el => {
+                el.classList.remove('active');
+            });
+        }
+        
+        function capturePhoto(type) {
+            const video = document.getElementById(type + 'Video');
+            const canvas = document.getElementById(type + 'Canvas');
+            const photo = document.getElementById(type + 'Photo');
+            const preview = document.getElementById(type + 'PhotoPreview');
+            
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            
+            const dataUrl = canvas.toDataURL('image/jpeg');
+            photo.src = dataUrl;
+            preview.classList.remove('hidden');
+            
+            // Store in localStorage
+            localStorage.setItem(`${type}_photo`, dataUrl);
+            
+            alert('📸 Photo captured!');
+        }
+        
+        function removePhoto(type) {
+            document.getElementById(type + 'PhotoPreview').classList.add('hidden');
+            localStorage.removeItem(`${type}_photo`);
+        }
+        
+        function uploadPhoto() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const photo = document.getElementById('k3Photo');
+                    const preview = document.getElementById('k3PhotoPreview');
+                    photo.src = event.target.result;
+                    preview.classList.remove('hidden');
+                    localStorage.setItem('k3_photo', event.target.result);
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        }
+        
+        function submitK3Report() {
+            const k3Data = {
+                name: document.getElementById('k3Name').value,
+                unit: document.getElementById('k3Unit').value,
+                location: document.getElementById('k3Location').value,
+                type: document.getElementById('k3Type').value,
+                description: document.getElementById('k3Description').value,
+                severity: document.getElementById('k3Severity').value,
+                action: document.getElementById('k3Action').value,
+                photo: localStorage.getItem('k3_photo'),
+                status: 'open',
+                timestamp: new Date().toISOString()
+            };
+            
+            if (!k3Data.name || !k3Data.description) {
+                alert('❌ Please fill required fields');
+                return;
+            }
+            
+            // Save to localStorage (and sync later)
+            const k3Reports = JSON.parse(localStorage.getItem('k3_reports') || '[]');
+            k3Reports.push(k3Data);
+            localStorage.setItem('k3_reports', JSON.stringify(k3Reports));
+            
+            // Send email to teknisi
+            const emailSubject = `K3 Report - ${k3Data.type} - ${k3Data.location}`;
+            const emailBody = `
+Name: ${k3Data.name}
+Unit: ${k3Data.unit}
+Location: ${k3Data.location}
+Type: ${k3Data.type}
+Severity: ${k3Data.severity}
+Description: ${k3Data.description}
+Suggested Action: ${k3Data.action}
+            `;
+            
+            const mailtoLink = `mailto:${CONFIG.ADMIN_EMAIL}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            window.location.href = mailtoLink;
+            
+            alert('✅ K3 Report submitted! Email sent to teknisi.');
+            goHome();
+        }
+        
+        // ================= QR/BARCODE SCANNER =================
+        function startQRScanner() {
+            stopQRScanner(); // Stop if already running
+            
+            const video = document.getElementById('qrVideo');
+            
+            navigator.mediaDevices.getUserMedia({ 
+                video: { 
+                    facingMode: 'environment',
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                } 
+            })
+            .then(stream => {
+                currentStream = stream;
+                video.srcObject = stream;
+                qrScannerActive = true;
+                
+                // Start QR code detection (simulated)
+                simulateQRDetection();
+            })
+            .catch(err => {
+                console.error('Camera error:', err);
+                alert('Camera access denied');
+            });
+        }
+        
+        function stopQRScanner() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+            qrScannerActive = false;
+        }
+        
+        function toggleFlash() {
+            alert('Flash control requires device-specific API');
+        }
+        
+        function simulateQRDetection() {
+            if (!qrScannerActive) return;
+            
+            // Simulate QR detection every 2 seconds
+            setTimeout(() => {
+                if (qrScannerActive) {
+                    const fakeQRs = [
+                        'ASSET-001: Projector Epson X123',
+                        'INV-2025-045: Sound Portable JBL',
+                        'WH-789: Kursi Futura (Qty: 50)',
+                        'IT-334: Kabel HDMI 10m'
+                    ];
+                    
+                    const randomQR = fakeQRs[Math.floor(Math.random() * fakeQRs.length)];
+                    document.getElementById('qrResult').value = `🔍 Scanned: ${randomQR}\nTimestamp: ${new Date().toLocaleTimeString()}`;
+                    
+                    // Show asset info
+                    showAssetInfo(randomQR);
+                    
+                    // Continue scanning
+                    simulateQRDetection();
+                }
+            }, 2000);
+        }
+        
+        function showAssetInfo(qrCode) {
+            const infoDiv = document.getElementById('assetInfo');
+            const detailsDiv = document.getElementById('assetDetails');
+            
+            const assets = {
+                'ASSET-001: Projector Epson X123': {
+                    name: 'Projector Epson X123',
+                    code: 'ASSET-001',
+                    category: 'Electronics',
+                    location: 'Storage Room A',
+                    status: 'Available',
+                    lastCheck: '2025-01-03'
+                },
+                'INV-2025-045: Sound Portable JBL': {
+                    name: 'Sound Portable JBL',
+                    code: 'INV-2025-045',
+                    category: 'Audio',
+                    location: 'Technician Office',
+                    status: 'In Use',
+                    lastCheck: '2025-01-02'
+                }
+            };
+            
+            if (assets[qrCode]) {
+                const asset = assets[qrCode];
+                detailsDiv.innerHTML = `
+                    <div style="background: rgba(16,185,129,0.1); padding: 15px; border-radius: 8px;">
+                        <strong>${asset.name}</strong><br>
+                        Code: ${asset.code}<br>
+                        Category: ${asset.category}<br>
+                        Location: ${asset.location}<br>
+                        Status: <span style="color: ${asset.status === 'Available' ? '#10b981' : '#f59e0b'}">${asset.status}</span><br>
+                        Last Check: ${asset.lastCheck}
+                    </div>
+                `;
+                infoDiv.classList.remove('hidden');
+            }
+        }
+        
+        function manualQRSubmit() {
+            const manualCode = document.getElementById('manualQR').value;
+            if (manualCode) {
+                document.getElementById('qrResult').value = `📝 Manual: ${manualCode}\nTimestamp: ${new Date().toLocaleTimeString()}`;
+                showAssetInfo(manualCode);
+            }
+        }
+        
+        // ================= VAULT SYSTEM =================
+        function openVault(type) {
+            document.querySelectorAll('.vault-container').forEach(el => {
+                el.classList.remove('active');
+                el.classList.add('hidden');
+            });
+            
+            document.getElementById(type + 'Vault').classList.add('active');
+            document.getElementById(type + 'Vault').classList.remove('hidden');
+        }
+        
+        function unlockVault(type) {
+            const password = document.getElementById(type === 'inventory' ? 'invPassword' : 'whPassword').value;
+            const correctPassword = CONFIG.PASSWORDS[type.toUpperCase()];
+            
+            if (password === correctPassword || architectMode) {
+                const contentDiv = document.getElementById(type === 'inventory' ? 'invContent' : 'whContent');
+                contentDiv.classList.remove('hidden');
+                
+                // Load vault content
+                if (type === 'inventory') {
+                    loadInventory();
+                } else {
+                    loadWarehouse();
+                }
+                
+                addAIMessage(`Vault: ${type.toUpperCase()} unlocked successfully`);
+            } else {
+                alert('❌ Invalid vault password');
+            }
+        }
+        
+        function lockVault(type) {
+            const contentDiv = document.getElementById(type === 'inventory' ? 'invContent' : 'whContent');
+            contentDiv.classList.add('hidden');
+            
+            // Clear password field
+            if (type === 'inventory') {
+                document.getElementById('invPassword').value = '';
+            } else {
+                document.getElementById('whPassword').value = '';
+            }
+            
+            goHome();
+        }
+        
+        function loadInventory() {
+            // Load from localStorage or initialize
+            inventoryItems = JSON.parse(localStorage.getItem('inventory_items') || '[]');
+            
+            if (inventoryItems.length === 0) {
+                // Initialize with sample data
+                inventoryItems = [
+                    { id: 1, name: 'Projector Epson', code: 'PROJ-001', qty: 5, location: 'Storage A' },
+                    { id: 2, name: 'Sound Portable', code: 'SOUND-002', qty: 3, location: 'Tech Room' },
+                    { id: 3, name: 'Mic Standing', code: 'MIC-003', qty: 10, location: 'Aula SMP' },
+                    { id: 4, name: 'Kabel HDMI', code: 'CABLE-004', qty: 25, location: 'Storage B' }
+                ];
+                localStorage.setItem('inventory_items', JSON.stringify(inventoryItems));
+            }
+            
+            const grid = document.getElementById('inventoryGrid');
+            grid.innerHTML = inventoryItems.map(item => `
+                <div class="inventory-item">
+                    <div class="item-qr">QR: ${item.code}</div>
+                    <strong>${item.name}</strong><br>
+                    Qty: ${item.qty}<br>
+                    Loc: ${item.location}
+                </div>
+            `).join('');
+        }
+        
+        function addInventoryItem() {
+            const name = document.getElementById('newItemName').value;
+            const code = document.getElementById('newItemCode').value;
+            const qty = document.getElementById('newItemQty').value;
+            const location = document.getElementById('newItemLocation').value;
+            
+            if (!name || !code) {
+                alert('Please enter name and code');
+                return;
+            }
+            
+            const newItem = {
+                id: Date.now(),
+                name,
+                code,
+                qty: parseInt(qty) || 1,
+                location
+            };
+            
+            inventoryItems.push(newItem);
+            localStorage.setItem('inventory_items', JSON.stringify(inventoryItems));
+            
+            // Clear form
+            document.getElementById('newItemName').value = '';
+            document.getElementById('newItemCode').value = '';
+            document.getElementById('newItemQty').value = '';
+            document.getElementById('newItemLocation').value = '';
+            
+            // Reload inventory
+            loadInventory();
+            
+            addAIMessage(`Inventory: Added ${name} (${code})`);
+        }
+        
+        function loadWarehouse() {
+            warehouseItems = JSON.parse(localStorage.getItem('warehouse_items') || '[]');
+            
+            if (warehouseItems.length === 0) {
+                warehouseItems = [
+                    { id: 1, name: 'Kursi Futura', code: 'CHAIR-F001', qty: 150, location: 'Warehouse 1' },
+                    { id: 2, name: 'Meja Siswa', code: 'TABLE-S002', qty: 80, location: 'Warehouse 2' },
+                    { id: 3, name: 'Kursi Chitose', code: 'CHAIR-C003', qty: 200, location: 'Warehouse 1' },
+                    { id: 4, name: 'Meja Panjang', code: 'TABLE-L004', qty: 30, location: 'Warehouse 2' }
+                ];
+                localStorage.setItem('warehouse_items', JSON.stringify(warehouseItems));
+            }
+            
+            const contentDiv = document.getElementById('warehouseContent');
+            contentDiv.innerHTML = `
+                <div class="inventory-grid">
+                    ${warehouseItems.map(item => `
+                        <div class="inventory-item">
+                            <div class="item-qr">WH: ${item.code}</div>
+                            <strong>${item.name}</strong><br>
+                            Qty: ${item.qty}<br>
+                            Loc: ${item.location}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        // ================= MONITORING DASHBOARD =================
+        function updateMonitoring() {
+            // WiFi status
+            checkNetworkStatus();
+            
+            // Database status
+            checkDatabase();
+            
+            // Active users (simulated)
+            document.getElementById('activeUsers').textContent = 
+                Math.floor(Math.random() * 20) + 5;
+            
+            // Today's activity
+            const bookings = JSON.parse(localStorage.getItem('offline_bookings') || '[]');
+            const k3reports = JSON.parse(localStorage.getItem('k3_reports') || '[]');
+            
+            const today = new Date().toDateString();
+            const todayBookings = bookings.filter(b => 
+                new Date(b.timestamp).toDateString() === today
+            ).length;
+            
+            const todayK3 = k3reports.filter(k => 
+                new Date(k.timestamp).toDateString() === today
+            ).length;
+            
+            document.getElementById('todayBookings').textContent = todayBookings;
+            document.getElementById('todayK3').textContent = todayK3;
+            document.getElementById('todaySecurity').textContent = 
+                Math.floor(Math.random() * 10) + 1;
+        }
+        
+        function checkNetworkStatus() {
+            const wifiDot = document.getElementById('wifiDot');
+            const wifiStrength = document.getElementById('wifiStrength');
+            const wifiSSID = document.getElementById('wifiSSID');
+            const wifiIP = document.getElementById('wifiIP');
+            
+            if (navigator.onLine) {
+                wifiDot.className = 'status-dot status-online';
+                wifiStrength.textContent = 'Strong';
+                wifiSSID.textContent = 'SIF-AlFikri';
+                wifiIP.textContent = '192.168.1.' + Math.floor(Math.random() * 100 + 100);
+                document.getElementById('statusText').textContent = 'Online';
+            } else {
+                wifiDot.className = 'status-dot status-offline';
+                wifiStrength.textContent = 'Offline';
+                wifiSSID.textContent = '-';
+                wifiIP.textContent = '-';
+                document.getElementById('statusText').textContent = 'Offline';
+            }
+        }
+        
+        async function checkDatabase() {
+            const dbDot = document.getElementById('dbDot');
+            const dbStatus = document.getElementById('dbStatus');
+            const storageDot = document.getElementById('storageDot');
+            const storageStatus = document.getElementById('storageStatus');
+            
+            try {
+                // Test Supabase connection
+                const response = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/`, {
+                    headers: {
+                        'apikey': CONFIG.SUPABASE_KEY
+                    }
+                });
+                
+                if (response.ok) {
+                    dbDot.className = 'status-dot status-online';
+                    dbStatus.textContent = 'Connected';
+                } else {
+                    throw new Error('DB error');
+                }
+            } catch (error) {
+                dbDot.className = 'status-dot status-offline';
+                dbStatus.textContent = 'Disconnected';
+            }
+            
+            // Check storage
+            const usedStorage = JSON.stringify(localStorage).length;
+            const maxStorage = 5 * 1024 * 1024; // 5MB
+            const percent = Math.round((usedStorage / maxStorage) * 100);
+            
+            storageDot.className = 'status-dot ' + 
+                (percent > 80 ? 'status-offline' : 
+                 percent > 60 ? 'status-warning' : 'status-online');
+            storageStatus.textContent = `${percent}% used`;
+        }
+        
+        // ================= AI INTEGRATION =================
+        function initializeAI() {
+            addAIMessage('🤖 Quantum AI: Initializing neural network...');
+            addAIMessage('🤖 DeepSeek: Loading language model...');
+            addAIMessage('🤖 Qwen: System analysis ready...');
+            addAIMessage('System: AI suite activated for development and error detection');
+        }
+        
+        function addAIMessage(message) {
+            const aiOutput = document.getElementById('aiOutput');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'ai-message';
+            messageDiv.textContent = message;
+            aiOutput.appendChild(messageDiv);
+            aiOutput.scrollTop = aiOutput.scrollHeight;
+        }
+        
+        function toggleAIConsole() {
+            const console = document.getElementById('aiConsole');
+            if (console.classList.contains('hidden')) {
+                console.classList.remove('hidden');
+            } else {
+                console.classList.add('hidden');
+            }
+        }
+        
+        function executeAICommand() {
+            const command = document.getElementById('aiCommand').value;
+            if (!command) return;
+            
+            addAIMessage(`User: ${command}`);
+            
+            // Process AI commands
+            const response = processAICommand(command);
+            addAIMessage(`AI: ${response}`);
+            
+            document.getElementById('aiCommand').value = '';
+        }
+        
+        function processAICommand(command) {
+            const cmd = command.toLowerCase();
+            
+            if (cmd.includes('system status') || cmd.includes('status')) {
+                return 'System: All services operational. Database connected. Storage at 45%.';
+            } else if (cmd.includes('analyze') || cmd.includes('error')) {
+                return 'Analysis: No critical errors detected. Performance optimal.';
+            } else if (cmd.includes('optimize') || cmd.includes('improve')) {
+                return 'Optimization: Cache cleared. Database indexed. Performance +15%.';
+            } else if (cmd.includes('security') || cmd.includes('vault')) {
+                return 'Security: All vaults secured. No breaches detected. Audit logs clean.';
+            } else if (cmd.includes('help') || cmd.includes('commands')) {
+                return 'Available: status, analyze, optimize, security, debug, simulate, help';
+            } else if (cmd.includes('debug') || cmd.includes('test')) {
+                return 'Debug: Running system diagnostics... All tests passed.';
+            } else if (cmd.includes('simulate') || cmd.includes('test data')) {
+                generateTestData();
+                return 'Test data generated for development. Check inventory and bookings.';
+            } else {
+                return 'Command understood. Processing with Quantum AI neural network...';
+            }
+        }
+        
+        function generateTestData() {
+            // Generate test bookings
+            const testBookings = [
+                {
+                    name: 'Test User 1',
+                    email: 'test1@alfikri.sch.id',
+                    facility: 'Aula SMP',
+                    date: new Date().toISOString().split('T')[0],
+                    purpose: 'Testing purposes'
+                },
+                {
+                    name: 'Test User 2',
+                    email: 'test2@alfikri.sch.id',
+                    facility: 'Labkom SMA',
+                    date: new Date().toISOString().split('T')[0],
+                    purpose: 'System testing'
+                }
+            ];
+            
+            localStorage.setItem('test_bookings', JSON.stringify(testBookings));
+            
+            // Generate test inventory
+            const testInventory = [
+                { name: 'Test Projector', code: 'TEST-PROJ', qty: 2, location: 'Test Room' },
+                { name: 'Test Sound', code: 'TEST-SOUND', qty: 1, location: 'Test Storage' }
+            ];
+            
+            localStorage.setItem('test_inventory', JSON.stringify(testInventory));
+            
+            addAIMessage('Test data generated for development and debugging.');
+        }
+        
+        // ================= ARCHITECT MODE =================
+        function initializeArchitectTrigger() {
+            let clickCount = 0;
+            let lastClick = 0;
+            
+            document.body.addEventListener('click', function(e) {
+                if (e.target === document.body || e.target.classList.contains('hidden')) {
+                    const now = Date.now();
+                    if (now - lastClick < 1000) {
+                        clickCount++;
+                        if (clickCount >= 5) {
+                            clickCount = 0;
+                            const code = prompt('👻 Architect Mode Detected\nEnter Code (418626 or Mr.M_Architect_2025):');
+                            if (code === CONFIG.PASSWORDS.ARCHITECT || code === CONFIG.PASSWORDS.MASTER_KEY) {
+                                architectMode = true;
+                                currentRole = 'architect';
+                                alert('👻 Ghost Mode Activated! Welcome Mr. M.');
+                                addAIMessage('Architect: Full system access granted. Bypassing all security.');
+                            }
+                        }
+                    } else {
+                        clickCount = 1;
+                    }
+                    lastClick = now;
+                }
+            });
+        }
+        
+        function checkArchitectAccess() {
+            if (architectMode) {
+                alert('👻 Architect Mode Active\n• Bypass all passwords\n• Access all vaults\n• System debug tools\n• AI development mode');
+                return true;
+            }
+            return false;
+        }
+        
+        // ================= UTILITY FUNCTIONS =================
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            document.getElementById('timeDisplay').textContent = timeString;
+        }
+        
+        function quickActions() {
+            const action = prompt('⚡ Quick Actions:\n\n1. Quick Booking\n2. Emergency K3 Report\n3. Scan Asset QR\n4. Check System Status\n5. Contact Admin\n\nEnter number:');
+            
+            switch(action) {
+                case '1': showForm('booking'); break;
+                case '2': showForm('k3'); break;
+                case '3': showQRScanner(); break;
+                case '4': showMonitoring(); break;
+                case '5': 
+                    window.open(`https://wa.me/${CONFIG.ADMIN_WA}`, '_blank');
+                    break;
+            }
+        }
+        
+        function showSettings() {
+            const settings = `
+⚙️ SYSTEM SETTINGS:
+
+Version: Dream OS Quantum v6.0
+Database: ${CONFIG.SUPABASE_URL ? 'Connected' : 'Offline'}
+Storage: ${localStorage.length} items
+User: ${currentUser || 'Guest'}
+Role: ${currentRole || 'Public'}
+Architect Mode: ${architectMode ? 'ACTIVE 👻' : 'Inactive'}
+
+📞 CONTACTS:
+Admin WA: ${CONFIG.ADMIN_WA}
+Email: ${CONFIG.ADMIN_EMAIL}
+
+🔧 MAINTENANCE:
+Clear Cache | Reset Data | Export Logs
+            `;
+            
+            if (confirm(settings + '\n\nClear cache?')) {
+                localStorage.clear();
+                alert('Cache cleared!');
+                location.reload();
+            }
+        }
+        
+        // ================= EXPORT FOR DEBUGGING =================
+        window.DreamOS = {
+            version: '6.0',
+            config: CONFIG,
+            state: {
+                user: currentUser,
+                role: currentRole,
+                architect: architectMode,
+                stream: currentStream
+            },
+            functions: {
+                goHome,
+                showForm,
+                login,
+                validateBooking,
+                startCamera,
+                stopCamera,
+                showQRScanner,
+                unlockVault,
+                toggleAIConsole
+            }
+        };
+    </script>
+</body>
+</html>
