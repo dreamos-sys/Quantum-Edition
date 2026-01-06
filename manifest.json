@@ -1,0 +1,17 @@
+{
+  "name": "Dream OS Quantum v6.0",
+  "short_name": "DreamOS",
+  "description": "SIF Al Fikri Enterprise Management System - ISO 27001 Certified",
+  "theme_color": "#10b981",
+  "background_color": "#022c22",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [{
+    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDUiIGZpbGw9IiMwMjJjMjIiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIyIi8+PHBhdGggZD0iTTQwIDMwIFEyNSA1MCA0MCA3MEw0MCA2MiBRMzAgNTAgNDAgMzggWiIgZmlsbD0iIzEwYjk4MSIvPjxwYXRoIGQ9Ik02MCAzMCBRNzUgNTAgNjAgNzBMNjAgNjIgUTcwIDUwIDYwIDM4IFoiIGZpbGw9IiNmYmJmMjQiLz48bGluZSB4MT0iNTAiIHkxPSIyMCIgeDI9IjUwIiB5Mj0iODAiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjMiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==",
+    "sizes": "512x512",
+    "type": "image/svg+xml",
+    "purpose": "any maskable"
+  }]
+}
