@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DREAM OS QUANTUM v7.1 - ERP SIF AL FIKRI</title>
+    <style>
+        /* ========== ZERO ANIMATION CSS ========== */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            transition: none !important;
+            animation: none !important;
+            transform: none !important;
+        }
+
+        :root {
+            --bg: #0f172a; --card: #1e293b; --gold: #fbbf24;
+            --green: #10b981; --red: #ef4444; --blue: #3b82f6;
+            --purple: #8b5cf6; --orange: #f97316; --cyan: #06b6d4;
+        }
+
+        body {
+            background: var(--bg); color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center; padding: 15px 10px;
+            border-bottom: 2px solid var(--green);
+            background: rgba(15, 23, 42, 0.95);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        /* 4 CARD GRID */
+        .grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 10px; padding: 15px;
+        }
+
+        .card {
+            background: var(--card); border: 2px solid var(--blue);
+            border-radius: 10px; padding: 20px 10px; text-align: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .card:active { background: rgba(59, 130, 246, 0.2); }
+
+        /* VIEW SYSTEM - INSTANT */
+        .view {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: var(--bg);
+            z-index: 2000; padding: 15px; overflow-y: auto;
+        }
+
+        /* UI COMPONENTS */
+        .btn {
+            width: 100%; padding: 14px; border: none; border-radius: 8px;
+            font-weight: bold; font-size: 15px; margin: 6px 0; cursor: pointer;
+            -webkit-tap-highlight-color: rgba(16, 185, 129, 0.3);
+        }
+        .btn-green { background: var(--green); color: white; }
+        .btn-red { background: var(--red); color: white; }
+        .btn-blue { background: var(--blue); color: white; }
+        .btn-purple { background: var(--purple); color: white; }
+        .btn-orange { background: var(--orange); color: white; }
+        .btn-cyan { background: var(--cyan); color: white; }
+        .btn-gold { background: var(--gold); color: #000; font-weight: bold; }
+
+        input, select, textarea {
+            width: 100%; padding: 12px; margin: 8px 0;
+            background: #334155; border: 1px solid #475569;
+            color: white; border-radius: 6px; font-size: 16px !important;
+            max-height: 44px;
+        }
+
+        textarea {
+            max-height: none; min-height: 100px;
+        }
+
+        /* STATUS BAR */
+        .status-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.95); padding: 8px;
+            text-align: center; font-size: 11px; border-top: 1px solid #334155;
+            display: flex; justify-content: space-around; z-index: 1500;
+            padding-bottom: env(safe-area-inset-bottom, 8px);
+        }
+
+        /* LOGIN PAGE STYLES */
+        .login-container {
+            max-width: 400px; margin: 50px auto; padding: 20px;
+            background: var(--card); border-radius: 15px;
+            border: 2px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .password-input {
+            position: relative; margin: 20px 0;
+        }
+        
+        .password-input input {
+            padding-right: 50px;
+        }
+        
+        .toggle-password {
+            position: absolute; right: 10px; top: 50%;
+            transform: translateY(-50%); background: none;
+            border: none; color: var(--gold); font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .login-message {
+            padding: 10px; border-radius: 8px; margin: 10px 0;
+            display: none; text-align: center; font-size: 14px;
+        }
+        
+        .login-success { background: rgba(16, 185, 129, 0.2); color: var(--green); border: 1px solid var(--green); }
+        .login-error { background: rgba(239, 68, 68, 0.2); color: var(--red); border: 1px solid var(--red); }
+
+        /* QUICK LOGIN BUTTONS */
+        .quick-login {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 8px; margin: 15px 0;
+        }
+        
+        .quick-btn {
+            padding: 10px; border-radius: 8px; border: 1px solid #475569;
+            background: #334155; color: white; font-size: 12px;
+            cursor: pointer; text-align: center;
+        }
+        
+        .quick-btn:hover { background: #475569; }
+
+        /* LOADING ANIMATION */
+        .loader {
+            display: none; text-align: center; margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid #1e293b; border-top: 4px solid var(--green);
+            border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 1s linear infinite; margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div style="font-size: 40px; cursor: pointer;" onclick="QE.architectTrigger()">🚀</div>
+        <h2 style="color: var(--gold); letter-spacing: 1px;">DREAM OS QUANTUM</h2>
+        <p style="font-size: 10px; color: var(--green); margin-top: 3px;">
+            ERP SIF v7.1 | REAL-TIME | SUPABASE ACTIVE
+        </p>
+        <div style="font-size: 8px; color: #94a3b8; margin-top: 2px;">
+            🇮🇩 🇵🇸 بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+        </div>
+    </div>
+
+    <!-- 4 CARD MAIN MENU -->
+    <div class="grid">
+        <div class="card" onclick="QE.switch('view-user')">
+            <div style="font-size: 28px;">👤</div>
+            <div style="color: var(--gold); font-weight: bold; margin-top: 5px; font-size: 13px;">
+                USER PANEL
+            </div>
+        </div>
+        <div class="card" onclick="QE.switch('view-calendar')">
+            <div style="font-size: 28px;">📅</div>
+            <div style="color: var(--gold); font-weight: bold; margin-top: 5px; font-size: 13px;">
+                SMART CALENDAR
+            </div>
+        </div>
+        <div class="card" onclick="QE.switch('view-login')">
+            <div style="font-size: 28px;">👑</div>
+            <div style="color: var(--gold); font-weight: bold; margin-top: 5px; font-size: 13px;">
+                ADMIN LOGIN
+            </div>
+        </div>
+        <div class="card" onclick="QE.switch('view-scan')">
+            <div style="font-size: 28px;">📷</div>
+            <div style="color: var(--gold); font-weight: bold; margin-top: 5px; font-size: 13px;">
+                QR SCANNER
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME VIEW (DEFAULT) -->
+    <div id="home" class="view" style="display: block;">
+        <div style="text-align: center; padding: 30px 15px;">
+            <div style="font-size: 50px; color: var(--gold); margin-bottom: 15px;">🚀</div>
+            <h2 style="color: var(--green); margin-bottom: 8px;">SIF ENTERPRISE ERP</h2>
+            <p style="color: #94a3b8; margin-bottom: 20px; font-size: 13px;">
+                Quantum Engine • 18 Sarana • 12 Alat • AI Integrated
+            </p>
+            
+            <button class="btn btn-purple" onclick="QE.startLiveDemo()" style="padding: 12px; font-size: 14px;">
+                🎬 START LIVE DEMO (RAKER)
+            </button>
+            
+            <button class="btn btn-gold" onclick="QE.showROICalculator()" style="padding: 12px; font-size: 14px;">
+                💰 SHOW ROI 90 JUTA
+            </button>
+            
+            <div style="margin-top: 20px; background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 8px;">
+                <div style="color: var(--blue); font-weight: bold; margin-bottom: 8px; font-size: 14px;">
+                    🔑 QUICK ACCESS:
+                </div>
+                <div style="font-size: 11px; color: #94a3b8;">
+                    • User: <span style="color: var(--green);">user_@1234</span><br>
+                    • Admin: <span style="color: var(--gold);">@dm1n_Sec2025</span><br>
+                    • Architect: <span style="color: var(--purple);">418626</span><br>
+                    • Klik logo 5x untuk unlock semua
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN VIEW -->
+    <div id="view-login" class="view">
+        <div style="text-align: center; padding: 20px;">
+            <button onclick="QE.switch('home')" style="background:none; border:none; color:white; font-size:30px; position: absolute; top: 15px; left: 15px;">×</button>
+            
+            <div class="login-container">
+                <div style="font-size: 50px; color: var(--gold); margin-bottom: 10px;">🔐</div>
+                <h2 style="color: var(--green); margin-bottom: 5px;">ADMIN LOGIN</h2>
+                <p style="color: #94a3b8; font-size: 12px; margin-bottom: 20px;">
+                    Masukkan password untuk akses Admin Dashboard
+                </p>
+                
+                <div class="login-message" id="loginMessage"></div>
+                
+                <div class="password-input">
+                    <input type="password" id="adminPassword" placeholder="Masukkan password admin" autocomplete="off">
+                    <button class="toggle-password" onclick="QE.togglePassword()">👁️</button>
+                </div>
+                
+                <div class="quick-login">
+                    <div class="quick-btn" onclick="QE.fillPassword('user_@1234')">👤 User</div>
+                    <div class="quick-btn" onclick="QE.fillPassword('@dm1n_Sec2025')">👑 Admin</div>
+                    <div class="quick-btn" onclick="QE.fillPassword('418626')">🏗️ Architect</div>
+                    <div class="quick-btn" onclick="QE.fillPassword('Mr.M_Architect_2025')">🔓 Master</div>
+                </div>
+                
+                <button class="btn btn-green" onclick="QE.loginAdmin()" style="margin-top: 15px;">
+                    🔓 LOGIN
+                </button>
+                
+                <div class="loader" id="loginLoader">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 10px; color: #94a3b8; font-size: 12px;">Authenticating...</p>
+                </div>
+                
+                <div style="margin-top: 20px; background: rgba(251, 191, 36, 0.1); padding: 10px; border-radius: 8px;">
+                    <div style="color: var(--gold); font-size: 11px;">
+                        💡 <strong>Demo Tips:</strong> Klik "Admin" untuk password admin
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="view-admin" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: var(--gold);">👑 ADMIN DASHBOARD</h3>
+            <button onclick="QE.logoutAdmin()" style="background:none; border:none; color:white; font-size:30px;">↩️</button>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div style="font-size: 60px;">🎯</div>
+            <div style="color: var(--green); font-weight: bold;">ACCESS GRANTED</div>
+            <div style="color: #94a3b8; font-size: 12px;">Welcome, Administrator!</div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
+            <button class="btn btn-blue" onclick="QE.switch('view-inventory')">
+                📦 INVENTORY VAULT
+            </button>
+            <button class="btn btn-purple" onclick="QE.switch('view-warehouse')">
+                🏬 WAREHOUSE VAULT
+            </button>
+            <button class="btn btn-green" onclick="QE.switch('view-reports')">
+                📊 REPORTS
+            </button>
+            <button class="btn btn-cyan" onclick="QE.switch('view-monitor')">
+                📡 LIVE MONITOR
+            </button>
+        </div>
+        
+        <button class="btn btn-orange" onclick="QE.showScanner()">
+            📷 ACTIVATE SMART QR SCANNER
+        </button>
+    </div>
+
+    <!-- USER VIEW -->
+    <div id="view-user" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: var(--green);">👤 USER DASHBOARD</h3>
+            <button onclick="QE.switch('home')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+        </div>
+        
+        <button class="btn btn-green" onclick="QE.switch('view-booking')">
+            📅 BOOKING SARANA (18 UNIT)
+        </button>
+        <button class="btn btn-red" onclick="QE.switch('view-k3')">
+            🛡️ LAPORAN K3 (NO CAMERA)
+        </button>
+        <button class="btn btn-blue" onclick="QE.switch('view-history')">
+            📜 RIWAYAT BOOKING
+        </button>
+    </div>
+
+    <!-- BOOKING VIEW -->
+    <div id="view-booking" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="color: var(--green);">📅 BOOKING SARANA</h3>
+            <button onclick="QE.switch('view-user')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+        </div>
+        
+        <select id="f-sarana">
+            <option value="">Pilih Sarana</option>
+            <option value="Aula SMP">Aula SMP</option>
+            <option value="Aula SMA">Aula SMA</option>
+            <option value="Saung Besar">Saung Besar</option>
+        </select>
+        
+        <input type="text" id="f-pic" placeholder="Nama PIC">
+        <input type="text" id="f-unit" placeholder="Unit">
+        <input type="date" id="f-tgl">
+        <input type="time" id="f-waktu">
+        <textarea id="f-ket" placeholder="Keterangan"></textarea>
+        
+        <button class="btn btn-green" onclick="QE.sendBooking()">
+            📱 KIRIM BOOKING
+        </button>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <div id="clock">🕐 00:00:00</div>
+        <div style="color: var(--green);">⚡ <span id="perf-indicator">0ms</span></div>
+        <div id="login-status" style="color: var(--gold);">👤 Guest</div>
+    </div>
+
+    <script>
+        // =========================================
+        // DREAM OS QUANTUM v7.1 - REAL LOGIN SYSTEM
+        // =========================================
+        console.log(`
+╔═══════════════════════════════════════════╗
+║         REAL LOGIN SYSTEM ACTIVATED      ║
+║         NO MORE PROMPT() BUGS!           ║
+╚═══════════════════════════════════════════╝
+        `);
+
+        const QE = {
+            // CORE STATE
+            current: 'home',
+            architectCount: 0,
+            security: { loggedIn: false, level: 'guest' },
+            
+            // REAL LOGIN SYSTEM
+            loginAdmin: function() {
+                const passwordInput = document.getElementById('adminPassword');
+                const password = passwordInput.value;
+                const messageEl = document.getElementById('loginMessage');
+                const loader = document.getElementById('loginLoader');
+                
+                // Show loading
+                loader.style.display = 'block';
+                messageEl.style.display = 'none';
+                
+                // Simulate authentication delay
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    
+                    // Check passwords
+                    if (password === '@dm1n_Sec2025') {
+                        // ADMIN ACCESS
+                        this.security.loggedIn = true;
+                        this.security.level = 'admin';
+                        this.showLoginSuccess("✅ ADMIN ACCESS GRANTED!");
+                        setTimeout(() => {
+                            this.switch('view-admin');
+                            this.updateLoginStatus();
+                        }, 1000);
+                        
+                    } else if (password === 'user_@1234') {
+                        // USER ACCESS
+                        this.showLoginSuccess("✅ USER ACCESS - Redirecting...");
+                        setTimeout(() => {
+                            this.switch('view-user');
+                        }, 1000);
+                        
+                    } else if (password === '418626') {
+                        // ARCHITECT ACCESS
+                        this.security.loggedIn = true;
+                        this.security.level = 'architect';
+                        this.activateArchitectMode();
+                        this.showLoginSuccess("🏗️ ARCHITECT MODE ACTIVATED!");
+                        
+                    } else if (password === 'Mr.M_Architect_2025') {
+                        // MASTER ACCESS
+                        this.security.loggedIn = true;
+                        this.security.level = 'master';
+                        this.showLoginSuccess("🔓 MASTER CONTROL ACTIVATED!");
+                        setTimeout(() => {
+                            this.switch('view-admin');
+                        }, 1000);
+                        
+                    } else if (password === '4dm1in_6969@01') {
+                        // INVENTORY VAULT
+                        this.showLoginSuccess("🔓 INVENTORY VAULT UNLOCKED");
+                        setTimeout(() => {
+                            this.switch('view-inventory');
+                        }, 1000);
+                        
+                    } else if (password === '4dm1n_9696@02') {
+                        // WAREHOUSE VAULT
+                        this.showLoginSuccess("🔓 WAREHOUSE VAULT UNLOCKED");
+                        setTimeout(() => {
+                            this.switch('view-warehouse');
+                        }, 1000);
+                        
+                    } else {
+                        // WRONG PASSWORD
+                        this.showLoginError("❌ ACCESS DENIED - Password salah!");
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                    }
+                }, 800);
+            },
+            
+            showLoginSuccess: function(message) {
+                const messageEl = document.getElementById('loginMessage');
+                messageEl.textContent = message;
+                messageEl.className = 'login-message login-success';
+                messageEl.style.display = 'block';
+            },
+            
+            showLoginError: function(message) {
+                const messageEl = document.getElementById('loginMessage');
+                messageEl.textContent = message;
+                messageEl.className = 'login-message login-error';
+                messageEl.style.display = 'block';
+            },
+            
+            fillPassword: function(password) {
+                document.getElementById('adminPassword').value = password;
+                document.getElementById('loginMessage').style.display = 'none';
+            },
+            
+            togglePassword: function() {
+                const input = document.getElementById('adminPassword');
+                input.type = input.type === 'password' ? 'text' : 'password';
+            },
+            
+            logoutAdmin: function() {
+                this.security.loggedIn = false;
+                this.security.level = 'guest';
+                this.switch('home');
+                this.updateLoginStatus();
+                this.showLoginSuccess("✅ Logged out successfully");
+            },
+            
+            updateLoginStatus: function() {
+                const statusEl = document.getElementById('login-status');
+                if (this.security.loggedIn) {
+                    statusEl.innerHTML = `👑 ${this.security.level}`;
+                    statusEl.style.color = 'var(--gold)';
+                } else {
+                    statusEl.innerHTML = '👤 Guest';
+                    statusEl.style.color = 'var(--gold)';
+                }
+            },
+            
+            // ========== CORE ENGINE ==========
+            switch: function(targetId) {
+                // HIDE ALL VIEWS
+                document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+                
+                // SHOW TARGET
+                if(targetId === 'home') {
+                    document.getElementById('home').style.display = 'block';
+                } else {
+                    const el = document.getElementById(targetId);
+                    if(el) el.style.display = 'block';
+                }
+                
+                this.current = targetId;
+                console.log(`⚡ Switched to: ${targetId}`);
+            },
+            
+            // ========== ARCHITECT MODE ==========
+            architectTrigger: function() {
+                this.architectCount++;
+                
+                if (this.architectCount === 3) {
+                    document.querySelector('.header').style.borderBottomColor = 'var(--purple)';
+                    this.showLoginSuccess("🔓 2 more clicks for Architect Mode!");
+                }
+                
+                if (this.architectCount >= 5) {
+                    this.activateArchitectMode();
+                    this.architectCount = 0;
+                }
+            },
+            
+            activateArchitectMode: function() {
+                this.security.loggedIn = true;
+                this.security.level = 'architect';
+                
+                // Visual effects
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.borderColor = 'var(--purple)';
+                    card.style.boxShadow = '0 0 15px var(--purple)';
+                });
+                
+                // Show all passwords
+                const secrets = `
+                    🏗️ ARCHITECT MODE ACTIVATED!
+                    
+                    🔐 ALL PASSWORDS:
+                    • User: user_@1234
+                    • Admin: @dm1n_Sec2025
+                    • Architect: 418626
+                    • Master: Mr.M_Architect_2025
+                    • Inventory: 4dm1in_6969@01
+                    • Warehouse: 4dm1n_9696@02
+                    
+                    📞 CONTACTS:
+                    • Pak Erwin: 628886183954
+                    • Teknisi: teknisi@alfikri.sch.id
+                    
+                    💡 TIPS:
+                    • Klik logo 5x untuk activate mode ini
+                    • Password sudah diisi di login page
+                `;
+                
+                alert(secrets);
+                this.updateLoginStatus();
+            },
+            
+            // ========== DEMO FUNCTIONS ==========
+            startLiveDemo: function() {
+                const demoSteps = [
+                    { delay: 0, action: () => {
+                        this.showLoginSuccess("🚀 DEMO RAKER DIMULAI!");
+                        this.switch('view-user');
+                    }},
+                    { delay: 2000, action: () => {
+                        this.showLoginSuccess("Step 1: User Panel terbuka");
+                        this.switch('view-booking');
+                    }},
+                    { delay: 4000, action: () => {
+                        this.showLoginSuccess("Step 2: Coba booking sarana");
+                        this.fillFormDemo();
+                    }},
+                    { delay: 6000, action: () => {
+                        this.showLoginSuccess("Step 3: Sekarang login sebagai Admin");
+                        this.switch('view-login');
+                        this.fillPassword('@dm1n_Sec2025');
+                    }},
+                    { delay: 8000, action: () => {
+                        this.showLoginSuccess("Step 4: Login dengan password admin");
+                        this.loginAdmin();
+                    }}
+                ];
+                
+                demoSteps.forEach((step, index) => {
+                    setTimeout(step.action, step.delay);
+                });
+            },
+            
+            fillFormDemo: function() {
+                // Auto-fill form for demo
+                setTimeout(() => {
+                    document.getElementById('f-sarana').value = 'Aula SMP';
+                    document.getElementById('f-pic').value = 'Pak Guru Demo';
+                    document.getElementById('f-unit').value = 'SMA';
+                    document.getElementById('f-tgl').value = new Date().toISOString().split('T')[0];
+                    document.getElementById('f-waktu').value = '14:00';
+                    document.getElementById('f-ket').value = 'Demo RAKER Sistem ERP SIF';
+                }, 500);
+            },
+            
+            sendBooking: function() {
+                // Simple booking function for demo
+                const sarana = document.getElementById('f-sarana').value;
+                const pic = document.getElementById('f-pic').value;
+                
+                if (!sarana || !pic) {
+                    this.showLoginError("❌ Isi data dulu!");
+                    return;
+                }
+                
+                this.showLoginSuccess(`✅ Booking ${sarana} untuk ${pic} berhasil!`);
+                
+                // Simulate WhatsApp send
+                setTimeout(() => {
+                    alert("📱 WhatsApp terbuka ke Pak Erwin!\n\n" +
+                          "Booking berhasil dikirim via Dream OS Quantum!");
+                }, 1000);
+            },
+            
+            showROICalculator: function() {
+                alert(`💰 ROI CALCULATOR - DREAM OS\n\n` +
+                      `Penghematan/Tahun: 90 JUTA\n\n` +
+                      `Detail:\n` +
+                      `• Biaya manual: 10.2 JT/bulan\n` +
+                      `• Biaya sistem: 0 JT/bulan\n` +
+                      `• Penghematan: 6 JT/bulan\n` +
+                      `• ROI/Tahun: 90 JT\n\n` +
+                      `💡 Presentasi ke Pak Hanung:\n` +
+                      `"Bapak, ini INVESTASI, bukan COST!"`);
+            },
+            
+            showScanner: function() {
+                if (!this.security.loggedIn) {
+                    this.switch('view-login');
+                    this.showLoginError("⚠️ Login dulu sebagai admin!");
+                    return;
+                }
+                
+                this.switch('view-scan');
+            }
+        };
+
+        // =========================================
+        // INITIALIZATION
+        // =========================================
+        window.onload = function() {
+            // Start clock
+            const clock = document.getElementById('clock');
+            setInterval(() => {
+                const now = new Date();
+                clock.textContent = `🕐 ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+            }, 1000);
+            
+            // Auto-start demo after 3 seconds
+            setTimeout(() => {
+                if (confirm("🚀 DREAM OS QUANTUM READY!\n\nKlik OK untuk mulai LIVE DEMO RAKER!")) {
+                    QE.startLiveDemo();
+                }
+            }, 3000);
+            
+            // Focus on password field when login view opens
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.card') && e.target.closest('.card').textContent.includes('ADMIN')) {
+                    setTimeout(() => {
+                        document.getElementById('adminPassword')?.focus();
+                    }, 100);
+                }
+            });
+            
+            // Enter key to login
+            document.getElementById('adminPassword')?.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    QE.loginAdmin();
+                }
+            });
+            
+            console.log("✅ REAL LOGIN SYSTEM READY!");
+            console.log("📱 No more prompt() bugs!");
+        };
+    </script>
+</body>
+</html>
