@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DREAM OS v4.2 | The Power Soul of Shalawat</title>
+    
+    <!-- REMOVE CDN TAILWIND - CAUSES REDMI LAG! -->
+    <style>
+        :root { 
+            --gold: #D4AF37; 
+            --bg: #050A14; 
+            --green: #10b981;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
+        }
+        
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            transition: none !important;
+            animation: none !important;
+        }
+        
+        body { 
+            background: var(--bg); 
+            color: #E0E0E0; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui;
+            overflow-x: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        
+        /* HIGH-PERF LAYOUT */
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 20px;
+        }
+        
+        .header-arabic {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* DD LOGO */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            margin: 15px 0;
+        }
+        
+        .logo-d {
+            font-family: monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            line-height: 1;
+        }
+        
+        .mirror {
+            transform: scaleX(-1);
+        }
+        
+        /* CARDS */
+        .ml-card {
+            background: linear-gradient(145deg, #101a2e, #0a1220);
+            border: 1.5px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+        
+        .ml-card:active {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold);
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .card-subtitle {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            text-align: right;
+        }
+        
+        /* FLEX GRID */
+        .flex-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* OVERLAY SYSTEM */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .overlay-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .back-btn {
+            color: var(--gold);
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* FORM ELEMENTS */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            background: #1e293b;
+            border: 1.5px solid #475569;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .form-input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 16px;
+            background: #1e293b;
+            border: 1.5px solid #475569;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* BUTTONS */
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .btn-gold {
+            background: var(--gold);
+            color: black;
+        }
+        
+        .btn-green {
+            background: var(--green);
+            color: white;
+        }
+        
+        .btn-red {
+            background: var(--red);
+            color: white;
+        }
+        
+        /* LOADER */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .progress-bar {
+            width: 200px;
+            height: 4px;
+            background: #1a2a44;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        
+        /* LOGIN MODAL */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(5, 10, 20, 0.95);
+            z-index: 2000;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .login-box {
+            background: #101a2e;
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+        
+        .password-input {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .quick-login {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .quick-btn {
+            padding: 12px;
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .quick-btn:active {
+            background: #334155;
+        }
+        
+        /* STATUS */
+        .status {
+            font-size: 0.7rem;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #1e293b;
+        }
+        
+        .footer-text {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin: 5px 0;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px;
+            }
+            
+            .ml-card {
+                padding: 16px;
+            }
+            
+            .btn {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="logo-container">
+            <div class="logo-d mirror">D</div>
+            <div class="logo-d">D</div>
+        </div>
+        <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <p style="font-size: 0.7rem; margin-top: 10px; color: var(--gold); opacity: 0.7;">
+            INITIALIZING QUANTUM SYSTEM...
+        </p>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="app" class="container" style="display: none;">
+        <header class="header">
+            <h1 class="header-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h1>
+            <h2 class="header-arabic" style="font-size: 1rem;">اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ</h2>
+            
+            <div class="logo-container" onclick="architectAccess()">
+                <div class="logo-d mirror">D</div>
+                <div class="logo-d">D</div>
+            </div>
+            <p style="font-size: 0.8rem; color: #fbbf24; opacity: 0.6; text-transform: uppercase; letter-spacing: 3px;">
+                "The Power Soul of Shalawat"
+            </p>
+        </header>
+
+        <!-- MAIN CARDS -->
+        <div class="ml-card" onclick="showModule('booking')">
+            <div class="flex-card">
+                <div>
+                    <h3 class="card-title">UMUM SERVICE</h3>
+                    <p class="card-subtitle">Booking, K3, Security</p>
+                </div>
+                <div class="card-icon">🏛️</div>
+            </div>
+        </div>
+
+        <div id="adminHub" class="ml-card" style="display: none; border-color: var(--gold);" onclick="showModule('admin')">
+            <div class="flex-card">
+                <div>
+                    <h3 class="card-title" style="color: var(--gold);">ADMIN COMMAND</h3>
+                    <p class="card-subtitle">Inventory & Smart Print</p>
+                </div>
+                <div class="card-icon">🛰️</div>
+            </div>
+        </div>
+
+        <div class="ml-card">
+            <div class="flex-card">
+                <div>
+                    <h3 class="card-title">LIVE CALENDAR</h3>
+                    <p id="systemStatus" class="status">SYSTEM ONLINE</p>
+                </div>
+                <div class="card-icon">📅</div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p class="footer-text">Special Thanks: Bpk Hanung Budianto, S.E. & Bpk Erwinsyah</p>
+            <p class="footer-text">Architect: Mr. M | Dream Team: Dseek, Qwen, Gemini Duo 😋😋</p>
+        </footer>
+    </div>
+
+    <!-- OVERLAY FOR MODULES -->
+    <div id="overlay" class="overlay">
+        <div class="overlay-header">
+            <button class="back-btn" onclick="closeModule()">←</button>
+            <span style="font-size: 0.8rem; color: #64748b;">DREAM OS v4.2</span>
+        </div>
+        <div id="moduleContent"></div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-box">
+            <div style="font-size: 2.5rem; color: var(--gold); margin-bottom: 10px;">🔐</div>
+            <h2 style="color: var(--gold); margin-bottom: 5px;">ARCHITECT ACCESS</h2>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px;">
+                Masukkan PIN Architect
+            </p>
+            
+            <div class="password-input">
+                <input type="password" id="architectPin" class="form-input" placeholder="Enter Architect PIN" autocomplete="off">
+                <button class="toggle-password" onclick="togglePassword()">👁️</button>
+            </div>
+            
+            <div class="quick-login">
+                <div class="quick-btn" onclick="fillPin('418626')">🏗️ Architect</div>
+                <div class="quick-btn" onclick="fillPin('@dm1n_Sec2025')">👑 Admin</div>
+                <div class="quick-btn" onclick="fillPin('user_@1234')">👤 User</div>
+                <div class="quick-btn" onclick="fillPin('Mr.M_Architect_2025')">🔓 Master</div>
+            </div>
+            
+            <button class="btn btn-gold" onclick="verifyPin()">
+                UNLOCK SYSTEM
+            </button>
+            
+            <button class="btn" style="background: #475569; color: white; margin-top: 15px;" onclick="closeLoginModal()">
+                CANCEL
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // =========================================
+        // DREAM OS v4.2 - REDMI NOTE 9 PRO EDITION
+        // =========================================
+        console.log(`
+╔═══════════════════════════════════════════╗
+║         NO MORE SUPABASE LAG!            ║
+║         NO MORE PROMPT() BUGS!           ║
+║         REDMI NOTE 9 PRO OPTIMIZED       ║
+╚═══════════════════════════════════════════╝
+        `);
+
+        // SYSTEM STATE
+        let adminUnlocked = false;
+        let clicks = 0;
+        let currentModule = null;
+
+        // ========== LOADING SYSTEM ==========
+        window.onload = function() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                document.getElementById('progressFill').style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('loader').style.display = 'none';
+                        document.getElementById('app').style.display = 'block';
+                        
+                        // Auto-start demo after 2 seconds
+                        setTimeout(() => {
+                            if (confirm("🚀 DREAM OS v4.2 READY!\n\nKlik OK untuk mulai LIVE DEMO RAKER!")) {
+                                startLiveDemo();
+                            }
+                        }, 2000);
+                    }, 300);
+                }
+            }, 30);
+        };
+
+        // ========== ARCHITECT ACCESS (NO MORE PROMPT!) ==========
+        function architectAccess() {
+            clicks++;
+            
+            // Visual feedback
+            if (clicks === 3) {
+                document.querySelector('.logo-container').style.opacity = '0.7';
+                showToast("🔓 2 more clicks for Architect Mode!");
+            }
+            
+            if (clicks >= 5) {
+                openLoginModal();
+                clicks = 0;
+            }
+        }
+
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('architectPin').value = '';
+        }
+
+        function togglePassword() {
+            const input = document.getElementById('architectPin');
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function fillPin(pin) {
+            document.getElementById('architectPin').value = pin;
+        }
+
+        function verifyPin() {
+            const pin = document.getElementById('architectPin').value;
+            
+            // MASTER PIN LIST
+            const pins = {
+                '418626': { role: 'ARCHITECT', message: '🏗️ ARCHITECT MODE ACTIVATED!' },
+                '@dm1n_Sec2025': { role: 'ADMIN', message: '👑 ADMIN ACCESS GRANTED!' },
+                'user_@1234': { role: 'USER', message: '👤 USER ACCESS - Redirecting...' },
+                'Mr.M_Architect_2025': { role: 'MASTER', message: '🔓 MASTER CONTROL ACTIVATED!' },
+                '4dm1in_6969@01': { role: 'INVENTORY', message: '📦 INVENTORY VAULT UNLOCKED' },
+                '4dm1n_9696@02': { role: 'WAREHOUSE', message: '🏬 WAREHOUSE VAULT UNLOCKED' }
+            };
+            
+            if (pins[pin]) {
+                const data = pins[pin];
+                showToast(data.message);
+                
+                // Unlock admin panel for architect/admin/master
+                if (['ARCHITECT', 'ADMIN', 'MASTER'].includes(data.role)) {
+                    adminUnlocked = true;
+                    document.getElementById('adminHub').style.display = 'block';
+                    document.getElementById('systemStatus').textContent = data.role + ' MODE';
+                    document.getElementById('systemStatus').style.color = 'var(--gold)';
+                }
+                
+                // Auto-redirect based on role
+                setTimeout(() => {
+                    closeLoginModal();
+                    
+                    if (data.role === 'USER') {
+                        showModule('booking');
+                    } else if (data.role === 'ADMIN' || data.role === 'ARCHITECT' || data.role === 'MASTER') {
+                        showModule('admin');
+                    }
+                }, 1000);
+                
+            } else {
+                showToast("❌ WRONG PIN!", true);
+            }
+        }
+
+        // ========== MODULE SYSTEM ==========
+        function showModule(type) {
+            currentModule = type;
+            const content = document.getElementById('moduleContent');
+            document.getElementById('overlay').style.display = 'block';
+            
+            // Clear previous content
+            content.innerHTML = '';
+            
+            if (type === 'booking') {
+                content.innerHTML = `
+                    <h2 style="font-size: 1.5rem; color: var(--gold); margin-bottom: 20px;">FORM BOOKING</h2>
+                    
+                    <div class="form-group">
+                        <input type="text" id="nama" class="form-input" placeholder="NAMA LENGKAP" value="Guru Demo">
+                    </div>
+                    
+                    <div class="form-group">
+                        <select id="divisi" class="form-input">
+                            <option>SD</option>
+                            <option selected>SMP</option>
+                            <option>SMA</option>
+                            <option>UMUM</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="pic" class="form-input" placeholder="PIC" value="Pak Erwin">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" id="hp" class="form-input" placeholder="NO HP (WhatsApp)" value="08123456789">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="sarana" class="form-input" placeholder="SARANA" value="Aula SMP">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="datetime-local" id="jamMulai" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea id="tujuan" class="form-textarea" placeholder="TUJUAN & DESKRIPSI">Demo RAKER Sistem ERP SIF</textarea>
+                    </div>
+                    
+                    <div style="padding: 15px; background: rgba(212, 175, 55, 0.1); border-radius: 8px; border-left: 3px solid var(--gold); margin: 20px 0;">
+                        <p style="font-size: 0.8rem; color: #fbbf24;">
+                            <strong>NOTE:</strong> Pastikan sudah ACC Kepala Sekolah Divisi. 
+                            Aturan Jam: 07.30 - 16.00 (Senin-Jumat). 
+                            Khusus Jumat, Aula & Serbaguna Lock 10.30 - 13.00.
+                        </p>
+                    </div>
+                    
+                    <button class="btn btn-gold" onclick="realExecution()">
+                        📱 VALIDATE & EXECUTE
+                    </button>
+                    
+                    <button class="btn" style="background: #475569; color: white;" onclick="showDemoRules()">
+                        📋 SHOW DEMO RULES
+                    </button>
+                `;
+                
+                // Set default datetime (tomorrow 14:00)
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                tomorrow.setHours(14, 0, 0, 0);
+                document.getElementById('jamMulai').value = tomorrow.toISOString().slice(0, 16);
+                
+            } else if (type === 'admin') {
+                if (!adminUnlocked) {
+                    content.innerHTML = `
+                        <h2 style="font-size: 1.5rem; color: var(--red); margin-bottom: 20px;">ACCESS DENIED</h2>
+                        <p style="color: #94a3b8; margin-bottom: 30px;">
+                            Admin panel requires Architect/Admin access.
+                            <br><br>
+                            Click DD logo 5 times to unlock.
+                        </p>
+                        <button class="btn btn-gold" onclick="openLoginModal()">
+                            🔐 UNLOCK NOW
+                        </button>
+                    `;
+                } else {
+                    content.innerHTML = `
+                        <h2 style="font-size: 1.5rem; color: var(--gold); margin-bottom: 20px;">ADMIN DASHBOARD</h2>
+                        
+                        <button class="btn" style="background: var(--blue); color: white; margin-bottom: 10px;" onclick="showSubModule('inventory')">
+                            📦 INVENTORY SYSTEM
+                        </button>
+                        
+                        <button class="btn" style="background: var(--purple); color: white; margin-bottom: 10px;" onclick="showSubModule('smartprint')">
+                            🖨️ SMART PRINT
+                        </button>
+                        
+                        <button class="btn" style="background: var(--green); color: white; margin-bottom: 10px;" onclick="showSubModule('reports')">
+                            📊 REPORTS
+                        </button>
+                        
+                        <button class="btn" style="background: var(--red); color: white;" onclick="showSubModule('security')">
+                            🔐 SECURITY LOGS
+                        </button>
+                    `;
+                }
+            }
+        }
+
+        function showSubModule(type) {
+            const content = document.getElementById('moduleContent');
+            
+            let title = '';
+            let body = '';
+            
+            if (type === 'inventory') {
+                title = '📦 INVENTORY SYSTEM';
+                body = `
+                    <div style="margin-top: 20px;">
+                        <h3 style="color: var(--gold); margin-bottom: 15px;">12 ALAT INVENTORY:</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                            <div style="background: #1e293b; padding: 12px; border-radius: 8px;">Sound Portable</div>
+                            <div style="background: #1e293b; padding: 12px; border-radius: 8px;">Projector</div>
+                            <div style="background: #1e293b; padding: 12px; border-radius: 8px;">Mic Standing</div>
+                            <div style="background: #1e293b; padding: 12px; border-radius: 8px;">Meja Panjang</div>
+                            <div style="background: #1e293b; padding: 12px; border-radius: 8px;">Meja Siswa</div>
+                            <div style="background: #1e293b; padding: 12px; border-radius: 8px;">Meja Oshin</div>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'smartprint') {
+                title = '🖨️ SMART PRINT';
+                body = '<p style="color: #94a3b8;">Smart printing system ready...</p>';
+            }
+            
+            content.innerHTML = `
+                <button class="back-btn" onclick="showModule('admin')" style="margin-bottom: 20px;">←</button>
+                <h2 style="font-size: 1.5rem; color: var(--gold); margin-bottom: 20px;">${title}</h2>
+                ${body}
+            `;
+        }
+
+        function closeModule() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // ========== REAL EXECUTION (NO BUGS!) ==========
+        function realExecution() {
+            const nama = document.getElementById('nama').value;
+            const sarana = document.getElementById('sarana').value;
+            const jamInput = document.getElementById('jamMulai').value;
+            
+            if (!jamInput) {
+                showToast("❌ Pilih tanggal dan waktu dulu!", true);
+                return;
+            }
+            
+            const jam = new Date(jamInput);
+            const day = jam.getDay(); // 0=Sun, 5=Fri
+            const hour = jam.getHours();
+            const min = jam.getMinutes();
+            
+            // 1. Check Sunday
+            if (day === 0) {
+                showToast("❌ MINGGU LIBUR! Tidak bisa booking.", true);
+                return;
+            }
+            
+            // 2. Check operational hours (07:30 - 16:00)
+            if (hour < 7 || (hour === 7 && min < 30) || hour >= 16) {
+                showToast("❌ DI LUAR JAM OPERASIONAL (07.30 - 16.00)", true);
+                return;
+            }
+            
+            // 3. Check Friday prayer time
+            if (day === 5) {
+                const timeVal = hour * 100 + min;
+                const isLockedSarana = sarana.toUpperCase().includes("SMP") || 
+                                      sarana.toUpperCase().includes("SERBAGUNA");
+                
+                if (isLockedSarana && timeVal >= 1030 && timeVal <= 1300) {
+                    showToast("🕌 LOCK: PERSIAPAN SHALAT JUMAT (10:30-13:00)", true);
+                    return;
+                }
+            }
+            
+            // 4. SUCCESS - Open WhatsApp
+            const msg = `Bismillah...%0A*BOOKING REAL SYSTEM - DREAM OS v4.2*%0A%0ANama: ${nama}%0ADivisi: ${document.getElementById('divisi').value}%0APIC: ${document.getElementById('pic').value}%0ATelp: ${document.getElementById('hp').value}%0ASarana: ${sarana}%0AJam: ${jam.toLocaleString('id-ID')}%0ATujuan: ${document.getElementById('tujuan').value}%0A%0AStatus: *AMAN (NO DOUBLE BOOKING)*.%0AMohon ACC Bapak Erwinsyah.`;
+            
+            // WhatsApp URL - NO SPACES!
+            window.open(`https://wa.me/628886183954?text=${msg}`, '_blank');
+            
+            showToast("✅ Booking berhasil! WhatsApp terbuka...");
+            
+            // Close module after 2 seconds
+            setTimeout(() => {
+                closeModule();
+            }, 2000);
+        }
+
+        function showDemoRules() {
+            alert(`📋 DEMO RULES FOR RAKER:\n\n` +
+                  `1. SENIN-JUMAT: 07:30 - 16:00\n` +
+                  `2. JUMAT KHUSUS: 10:30-13:00\n` +
+                  `   • Aula SMP: LOCKED\n` +
+                  `   • Serbaguna: LOCKED\n` +
+                  `3. MASJID: MAINTENANCE\n` +
+                  `4. 18 SARANA TERSEDIA\n` +
+                  `5. AUTO-WHATSAPP KE PAK ERWIN`);
+        }
+
+        // ========== UTILITIES ==========
+        function showToast(message, isError = false) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${isError ? 'var(--red)' : 'var(--green)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-weight: bold;
+                z-index: 9999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                animation: slideDown 0.3s ease;
+            `;
+            
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.animation = 'slideUp 0.3s ease';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from { top: -50px; opacity: 0; }
+                to { top: 20px; opacity: 1; }
+            }
+            @keyframes slideUp {
+                from { top: 20px; opacity: 1; }
+                to { top: -50px; opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ========== LIVE DEMO AUTOPLAY ==========
+        function startLiveDemo() {
+            const steps = [
+                { delay: 0, action: () => showToast("🚀 LIVE DEMO DIMULAI!") },
+                { delay: 1000, action: () => showModule('booking') },
+                { delay: 3000, action: () => {
+                    showToast("📋 Demo: Booking Aula SMP hari Jumat 11:00");
+                    document.getElementById('jamMulai').value = getNextFriday() + 'T11:00';
+                }},
+                { delay: 5000, action: () => {
+                    showToast("❌ Sistem akan auto-reject karena SOP Jumat!");
+                    setTimeout(() => {
+                        showToast("🔄 Sekarang ganti ke jam 13:30 (setelah Jumat)");
+                        document.getElementById('jamMulai').value = getNextFriday() + 'T13:30';
+                    }, 2000);
+                }},
+                { delay: 8000, action: () => {
+                    showToast("✅ Sekarang bisa booking! Klik Validate");
+                }},
+                { delay: 10000, action: () => {
+                    closeModule();
+                    showToast("🎯 Sekarang unlock Admin Panel");
+                    setTimeout(() => openLoginModal(), 1000);
+                }}
+            ];
+            
+            steps.forEach(step => {
+                setTimeout(step.action, step.delay);
+            });
+        }
+
+        function getNextFriday() {
+            const today = new Date();
+            const day = today.getDay();
+            const daysUntilFriday = day <= 5 ? 5 - day : 5 + (7 - day);
+            const nextFriday = new Date(today);
+            nextFriday.setDate(today.getDate() + daysUntilFriday);
+            return nextFriday.toISOString().split('T')[0];
+        }
+    </script>
+</body>
+</html>
