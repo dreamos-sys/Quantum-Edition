@@ -27,7 +27,7 @@
 - Jam operasional
 - Jumat berkah mode
 
-### 👻 **Ghost Mode (418626)**
+### 👻 **Ghost Mode (😎)**
 - Fitur tersembunyi
 - AI Quantum console
 - Quick actions
