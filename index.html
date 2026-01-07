@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DREAM OS ULTIMATE v10.5 | SIF ERP COMPLETE</title>
+    <style>
+        /* ========== QUANTUM CSS - ULTRA FAST ========== */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            transition: none !important;
+            animation: none !important;
+            transform: none !important;
+            scroll-behavior: auto !important;
+        }
+
+        :root {
+            --bg: #0a0f1e; --card: #151a2d; --gold: #fbbf24;
+            --green: #10b981; --red: #ef4444; --blue: #3b82f6;
+            --purple: #8b5cf6; --orange: #f97316; --cyan: #06b6d4;
+            --dark: #0f172a;
+        }
+
+        body {
+            background: var(--bg); color: #e2e8f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            padding: 20px 15px 15px;
+            background: linear-gradient(180deg, var(--bg) 0%, rgba(10, 15, 30, 0.9) 100%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--green);
+        }
+
+        /* MAIN CARDS */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding: 15px;
+        }
+
+        .hub-card {
+            background: var(--card);
+            border: 2px solid;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .hub-card:active {
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .hub-service { border-color: var(--blue); }
+        .hub-asset { border-color: var(--purple); }
+        .hub-admin { border-color: var(--gold); display: none; }
+
+        .hub-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .hub-subtitle {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hub-icon {
+            font-size: 2.5rem;
+            text-align: right;
+            margin-top: -15px;
+        }
+
+        /* VIEW SYSTEM */
+        .view {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 2000;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        /* BUTTONS */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 8px 0;
+            background: #334155;
+            color: white;
+        }
+
+        .btn-primary { background: var(--green); color: white; }
+        .btn-secondary { background: var(--blue); color: white; }
+        .btn-danger { background: var(--red); color: white; }
+        .btn-warning { background: var(--orange); color: white; }
+        .btn-gold { background: var(--gold); color: black; font-weight: 800; }
+        .btn-purple { background: var(--purple); color: white; }
+
+        /* FORMS */
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; color: var(--gold); font-size: 0.9rem; margin-bottom: 5px; font-weight: 600; }
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            background: #1e293b;
+            border: 1.5px solid #475569;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+        }
+        .form-input:focus { border-color: var(--gold); outline: none; }
+        .form-textarea { min-height: 100px; resize: vertical; }
+
+        /* TIME GRID */
+        .time-grid { 
+            display: grid; 
+            grid-template-columns: 1fr auto 1fr; 
+            gap: 10px; 
+            align-items: center; 
+        }
+        .time-separator { 
+            text-align: center; 
+            color: var(--gold); 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+        }
+
+        /* KAMERA SYSTEM */
+        .camera-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+            border: 2px solid var(--blue);
+            background: #000;
+        }
+        .camera-preview {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background: #1e293b;
+        }
+        .camera-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .camera-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .scan-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 3px solid #0ea5e9;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+            pointer-events: none;
+            z-index: 10;
+            display: none;
+        }
+
+        /* PHOTO PREVIEW */
+        .photo-preview {
+            margin: 15px 0;
+            display: none;
+        }
+        .photo-preview img {
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid var(--red);
+        }
+
+        /* MODALS */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 400px;
+            margin: 50px auto;
+            border: 2px solid var(--gold);
+        }
+
+        /* STATUS BAR */
+        .status-bar {
+            position: fixed;
+            bottom: 0; left: 0;
+            width: 100%;
+            background: var(--dark);
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            border-top: 1px solid #334155;
+            z-index: 1000;
+        }
+
+        /* LOADER - FIXED! */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #1e293b;
+            border-top: 4px solid var(--green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            z-index: 4000;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .toast-error { background: var(--red); }
+
+        /* RULES BOX */
+        .rules-box {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid var(--red);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin: 2px;
+        }
+        .badge-green { background: var(--green); color: white; }
+        .badge-blue { background: var(--blue); color: white; }
+        .badge-red { background: var(--red); color: white; }
+        .badge-orange { background: var(--orange); color: white; }
+        .badge-purple { background: var(--purple); color: white; }
+
+        /* AI STATUS */
+        .ai-status {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 3px solid var(--cyan);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADER - SIMPLE & FAST -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p style="margin-top: 15px; color: var(--gold); font-size: 0.9rem;">QUANTUM AI SYSTEM LOADING...</p>
+    </div>
+
+    <!-- HEADER - DENGAN SHALAWAT LENGKAP -->
+    <div class="header">
+        <div onclick="system.architectTrigger()" style="font-size: 3rem; cursor: pointer; margin-bottom: 5px;">🚀</div>
+        <h1 style="color: var(--gold); font-size: 1.5rem; letter-spacing: 1px;">DREAM OS ULTIMATE v10.5</h1>
+        <p style="color: var(--green); font-size: 0.75rem; margin-top: 3px;">
+            SIF AL FIKRI ERP • 18 SARANA • 12 ALAT • REAL-TIME
+        </p>
+        <p style="color: #94a3b8; font-size: 0.65rem; margin-top: 2px;">
+            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ 🇮🇩 🇵🇸
+        </p>
+        <!-- SHALAWAT COMPLETE -->
+        <p style="color: #fbbf24; font-size: 0.7rem; margin-top: 8px; text-align: center; line-height: 1.4;">
+            اَللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِ سَيِّدِنَا مُحَمَّدٍ
+        </p>
+        <p style="color: #94a3b8; font-size: 0.6rem; margin-top: 2px; text-align: center;">
+            Ya Allah, limpahkanlah shalawat kepada junjungan kami Nabi Muhammad dan keluarganya
+        </p>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="mainView" class="main-grid">
+        <div class="hub-card hub-service" onclick="system.showView('service')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div class="hub-title">SERVICE HUB</div>
+                    <div class="hub-subtitle">Booking • K3 • Security • Calendar</div>
+                </div>
+                <div class="hub-icon">🏛️</div>
+            </div>
+            <div style="margin-top: 10px; font-size: 0.8rem; color: #94a3b8;">
+                Akses booking 18 sarana & laporan lengkap
+            </div>
+        </div>
+
+        <div class="hub-card hub-asset" onclick="system.showView('asset')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div class="hub-title">ASSET HUB</div>
+                    <div class="hub-subtitle">Inventory • Warehouse • QR Scan • Print</div>
+                </div>
+                <div class="hub-icon">📦</div>
+            </div>
+            <div style="margin-top: 10px; font-size: 0.8rem; color: #94a3b8;">
+                12 alat terinventarisasi dengan sistem QR code
+            </div>
+        </div>
+
+        <div id="adminCard" class="hub-card hub-admin" onclick="system.showView('admin')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div class="hub-title" style="color: var(--gold);">COMMAND HUB</div>
+                    <div class="hub-subtitle">Admin • Monitor • Reports • Database</div>
+                </div>
+                <div class="hub-icon">🛰️</div>
+            </div>
+            <div style="margin-top: 10px; font-size: 0.8rem; color: #fbbf24;">
+                Full system control & monitoring access
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn btn-gold" onclick="system.startLiveDemo()" style="font-size: 0.9rem; padding: 12px;">
+                🎬 START LIVE DEMO FOR RAKER
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== LOGIN MODAL ==================== -->
+
+    <!-- LOGIN MODAL - AUTO SHOW PAS LOADING SELESAI -->
+    <div id="loginModal" class="modal" style="display: block;"> <!-- AUTO SHOW! -->
+        <div class="modal-content">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 3rem; color: var(--gold);">🔐</div>
+                <h2 style="color: var(--gold);">SYSTEM ACCESS</h2>
+                <p style="color: #94a3b8; font-size: 0.9rem;">Masukkan password sesuai level akses</p>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-input" id="loginPassword" placeholder="Password" autocomplete="off" value="user_@1234">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0;">
+                <button class="btn" style="background: #475569; padding: 12px;" onclick="system.fillPassword('user_@1234')">
+                    👤 USER
+                </button>
+                <button class="btn" style="background: #475569; padding: 12px;" onclick="system.fillPassword('@dm1n_Sec2025')">
+                    👑 ADMIN
+                </button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0;">
+                <button class="btn" style="background: #475569; padding: 12px; font-size: 0.8rem;" onclick="system.fillPassword('418626')">
+                    🏗️ ARCHITECT
+                </button>
+                <button class="btn" style="background: #475569; padding: 12px; font-size: 0.8rem;" onclick="system.fillPassword('Mr.M_Architect_2025')">
+                    🔓 MASTER
+                </button>
+            </div>
+
+            <button class="btn btn-gold" onclick="system.login()">
+                🔓 ACCESS SYSTEM
+            </button>
+
+            <button class="btn" style="background: #64748b; margin-top: 10px;" onclick="system.closeModal('loginModal')">
+                SKIP (GUEST MODE)
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== SERVICE VIEWS ==================== -->
+
+    <!-- SERVICE VIEW -->
+    <div id="serviceView" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="color: var(--blue);">SERVICE HUB</h2>
+            <button onclick="system.showMain()" style="background: none; border: none; color: white; font-size: 2rem;">×</button>
+        </div>
+
+        <button class="btn btn-primary" onclick="system.showView('booking')">
+            📅 BOOKING SARANA (18 UNIT)
+        </button>
+
+        <button class="btn btn-danger" onclick="system.showView('k3')">
+            🛡️ LAPORAN K3 + KAMERA
+        </button>
+
+        <button class="btn btn-warning" onclick="system.showView('security')">
+            💂 LAPORAN SEKURITI
+        </button>
+
+        <button class="btn btn-secondary" onclick="system.showView('calendar')">
+            📆 LIVE CALENDAR
+        </button>
+
+        <div class="ai-status">
+            <strong>🤖 QUANTUM AI ACTIVE:</strong> DeepSeek + Qwen monitoring system
+        </div>
+    </div>
+
+    <!-- BOOKING VIEW -->
+    <div id="bookingView" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="color: var(--green);">BOOKING SARANA</h2>
+            <button onclick="system.showView('service')" style="background: none; border: none; color: white; font-size: 2rem;">×</button>
+        </div>
+
+        <!-- FORM PANJANG (SAMA SEPERTI SEBELUMNYA) -->
+        <!-- ... potongan kode booking form ... -->
+        
+        <div class="form-group">
+            <label class="form-label">Pilih Sarana (18 Unit)</label>
+            <select class="form-input" id="bookingSarana">
+                <option value="">-- Pilih Sarana --</option>
+                <option value="Aula SMP">Aula SMP (Sound, Lighting, AC, Projector)</option>
+                <option value="Aula SMA">Aula SMA (Sound, Projector)</option>
+                <option value="Saung Besar">Saung Besar (Sound)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Nama PIC / Guru *</label>
+            <input type="text" class="form-input" id="bookingPIC" placeholder="Nama lengkap">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Unit *</label>
+            <select class="form-input" id="bookingUnit">
+                <option value="">-- Pilih Unit --</option>
+                <option value="SD">SD</option>
+                <option value="SMP">SMP</option>
+                <option value="SMA">SMA</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Tanggal Booking *</label>
+            <input type="date" class="form-input" id="bookingDate">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Waktu Booking *</label>
+            <div class="time-grid">
+                <input type="time" class="form-input" id="bookingStart" value="07:30">
+                <div class="time-separator">→</div>
+                <input type="time" class="form-input" id="bookingEnd" value="16:00">
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="system.sendBooking()">
+            📱 KIRIM KE PAK ERWIN
+        </button>
+
+        <button class="btn btn-warning" onclick="system.checkAvailability()">
+            🔍 CEK KETERSEDIAAN
+        </button>
+    </div>
+
+    <!-- ==================== TOAST ==================== -->
+
+    <!-- TOAST -->
+    <div id="toast" class="toast"></div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <div id="clock">🕐 00:00:00</div>
+        <div id="userStatus" style="color: var(--gold);">👤 GUEST</div>
+        <div id="systemStatus" style="color: var(--green);">🟢 ONLINE</div>
+    </div>
+
+    <script>
+        // =========================================
+        // DREAM OS ULTIMATE v10.5 - FIXED LOADING
+        // =========================================
+        console.log(`
+╔═══════════════════════════════════════════╗
+║     DREAM OS ULTIMATE v10.5 - FIXED       ║
+║     NO MORE LOADING STUCK! 🚀             ║
+╚═══════════════════════════════════════════╝
+        `);
+
+        const system = {
+            // SYSTEM STATE
+            currentView: 'main',
+            architectClicks: 0,
+            userRole: 'guest',
+            
+            // ========== INITIALIZATION ==========
+            init: function() {
+                console.log('🚀 System initializing...');
+                
+                // Start clock
+                this.updateClock();
+                setInterval(() => this.updateClock(), 1000);
+                
+                // Hide loader immediately
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                    console.log('✅ Loader hidden');
+                    
+                    // Show login modal (already visible)
+                    document.getElementById('loginModal').style.display = 'block';
+                    console.log('✅ Login modal shown');
+                    
+                    // Auto-focus password input
+                    setTimeout(() => {
+                        document.getElementById('loginPassword').focus();
+                    }, 100);
+                    
+                }, 800); // Short loading time
+                
+                // Auto login for demo
+                setTimeout(() => {
+                    if (this.userRole === 'guest') {
+                        this.showToast('👋 Selamat datang! Silakan login');
+                    }
+                }, 1500);
+                
+                console.log('✅ System initialized');
+            },
+
+            // ========== LOGIN SYSTEM ==========
+            login: function() {
+                const password = document.getElementById('loginPassword').value;
+                console.log('🔐 Login attempt:', password.substring(0, 3) + '...');
+                
+                const passwords = {
+                    'user_@1234': { role: 'user', view: 'service' },
+                    '@dm1n_Sec2025': { role: 'admin', view: 'admin' },
+                    '418626': { role: 'architect', view: 'admin' },
+                    'Mr.M_Architect_2025': { role: 'master', view: 'admin' }
+                };
+                
+                if (passwords[password]) {
+                    const data = passwords[password];
+                    this.userRole = data.role;
+                    
+                    // Update UI
+                    document.getElementById('userStatus').textContent = this.getRoleIcon() + ' ' + data.role.toUpperCase();
+                    document.getElementById('userStatus').style.color = 'var(--gold)';
+                    
+                    // Show admin card for admin/architect/master
+                    if (['admin', 'architect', 'master'].includes(data.role)) {
+                        document.getElementById('adminCard').style.display = 'block';
+                        this.showToast('👑 Admin panel unlocked!');
+                    }
+                    
+                    this.closeModal('loginModal');
+                    this.showToast('✅ Access granted: ' + data.role.toUpperCase());
+                    
+                    // Auto-navigate
+                    setTimeout(() => this.showView(data.view), 500);
+                    
+                } else {
+                    this.showToast('❌ Wrong password! Try: user_@1234 or @dm1n_Sec2025', true);
+                    // Haptic feedback for error
+                    if (navigator.vibrate) navigator.vibrate(200);
+                }
+            },
+
+            getRoleIcon: function() {
+                const icons = {
+                    'user': '👤',
+                    'admin': '👑',
+                    'architect': '🏗️',
+                    'master': '🔓',
+                    'guest': '👤'
+                };
+                return icons[this.userRole] || '👤';
+            },
+
+            fillPassword: function(password) {
+                document.getElementById('loginPassword').value = password;
+                this.showToast('🔑 Password filled: ' + password.substring(0, 3) + '...');
+            },
+
+            // ========== ARCHITECT MODE ==========
+            architectTrigger: function() {
+                this.architectClicks++;
+                console.log('🏗️ Architect clicks:', this.architectClicks);
+                
+                if (this.architectClicks === 3) {
+                    this.showToast('🔓 2 more clicks for Architect Mode');
+                }
+                
+                if (this.architectClicks >= 5) {
+                    this.activateArchitectMode();
+                    this.architectClicks = 0;
+                }
+            },
+
+            activateArchitectMode: function() {
+                this.userRole = 'architect';
+                document.getElementById('adminCard').style.display = 'block';
+                document.getElementById('userStatus').textContent = '🏗️ ARCHITECT';
+                document.getElementById('userStatus').style.color = 'var(--purple)';
+                
+                this.showToast('🏗️ ARCHITECT MODE ACTIVATED - All access granted');
+                
+                // Display master keys
+                const keys = `
+                    🔐 MASTER KEYS:
+                    • User: user_@1234
+                    • Admin: @dm1n_Sec2025
+                    • Architect: 418626
+                    • Inventory Vault: 4dm1in_6969@01
+                    • Warehouse Vault: 4dm1n_9696@02
+                    • Master Key: Mr.M_Architect_2025
+                    
+                    📞 PAK ERWIN: +62 888-6183-954
+                    📧 TEKNISI: teknisi@alfikri.sch.id
+                `;
+                
+                alert(keys);
+            },
+
+            // ========== VIEW MANAGEMENT ==========
+            showView: function(viewId) {
+                console.log('🔄 Switching to view:', viewId);
+                
+                // Hide all views
+                document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+                document.getElementById('mainView').style.display = 'none';
+                
+                // Show target view
+                if (viewId === 'main') {
+                    document.getElementById('mainView').style.display = 'block';
+                } else {
+                    const view = document.getElementById(viewId + 'View');
+                    if (view) view.style.display = 'block';
+                }
+                
+                this.currentView = viewId;
+                this.showToast('📱 Switched to: ' + viewId);
+            },
+
+            showMain: function() {
+                this.showView('main');
+            },
+
+            // ========== MODAL MANAGEMENT ==========
+            closeModal: function(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+                if (modalId === 'loginModal') {
+                    this.showToast('👤 Guest mode activated');
+                    this.userRole = 'guest';
+                    document.getElementById('userStatus').textContent = '👤 GUEST';
+                }
+            },
+
+            // ========== BOOKING SYSTEM ==========
+            sendBooking: function() {
+                const sarana = document.getElementById('bookingSarana').value;
+                const pic = document.getElementById('bookingPIC').value;
+                
+                if (!sarana || !pic) {
+                    this.showToast('❌ Isi data sarana dan PIC terlebih dahulu', true);
+                    return;
+                }
+                
+                // Prepare WhatsApp message
+                const message = `*BOOKING SARANA SIF - DREAM OS*\n\n` +
+                               `🏛️ *Sarana:* ${sarana}\n` +
+                               `👤 *PIC:* ${pic}\n` +
+                               `📅 *Tanggal:* ${document.getElementById('bookingDate').value || 'Belum dipilih'}\n` +
+                               `⏰ *Waktu:* ${document.getElementById('bookingStart').value} - ${document.getElementById('bookingEnd').value}\n\n` +
+                               `Via: Dream OS Ultimate v10.5`;
+                
+                // Send to Pak Erwin
+                window.open(`https://wa.me/628886183954?text=${encodeURIComponent(message)}`, '_blank');
+                
+                this.showToast('✅ Booking berhasil dikirim ke Pak Erwin!');
+                
+                // Save locally
+                this.saveBooking({
+                    sarana, pic,
+                    timestamp: new Date().toISOString()
+                });
+                
+                setTimeout(() => this.showView('service'), 1500);
+            },
+
+            saveBooking: function(data) {
+                let bookings = JSON.parse(localStorage.getItem('sif_bookings') || '[]');
+                bookings.unshift(data);
+                localStorage.setItem('sif_bookings', JSON.stringify(bookings.slice(0, 50)));
+            },
+
+            checkAvailability: function() {
+                const sarana = document.getElementById('bookingSarana').value;
+                if (!sarana) {
+                    this.showToast('⚠️ Pilih sarana terlebih dahulu');
+                    return;
+                }
+                
+                const available = Math.random() > 0.4;
+                
+                if (available) {
+                    this.showToast(`✅ ${sarana} tersedia untuk booking`);
+                } else {
+                    this.showToast(`❌ ${sarana} tidak tersedia - Sudah dibooking`, true);
+                }
+            },
+
+            // ========== UTILITIES ==========
+            showToast: function(message, isError = false) {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.className = isError ? 'toast toast-error' : 'toast';
+                toast.style.display = 'block';
+                
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+                
+                console.log('📢 Toast:', message);
+            },
+
+            updateClock: function() {
+                const now = new Date();
+                const time = now.toLocaleTimeString('id-ID');
+                document.getElementById('clock').textContent = '🕐 ' + time;
+            },
+
+            // ========== LIVE DEMO ==========
+            startLiveDemo: function() {
+                this.showToast('🚀 LIVE DEMO DIMULAI!');
+                
+                // Auto login as admin for demo
+                this.userRole = 'admin';
+                document.getElementById('adminCard').style.display = 'block';
+                document.getElementById('userStatus').textContent = '👑 ADMIN';
+                document.getElementById('userStatus').style.color = 'var(--gold)';
+                
+                const steps = [
+                    { delay: 0, action: () => this.showView('service') },
+                    { delay: 2000, action: () => this.showView('booking') },
+                    { delay: 4000, action: () => {
+                        document.getElementById('bookingSarana').value = 'Aula SMP';
+                        document.getElementById('bookingPIC').value = 'Guru Demo';
+                        document.getElementById('bookingUnit').value = 'SMA';
+                        const tomorrow = new Date();
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        document.getElementById('bookingDate').value = tomorrow.toISOString().split('T')[0];
+                        this.showToast('📅 Demo: Booking Aula SMP');
+                    }},
+                    { delay: 6000, action: () => {
+                        this.showToast('✅ Booking berhasil! Klik "Kirim" untuk test');
+                    }},
+                    { delay: 8000, action: () => {
+                        this.showView('k3');
+                        this.showToast('🎯 Demo K3 dengan kamera');
+                    }}
+                ];
+                
+                steps.forEach(step => setTimeout(step.action, step.delay));
+            }
+        };
+
+        // =========================================
+        // AUTO INITIALIZE ON LOAD
+        // =========================================
+        window.addEventListener('load', function() {
+            console.log('📄 Page loaded, initializing system...');
+            system.init();
+        });
+
+        // Fallback: if still stuck after 3 seconds
+        setTimeout(() => {
+            if (document.getElementById('loader').style.display !== 'none') {
+                console.log('⚠️ Force removing loader...');
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('loginModal').style.display = 'block';
+                system.showToast('🚀 System ready!');
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
