@@ -456,6 +456,139 @@
     </div>
 
     <!-- K3 VIEW -->
+    <!-- QUANTUM CAMERA MODULE -->
+<div id="cameraModule" class="view" style="background: #000; padding: 0;">
+    <div style="position: absolute; top: 20px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; z-index: 10;">
+        <button onclick="system.closeCamera()" class="btn-danger" style="width: auto; padding: 10px 20px;">❌ BATAL</button>
+        <div id="camTitle" style="color: var(--gold); font-weight: 800; text-shadow: 2px 2px 4px #000;">K3 SCANNER</div>
+    </div>
+    
+    <!-- CYBERPUNK FRAME ALA MLBB -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 280px; height: 280px; border: 3px solid #00ff00; border-radius: 10px; box-shadow: 0 0 30px #00ff00, inset 0 0 30px rgba(0, 255, 0, 0.2); z-index: 5;"></div>
+    
+    <video id="videoFeed" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+    
+    <div style="position: absolute; bottom: 40px; width: 100%; text-align: center;">
+        <div id="captureBtn" onclick="system.takeSnap()" style="width: 80px; height: 80px; border: 5px solid white; border-radius: 50%; margin: 0 auto; background: rgba(255,255,255,0.2); cursor: pointer;">
+            <div style="width: 60px; height: 60px; background: red; border-radius: 50%; margin: 10px auto;"></div>
+        </div>
+        <p style="margin-top: 10px; color: white; font-size: 0.7rem; text-shadow: 2px 2px 4px #000;">TAP UNTUK AMBIL FOTO / SCAN</p>
+    </div>
+    
+    <canvas id="photoCanvas" style="display: none;"></canvas>
+    
+    <!-- AI OVERLAY -->
+    <div style="position: absolute; top: 80px; left: 20px; color: #00ff00; font-size: 0.8rem; font-family: 'Courier New', monospace;">
+        <div>🤖 QUANTUM AI: ACTIVE</div>
+        <div>📷 WEBCAM: READY</div>
+        <div>⚡ FPS: 60</div>
+    </div>
+</div>
+
+<!-- K3 PHOTO PREVIEW -->
+<div id="k3Preview" style="margin: 15px 0; display: none;">
+    <p style="color: var(--gold); font-size: 0.9rem; margin-bottom: 8px;">📸 BUKTI FOTO KEJADIAN:</p>
+    <img id="k3Photo" src="" style="width: 100%; border-radius: 10px; border: 2px solid var(--red);">
+</div>
+
+<!-- SECURITY CHECK-IN MODULE -->
+<div id="securityView" class="view">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="color: var(--orange);">SECURITY CHECK-IN</h2>
+        <button onclick="system.showView('admin')" style="background: none; border: none; color: white; font-size: 2rem;">×</button>
+    </div>
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <div style="font-size: 4rem;">💂</div>
+        <p style="color: var(--gold); font-weight: 700;">SHIFT CHECK-IN SYSTEM</p>
+        <p style="color: #94a3b8; font-size: 0.85rem;">Foto wajib di depan pos security</p>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Nama Petugas</label>
+        <input type="text" class="form-input" id="securityName" placeholder="Nama lengkap petugas">
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Shift</label>
+        <select class="form-input" id="securityShift">
+            <option value="">-- Pilih Shift --</option>
+            <option value="Pagi (06:00-18:00)">Pagi (06:00-18:00)</option>
+            <option value="Malam (18:00-06:00)">Malam (18:00-06:00)</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label class="form-label">Lokasi Pos</label>
+        <select class="form-input" id="securityPost">
+            <option value="">-- Pilih Pos --</option>
+            <option value="Pos Utama (Gerbang Depan)">Pos Utama (Gerbang Depan)</option>
+            <option value="Pos Belakang">Pos Belakang</option>
+            <option value="Pos Parkir Guru">Pos Parkir Guru</option>
+            <option value="Pos Labkom">Pos Labkom</option>
+        </select>
+    </div>
+    
+    <div id="securityPreview" style="margin: 15px 0; display: none;">
+        <p style="color: var(--gold); font-size: 0.9rem; margin-bottom: 8px;">📸 FOTO CHECK-IN:</p>
+        <img id="securityPhoto" src="" style="width: 100%; border-radius: 10px; border: 2px solid var(--orange);">
+    </div>
+    
+    <button class="btn btn-warning" onclick="system.openCamera('security')">
+        📷 AMBIL FOTO CHECK-IN
+    </button>
+    
+    <button class="btn btn-primary" onclick="system.submitCheckin()" style="margin-top: 15px;">
+        ✅ SUBMIT CHECK-IN
+    </button>
+    
+    <div style="margin-top: 20px; background: rgba(251, 191, 36, 0.1); padding: 12px; border-radius: 8px;">
+        <p style="color: var(--gold); font-size: 0.8rem; font-weight: 700;">📋 ATURAN CHECK-IN:</p>
+        <p style="color: #fbbf24; font-size: 0.75rem;">
+            • Wajib foto di depan pos dengan nama jelas<br>
+            • Shift pagi: maksimal check-in 06:30<br>
+            • Shift malam: maksimal check-in 18:30<br>
+            • Foto tersimpan di database security
+        </p>
+    </div>
+</div>
+
+<!-- WIRELESS PRINT MODULE -->
+<div id="printView" class="view">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="color: var(--purple);">SMART PRINT</h2>
+        <button onclick="system.showView('admin')" style="background: none; border: none; color: white; font-size: 2rem;">×</button>
+    </div>
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <div style="font-size: 4rem;">🖨️</div>
+        <p style="color: var(--gold); font-weight: 700;">WIRELESS PRINT SYSTEM</p>
+        <p style="color: #94a3b8; font-size: 0.85rem;">Scan dokumen untuk print otomatis</p>
+    </div>
+    
+    <div class="scanner-container">
+        <div class="scanner-frame" style="border-color: var(--purple);"></div>
+        <div style="position: absolute; bottom: 20px; color: white; text-align: center; width: 100%;">
+            QR/BARCODE SCANNER
+        </div>
+    </div>
+    
+    <button class="btn btn-purple" onclick="system.scanForPrint()">
+        📷 SCAN DOKUMEN
+    </button>
+    
+    <div id="printPreview" style="margin-top: 20px; display: none;">
+        <p style="color: var(--gold); font-size: 0.9rem; margin-bottom: 8px;">📄 DOKUMEN TERSCAN:</p>
+        <div style="background: #1e293b; padding: 15px; border-radius: 10px;">
+            <p id="printDocName" style="color: white; font-weight: 700;"></p>
+            <p id="printDocDetails" style="color: #94a3b8; font-size: 0.8rem;"></p>
+        </div>
+    </div>
+    
+    <button class="btn btn-primary" onclick="system.printDocument()" style="margin-top: 15px; display: none;" id="printBtn">
+        🖨️ PRINT SEKARANG
+    </button>
+</div>
     <div id="k3View" class="view">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h2 style="color: var(--red);">LAPORAN K3</h2>
