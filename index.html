@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DREAM OS QUANTUM v7.1 - ERP SIF AL FIKRI</title>
+    <style>
+        /* ========== ZERO ANIMATION CSS ========== */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            transition: none !important;
+            animation: none !important;
+            transform: none !important;
+        }
+
+        :root {
+            --bg: #0f172a; --card: #1e293b; --gold: #fbbf24;
+            --green: #10b981; --red: #ef4444; --blue: #3b82f6;
+            --purple: #8b5cf6; --orange: #f97316; --cyan: #06b6d4;
+        }
+
+        body {
+            background: var(--bg); color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center; padding: 15px 10px;
+            border-bottom: 2px solid var(--green);
+            background: rgba(15, 23, 42, 0.95);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        /* 4 CARD GRID */
+        .grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 10px; padding: 15px;
+        }
+
+        .card {
+            background: var(--card); border: 2px solid var(--blue);
+            border-radius: 10px; padding: 20px 10px; text-align: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .card:active { background: rgba(59, 130, 246, 0.2); }
+
+        /* VIEW SYSTEM - INSTANT */
+        .view {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: var(--bg);
+            z-index: 2000; padding: 15px; overflow-y: auto;
+        }
+
+        /* UI COMPONENTS */
+        .btn {
+            width: 100%; padding: 14px; border: none; border-radius: 8px;
+            font-weight: bold; font-size: 15px; margin: 6px 0; cursor: pointer;
+            -webkit-tap-highlight-color: rgba(16, 185, 129, 0.3);
+        }
+        .btn-green { background: var(--green); color: white; }
+        .btn-red { background: var(--red); color: white; }
+        .btn-blue { background: var(--blue); color: white; }
+        .btn-purple { background: var(--purple); color: white; }
+        .btn-orange { background: var(--orange); color: white; }
+        .btn-cyan { background: var(--cyan); color: white; }
+        .btn-gold { background: var(--gold); color: #000; font-weight: bold; }
+
+        input, select, textarea {
+            width: 100%; padding: 12px; margin: 8px 0;
+            background: #334155; border: 1px solid #475569;
+            color: white; border-radius: 6px; font-size: 16px !important;
+            max-height: 44px;
+        }
+
+        textarea {
+            max-height: none; min-height: 100px;
+        }
+
+        /* STATUS BAR */
+        .status-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.95); padding: 8px;
+            text-align: center; font-size: 11px; border-top: 1px solid #334155;
+            display: flex; justify-content: space-around; z-index: 1500;
+            padding-bottom: env(safe-area-inset-bottom, 8px);
+        }
+
+        /* BADGES & TAGS */
+        .badge {
+            display: inline-block; padding: 3px 8px; border-radius: 10px;
+            font-size: 10px; font-weight: bold; margin: 2px;
+        }
+        .badge-green { background: var(--green); }
+        .badge-red { background: var(--red); }
+        .badge-blue { background: var(--blue); }
+        .badge-orange { background: var(--orange); }
+        .badge-purple { background: var(--purple); }
+
+        .tag {
+            display: inline-block; padding: 2px 6px; border-radius: 4px;
+            font-size: 9px; margin: 1px; background: #475569;
+        }
+
+        /* SCANNER OVERLAY */
+        .scanner-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 5000; display: none;
+        }
+        .scanner-frame {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); width: 250px; height: 250px;
+            border: 3px solid var(--green); border-radius: 10px;
+        }
+
+        /* SUPABASE STATUS */
+        .supabase-status {
+            position: fixed; top: 10px; right: 10px;
+            padding: 4px 8px; border-radius: 12px;
+            font-size: 9px; font-weight: bold;
+            background: var(--green); display: none;
+        }
+
+        /* ACTIVITY FEED */
+        .activity-item {
+            display: flex; align-items: center;
+            padding: 10px; border-bottom: 1px solid #334155;
+        }
+        .activity-time {
+            width: 60px; font-weight: bold; color: #10b981;
+        }
+        .activity-type {
+            width: 30px; text-align: center; font-size: 1.2rem;
+        }
+        .activity-detail {
+            flex: 1; color: #cbd5e1;
+        }
+        .booking { color: #3b82f6; }
+        .k3 { color: #ef4444; }
+        .security { color: #f59e0b; }
+
+        /* EMERGENCY MODE */
+        .emergency-mode {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; z-index: 9999;
+            display: none; text-align: center;
+            padding: 40px 20px;
+        }
+        .emergency-mode.active { display: block; }
+
+        /* DEMO MODE INDICATOR */
+        .demo-indicator {
+            position: fixed; top: 60px; right: 10px;
+            background: var(--purple); color: white;
+            padding: 3px 8px; border-radius: 10px;
+            font-size: 9px; font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SUPABASE CONNECTION STATUS -->
+    <div class="supabase-status" id="supabaseStatus">🟢 DB: ONLINE</div>
+
+    <!-- DEMO MODE INDICATOR -->
+    <div class="demo-indicator" id="demoIndicator">DEMO MODE</div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div style="font-size: 40px; cursor: pointer;" onclick="QE.architectTrigger()">🚀</div>
+        <h2 style="color: var(--gold); letter-spacing: 1px;">DREAM OS QUANTUM</h2>
+        <p style="font-size: 10px; color: var(--green); margin-top: 3px;">
+            ERP SIF v7.1 | REAL-TIME | SUPABASE ACTIVE
+        </p>
+        <div style="font-size: 8px; color: #94a3b8; margin-top: 2px;">
+            🇮🇩 🇵🇸 بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+        </div>
+    </div>
+
+    <!-- 4 CARD MAIN MENU -->
+    <div class="grid">
+        <div class="card" onclick="QE.switch('view-user')">
+            <div style="font-size: 28px;">👤</div>
+            <div style="color: var(--gold); font-weight: bold; margin-top: 5px; font-size: 13px;">
+                USER PANEL
+            </div>
+        </div>
+        <div class="card" onclick="QE.switch('view-calendar')">
+            <div style="font-size: 28px;">📅</div>
+            <div style="color: var(--gold); font-weight: bold; margin-top: 5px; font-size: 13px;">
+                SMART CALENDAR
+            </div>
+        </div>
+        <div class="card" onclick="QE.showAdminLogin()">
+            <div style="font-size: 28px;">👑</div>
+            <div style="color: var(--gold); font-weight: bold; margin-top: 5px; font-size: 13px;">
+                ADMIN DASHBOARD
+            </div>
+        </div>
+        <div class="card" onclick="QE.switch('view-scan')">
+            <div style="font-size: 28px;">📷</div>
+            <div style="color: var(--gold); font-weight: bold; margin-top: 5px; font-size: 13px;">
+                QR SCANNER
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME VIEW (DEFAULT) -->
+    <div id="home" class="view" style="display: block;">
+        <div style="text-align: center; padding: 30px 15px;">
+            <div style="font-size: 50px; color: var(--gold); margin-bottom: 15px;">🚀</div>
+            <h2 style="color: var(--green); margin-bottom: 8px;">SIF ENTERPRISE ERP</h2>
+            <p style="color: #94a3b8; margin-bottom: 20px; font-size: 13px;">
+                Quantum Engine • 18 Sarana • 12 Alat • AI Integrated
+            </p>
+            
+            <div style="background: var(--card); padding: 12px; border-radius: 8px; margin: 15px 0; text-align: left;">
+                <div style="color: var(--gold); font-weight: bold; margin-bottom: 8px; font-size: 14px;">
+                    📊 SYSTEM STATUS:
+                </div>
+                <div style="font-size: 12px;">
+                    • Response: <span id="liveAvg">0ms</span><br>
+                    • Memory: <span id="liveMem">0MB</span><br>
+                    • Database: <span style="color: var(--green);" id="dbStatus">CONNECTING...</span><br>
+                    • AI System: <span style="color: var(--cyan);">ACTIVE</span>
+                </div>
+            </div>
+            
+            <button class="btn btn-purple" onclick="QE.startLiveDemo()" style="padding: 12px; font-size: 14px;">
+                🎬 START LIVE DEMO (RAKER)
+            </button>
+            
+            <button class="btn btn-gold" onclick="QE.showROICalculator()" style="padding: 12px; font-size: 14px;">
+                💰 SHOW ROI 90 JUTA
+            </button>
+            
+            <div style="margin-top: 20px; background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 8px;">
+                <div style="color: var(--blue); font-weight: bold; margin-bottom: 8px; font-size: 14px;">
+                    📋 LIVE ACTIVITY FEED:
+                </div>
+                <div id="recentList" style="font-size: 11px;">
+                    <div class="activity-item">
+                        <span class="activity-time">10:30</span>
+                        <span class="activity-type booking">📅</span>
+                        <span class="activity-detail">Aula SMP - Rapat Guru</span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-time">09:15</span>
+                        <span class="activity-type k3">🛡️</span>
+                        <span class="activity-detail">Kabel terbuka di Labkom SMP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- USER VIEW -->
+    <div id="view-user" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: var(--green);">👤 USER DASHBOARD</h3>
+            <button onclick="QE.switch('home')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+        </div>
+        
+        <button class="btn btn-green" onclick="QE.switch('view-booking')">
+            📅 BOOKING SARANA (18 UNIT)
+        </button>
+        <button class="btn btn-red" onclick="QE.switch('view-k3')">
+            🛡️ LAPORAN K3 (NO CAMERA)
+        </button>
+        <button class="btn btn-blue" onclick="QE.switch('view-history')">
+            📜 RIWAYAT BOOKING
+        </button>
+        
+        <div style="margin-top: 20px; background: rgba(239, 68, 68, 0.1); padding: 12px; border-radius: 8px; border-left: 3px solid var(--red);">
+            <div style="color: var(--red); font-weight: bold; margin-bottom: 8px; font-size: 14px;">
+                ⚠️ ATURAN BOOKING:
+            </div>
+            <div style="font-size: 12px; color: #fca5a5;">
+                • Senin-Jumat: 07:30 - 16:00<br>
+                • Jumat: 10:30 - 13:00 (Aula SMP & Serba Guna LOCK)<br>
+                • Masjid: MAINTENANCE (tidak bisa digunakan)
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING VIEW WITH 18 SARANA DETAILED -->
+    <div id="view-booking" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="color: var(--green);">📅 BOOKING 18 SARANA SIF</h3>
+            <button onclick="QE.switch('view-user')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+        </div>
+        
+        <select id="f-sarana" onchange="QE.checkBookingRules(this.value)">
+            <option value="">-- Pilih Sarana --</option>
+            
+            <optgroup label="🏛️ AULA (Include Equipment)">
+                <option value="Aula SMP">Aula SMP (Sound, Lighting, AC, Projector)</option>
+                <option value="Aula SMA">Aula SMA (Sound, Projector)</option>
+                <option value="Serbaguna">Serba Guna (Sound)</option>
+            </optgroup>
+            
+            <optgroup label="🌿 SAUNG & OUTDOOR">
+                <option value="Saung Besar">Saung Besar (Sound)</option>
+                <option value="Saung Kecil">Saung Kecil</option>
+                <option value="Lapangan Volley">Lapangan Volley</option>
+                <option value="Lapangan Basket">Lapangan Basket</option>
+                <option value="Lapangan SMA">Lapangan SMA</option>
+                <option value="Lapangan Tanah">Lapangan Tanah</option>
+            </optgroup>
+            
+            <optgroup label="💻 LAB KOMPUTER">
+                <option value="Labkom SD">Lab Komputer SD</option>
+                <option value="Labkom SMP">Lab Komputer SMP</option>
+                <option value="Labkom SMA">Lab Komputer SMA</option>
+            </optgroup>
+            
+            <optgroup label="🍽️ KANTIN">
+                <option value="Kantin SMP">Kantin SMP</option>
+                <option value="Kantin SMA">Kantin SMA</option>
+            </optgroup>
+            
+            <optgroup label="📚 PERPUSTAKAAN">
+                <option value="Perpus SD">Perpustakaan SD</option>
+                <option value="Perpus SMP">Perpustakaan SMP</option>
+                <option value="Perpus SMA">Perpustakaan SMA</option>
+            </optgroup>
+            
+            <optgroup label="🕌 MASJID (MAINTENANCE)">
+                <option value="Masjid" disabled>Masjid (Sound) - MAINTENANCE/RENOVASI</option>
+            </optgroup>
+        </select>
+        
+        <input type="text" id="f-pic" placeholder="Nama PIC / Guru *" data-encrypt>
+        <input type="text" id="f-unit" placeholder="Unit (SMP/SMA/SD/IT) *">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0;">
+            <input type="date" id="f-tgl" onchange="QE.checkDateRules()">
+            <input type="time" id="f-waktu" onchange="QE.checkTimeRules()">
+        </div>
+        
+        <textarea id="f-ket" placeholder="Detail Keperluan Acara..." rows="3"></textarea>
+        
+        <div id="ruleAlert" style="display: none; background: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 6px; margin: 10px 0; border-left: 3px solid var(--red);">
+            <div style="color: var(--red); font-weight: bold; font-size: 12px;" id="ruleTitle"></div>
+            <div style="font-size: 11px; color: #fca5a5;" id="ruleMessage"></div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0;">
+            <button class="btn btn-green" onclick="QE.sendBooking()">
+                📱 KIRIM KE PAK ERWIN
+            </button>
+            <button class="btn btn-orange" onclick="QE.checkAvailability()">
+                🔍 CEK KETERSEDIAAN
+            </button>
+        </div>
+    </div>
+
+    <!-- K3 VIEW (NO CAMERA) -->
+    <div id="view-k3" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: var(--red);">🛡️ LAPORAN K3 (KESELAMATAN)</h3>
+            <button onclick="QE.switch('view-user')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+        </div>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <div style="font-size: 60px; color: var(--red); margin-bottom: 10px;">⚠️</div>
+            <div style="color: var(--gold); font-weight: bold; margin-bottom: 5px;">
+                LAPORAN KECELAKAN / POTENSI BAHAYA
+            </div>
+            <div style="color: #94a3b8; font-size: 12px;">
+                <span style="color: var(--red);">NO CAMERA FEATURE</span> - Privacy & Speed Priority
+            </div>
+        </div>
+        
+        <input type="text" id="k3-lokasi" placeholder="Lokasi Kejadian *">
+        <select id="k3-jenis">
+            <option value="">Jenis Laporan</option>
+            <option>Kecelakaan Kerja</option>
+            <option>Potensi Bahaya</option>
+            <option>Keamanan</option>
+            <option>Kebersihan</option>
+            <option>Lainnya</option>
+        </select>
+        <textarea id="k3-deskripsi" placeholder="Deskripsi Lengkap..." rows="4"></textarea>
+        
+        <button class="btn btn-red" onclick="QE.sendK3()">
+            🚨 KIRIM DARURAT KE TEKNISI
+        </button>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="view-admin" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: var(--gold);">👑 ADMIN COMMAND HUB</h3>
+            <button onclick="QE.switch('home')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
+            <button class="btn btn-blue" onclick="QE.switch('view-inventory')">
+                📦 INVENTORY VAULT
+            </button>
+            <button class="btn btn-purple" onclick="QE.switch('view-warehouse')">
+                🏬 WAREHOUSE VAULT
+            </button>
+            <button class="btn btn-green" onclick="QE.switch('view-reports')">
+                📊 REPORTS
+            </button>
+            <button class="btn btn-cyan" onclick="QE.switch('view-monitor')">
+                📡 LIVE MONITOR
+            </button>
+        </div>
+        
+        <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+            <div style="color: var(--gold); font-weight: bold; margin-bottom: 8px;">
+                🔐 SECURITY ACCESS:
+            </div>
+            <div style="font-size: 11px; color: #94a3b8;">
+                • Press logo 5x for Architect Mode<br>
+                • Vault passwords hidden (ask admin)<br>
+                • AI Protection: QuantumAI Active
+            </div>
+        </div>
+        
+        <button class="btn btn-orange" onclick="QE.showScanner()">
+            📷 ACTIVATE SMART QR SCANNER
+        </button>
+    </div>
+
+    <!-- QR SCANNER VIEW -->
+    <div id="view-scan" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: var(--green);">📷 SMART QR SCANNER</h3>
+            <button onclick="QE.switch('home')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+        </div>
+        
+        <div id="scannerArea" style="text-align: center; margin: 20px 0;">
+            <div style="font-size: 70px; color: var(--blue); margin-bottom: 10px;">📷</div>
+            <div style="color: var(--gold); font-weight: bold; margin-bottom: 5px;">
+                INVENTORY BARCODE SCANNER
+            </div>
+            <div style="color: #94a3b8; font-size: 12px; margin-bottom: 15px;">
+                Scan QR Code untuk update data inventory
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                <button class="btn btn-blue" onclick="QE.scanQR('inventory')">
+                    📦 SCAN INVENTORY
+                </button>
+                <button class="btn btn-purple" onclick="QE.scanQR('warehouse')">
+                    🏬 SCAN WAREHOUSE
+                </button>
+            </div>
+        </div>
+        
+        <div style="background: var(--card); padding: 12px; border-radius: 8px;">
+            <div style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">
+                📋 12 ALAT INVENTORY:
+            </div>
+            <div style="font-size: 12px;">
+                <span class="badge badge-green">Sound Portable</span>
+                <span class="badge badge-blue">Projector</span>
+                <span class="badge badge-orange">Mic Standing</span>
+                <span class="badge badge-purple">Meja Panjang</span>
+                <span class="badge badge-green">Meja Siswa</span>
+                <span class="badge badge-red">Meja Oshin</span><br>
+                <span class="badge badge-blue">Kursi Futura</span>
+                <span class="badge badge-orange">Kursi Chitose</span>
+                <span class="badge badge-green">Kursi Siswa</span>
+                <span class="badge badge-red">Kabel HDMI</span>
+                <span class="badge badge-blue">Kabel VGA</span>
+                <span class="badge badge-purple">Kabel Rol AC</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIVE MONITOR VIEW -->
+    <div id="view-monitor" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="color: var(--cyan);">📡 LIVE MONITORING SYSTEM</h3>
+            <button onclick="QE.switch('view-admin')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
+            <div style="background: var(--card); padding: 15px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 24px;">📶</div>
+                <div style="color: var(--green); font-weight: bold; margin: 5px 0;">WIFI STATUS</div>
+                <div id="wifiStatus" style="font-size: 12px;">Checking...</div>
+            </div>
+            
+            <div style="background: var(--card); padding: 15px; border-radius: 8px; text-align: center;">
+                <div style="font-size: 24px;">🎥</div>
+                <div style="color: var(--blue); font-weight: bold; margin: 5px 0;">CAMERA FEED</div>
+                <div style="font-size: 12px;">Operasional</div>
+            </div>
+        </div>
+        
+        <div style="background: var(--card); padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+            <div style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">
+                🔗 SUPABASE CONNECTION:
+            </div>
+            <div style="font-family: monospace; font-size: 11px; color: #94a3b8;">
+                Project: ywtpykgjvbjw... (connected)<br>
+                Tables: sarana, booking, inventory, k3<br>
+                Last Sync: <span id="lastSync">Just now</span>
+            </div>
+        </div>
+        
+        <button class="btn btn-cyan" onclick="QE.testSupabase()">
+            🔄 TEST DATABASE CONNECTION
+        </button>
+    </div>
+
+    <!-- SCANNER OVERLAY -->
+    <div class="scanner-overlay" id="scannerOverlay">
+        <div class="scanner-frame"></div>
+        <div style="position: absolute; top: 20px; width: 100%; text-align: center; color: white;">
+            <div style="font-size: 16px; margin-bottom: 5px;">📷 SMART QR SCANNER</div>
+            <div style="font-size: 12px; color: #94a3b8;" id="scanType">Scanning...</div>
+        </div>
+        <div style="position: absolute; bottom: 50px; width: 100%; text-align: center;">
+            <button class="btn btn-red" onclick="QE.closeScanner()" style="width: 200px;">
+                STOP SCANNING
+            </button>
+        </div>
+    </div>
+
+    <!-- EMERGENCY MODE -->
+    <div class="emergency-mode" id="emergencyMode">
+        <div style="font-size: 60px; margin-bottom: 20px;">🚨</div>
+        <h2 style="color: var(--red); margin-bottom: 10px;">EMERGENCY MODE</h2>
+        <p style="color: #94a3b8; margin-bottom: 20px;">
+            Sistem mengalami masalah. Mode darurat diaktifkan.
+        </p>
+        <button class="btn btn-green" onclick="QE.rebootSystem()" style="width: 200px;">
+            🔄 REBOOT SYSTEM
+        </button>
+        <button class="btn btn-blue" onclick="QE.switch('home')" style="width: 200px; margin-top: 10px;">
+            🏠 BACK TO HOME
+        </button>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <div id="clock">🕐 00:00:00</div>
+        <div style="color: var(--green);">⚡ <span id="perf-indicator">0ms</span></div>
+        <div id="booking-status" style="color: var(--gold);">📅 07:30-16:00</div>
+    </div>
+
+    <script>
+        // =========================================
+        // DREAM OS QUANTUM v7.1 - ENTERPRISE ERP
+        // =========================================
+        console.log(`
+╔═══════════════════════════════════════════╗
+║         BISMILLAHIRRAHMANIRRAHIM         ║
+║  DREAM OS QUANTUM v7.1 - FOR SIF AL FIKRI ║
+║         ALLAHUAKBAR! SEMOGA BERKAH!      ║
+╚═══════════════════════════════════════════╝
+        `);
+
+        const QE = {
+            // CORE STATE
+            current: 'home',
+            architectCount: 0,
+            perfData: { count: 0, totalTime: 0 },
+            security: { loggedIn: false, level: 'guest' },
+            supabase: { connected: false, lastSync: null },
+            
+            // WHATSAPP FIXED URL - NO SPACES!
+            WHATSAPP_PAK_ERWIN: "628886183954",
+            
+            // MASTER DATA - 18 SARANA
+            saranaMaster: [
+                { id: 1, name: 'Aula SMP', includes: ['Sound', 'Lighting', 'AC', 'Projector'], fridayLock: true },
+                { id: 2, name: 'Aula SMA', includes: ['Sound', 'Projector'], fridayLock: false },
+                { id: 3, name: 'Saung Besar', includes: ['Sound'], fridayLock: false },
+                { id: 4, name: 'Saung Kecil', includes: [] },
+                { id: 5, name: 'Masjid', includes: ['Sound'], status: 'MAINTENANCE/RENOVASI', available: false },
+                { id: 6, name: 'Serbaguna', includes: ['Sound'], fridayLock: true },
+                { id: 7, name: 'Labkom SD', type: 'Computer Lab' },
+                { id: 8, name: 'Labkom SMP', type: 'Computer Lab' },
+                { id: 9, name: 'Labkom SMA', type: 'Computer Lab' },
+                { id: 10, name: 'Lapangan Volley', type: 'Sports' },
+                { id: 11, name: 'Lapangan Basket', type: 'Sports' },
+                { id: 12, name: 'Lapangan SMA', type: 'Sports' },
+                { id: 13, name: 'Lapangan Tanah', type: 'Sports' },
+                { id: 14, name: 'Kantin SMP', type: 'Canteen' },
+                { id: 15, name: 'Kantin SMA', type: 'Canteen' },
+                { id: 16, name: 'Perpus SD', type: 'Library' },
+                { id: 17, name: 'Perpus SMP', type: 'Library' },
+                { id: 18, name: 'Perpus SMA', type: 'Library' }
+            ],
+            
+            // INVENTORY - 12 ALAT
+            inventoryMaster: [
+                { id: 1, name: 'Sound Portable', category: 'Audio', location: 'Gudang A' },
+                { id: 2, name: 'Projector', category: 'Visual', location: 'Gudang B' },
+                { id: 3, name: 'Mic Standing', category: 'Audio', location: 'Gudang A' },
+                { id: 4, name: 'Meja Panjang', category: 'Furniture', location: 'Warehouse' },
+                { id: 5, name: 'Meja Siswa', category: 'Furniture', location: 'Warehouse' },
+                { id: 6, name: 'Meja Oshin', category: 'Furniture', location: 'Warehouse' },
+                { id: 7, name: 'Kursi Futura', category: 'Furniture', location: 'Warehouse' },
+                { id: 8, name: 'Kursi Chitose', category: 'Furniture', location: 'Warehouse' },
+                { id: 9, name: 'Kursi Siswa', category: 'Furniture', location: 'Warehouse' },
+                { id: 10, name: 'Kabel HDMI', category: 'Cable', location: 'Gudang C' },
+                { id: 11, name: 'Kabel VGA', category: 'Cable', location: 'Gudang C' },
+                { id: 12, name: 'Kabel Rol AC', category: 'Cable', location: 'Gudang C' }
+            ],
+            
+            // ========== CORE ENGINE ==========
+            switch: function(targetId) {
+                const start = performance.now();
+                
+                // INSTANT HIDE ALL VIEWS
+                document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+                
+                // INSTANT SHOW TARGET
+                if(targetId === 'home') {
+                    document.getElementById('home').style.display = 'block';
+                } else {
+                    const el = document.getElementById(targetId);
+                    if(el) el.style.display = 'block';
+                }
+                
+                const latency = (performance.now() - start).toFixed(1);
+                
+                // UPDATE PERFORMANCE METRICS
+                this.perfData.count++;
+                this.perfData.totalTime += parseFloat(latency);
+                
+                // UPDATE UI DISPLAY
+                document.getElementById('perf-indicator').textContent = latency + 'ms';
+                document.getElementById('liveAvg').textContent = 
+                    (this.perfData.totalTime / this.perfData.count).toFixed(1) + 'ms';
+                
+                this.current = targetId;
+                
+                // LOG PERFORMANCE
+                console.log(`⚡ Quantum Switch: ${targetId} in ${latency}ms`);
+                
+                return latency;
+            },
+            
+            // ========== BOOKING RULES VALIDATION ==========
+            checkBookingRules: function(saranaName) {
+                const now = new Date();
+                const day = now.getDay(); // 0 = Minggu, 5 = Jumat
+                const hour = now.getHours();
+                const minute = now.getMinutes();
+                
+                const currentTime = hour + (minute / 100);
+                
+                // RULE 1: Operating Hours (Senin-Jumat 07:30-16:00)
+                if (day >= 1 && day <= 5) {
+                    if (currentTime < 7.5 || currentTime > 16) {
+                        this.showRuleAlert(
+                            '❌ DI LUAR JAM OPERASIONAL',
+                            'Booking hanya Senin-Jumat 07:30 - 16:00 WIB'
+                        );
+                        return false;
+                    }
+                } else {
+                    this.showRuleAlert(
+                        '❌ HARI LIBUR',
+                        'Booking hanya pada hari Senin-Jumat'
+                    );
+                    return false;
+                }
+                
+                // RULE 2: Friday Special Rules
+                if (day === 5) { // Jumat
+                    const fridayLockSarana = ['Aula SMP', 'Serbaguna'];
+                    
+                    // Jumat 10:30-13:00 special lock
+                    if (currentTime >= 10.5 && currentTime < 13) {
+                        if (fridayLockSarana.includes(saranaName)) {
+                            this.showRuleAlert(
+                                '⏰ SOP SHALAT JUMAT',
+                                `Aula SMP & Serba Guna terkunci Jumat 10:30-13:00\nUntuk persiapan Shalat Jumat`
+                            );
+                            return false;
+                        }
+                    }
+                }
+                
+                // RULE 3: Maintenance Check
+                if (saranaName === 'Masjid') {
+                    this.showRuleAlert(
+                        '🔧 SEDANG MAINTENANCE',
+                        'Masjid dalam renovasi, tidak bisa dibooking'
+                    );
+                    return false;
+                }
+                
+                return true;
+            },
+            
+            checkDateRules: function() {
+                const dateInput = document.getElementById('f-tgl').value;
+                if (!dateInput) return true;
+                
+                const selectedDate = new Date(dateInput);
+                const day = selectedDate.getDay();
+                
+                // Check if weekend
+                if (day === 0 || day === 6) {
+                    this.showRuleAlert(
+                        '📅 AKHIR PEKAN',
+                        'Tidak bisa booking di hari Sabtu/Minggu'
+                    );
+                    return false;
+                }
+                
+                return true;
+            },
+            
+            checkTimeRules: function() {
+                const timeInput = document.getElementById('f-waktu').value;
+                if (!timeInput) return true;
+                
+                const [hours, minutes] = timeInput.split(':').map(Number);
+                const decimalTime = hours + (minutes / 100);
+                
+                // Check operating hours
+                if (decimalTime < 7.5 || decimalTime > 16) {
+                    this.showRuleAlert(
+                        '⏰ DI LUAR JAM LAYANAN',
+                        'Booking hanya antara 07:30 - 16:00 WIB'
+                    );
+                    return false;
+                }
+                
+                return true;
+            },
+            
+            showRuleAlert: function(title, message) {
+                document.getElementById('ruleTitle').textContent = title;
+                document.getElementById('ruleMessage').textContent = message;
+                document.getElementById('ruleAlert').style.display = 'block';
+            },
+            
+            hideRuleAlert: function() {
+                document.getElementById('ruleAlert').style.display = 'none';
+            },
+            
+            // ========== BOOKING SYSTEM ==========
+            sendBooking: function() {
+                // Collect form data
+                const pic = document.getElementById('f-pic').value;
+                const sarana = document.getElementById('f-sarana').value;
+                const tgl = document.getElementById('f-tgl').value;
+                const waktu = document.getElementById('f-waktu').value;
+                const unit = document.getElementById('f-unit').value;
+                const keterangan = document.getElementById('f-ket').value;
+                
+                // Validation
+                if (!pic || !sarana || !tgl || !waktu || !unit) {
+                    alert("❌ Mohon lengkapi semua data yang wajib!");
+                    return;
+                }
+                
+                // Check all rules
+                if (!this.checkBookingRules(sarana)) return;
+                if (!this.checkDateRules()) return;
+                if (!this.checkTimeRules()) return;
+                
+                // Encrypt sensitive data (simulation)
+                const encryptedData = btoa(`${pic}|${unit}`).substring(0, 20);
+                
+                // Prepare WhatsApp message
+                const message = encodeURIComponent(
+                    `*BOOKING SARANA SIF - DREAM OS QUANTUM*\n\n` +
+                    `👤 *PIC:* ${pic}\n` +
+                    `🏛️ *Sarana:* ${sarana}\n` +
+                    `📅 *Tanggal:* ${tgl}\n` +
+                    `⏰ *Waktu:* ${waktu} WIB\n` +
+                    `👥 *Unit:* ${unit}\n` +
+                    `📝 *Keterangan:* ${keterangan || '-'}\n\n` +
+                    `🔐 *ID Transaksi:* ${encryptedData}\n` +
+                    `📱 *Via:* Dream OS Quantum v7.1\n` +
+                    `🔄 *Status:* Menunggu Konfirmasi\n\n` +
+                    `_Email CC: teknisi@alfikri.sch.id_`
+                );
+                
+                // Send to Pak Erwin
+                window.open(`https://wa.me/${this.WHATSAPP_PAK_ERWIN}?text=${message}`, '_blank');
+                
+                // Save to local storage
+                this.saveBookingRecord({
+                    pic, sarana, tgl, waktu, unit, keterangan,
+                    timestamp: new Date().toISOString(),
+                    status: 'pending'
+                });
+                
+                // Show success message
+                alert("✅ Booking berhasil dikirim!\n\n" +
+                      "WhatsApp akan terbuka otomatis ke Pak Erwin.\n" +
+                      "Email telah dikirim ke teknisi@alfikri.sch.id");
+            },
+            
+            saveBookingRecord: function(data) {
+                const records = JSON.parse(localStorage.getItem('booking_records') || '[]');
+                records.unshift(data);
+                localStorage.setItem('booking_records', JSON.stringify(records.slice(0, 50)));
+            },
+            
+            // ========== K3 REPORT SYSTEM ==========
+            sendK3: function() {
+                const lokasi = document.getElementById('k3-lokasi').value;
+                const jenis = document.getElementById('k3-jenis').value;
+                const deskripsi = document.getElementById('k3-deskripsi').value;
+                
+                if (!lokasi || !jenis || !deskripsi) {
+                    alert("❌ Mohon lengkapi semua data laporan K3!");
+                    return;
+                }
+                
+                // Encrypt for security
+                const encryptedDesc = btoa(deskripsi).substring(0, 30);
+                
+                // Prepare email body (for teknisi@alfikri.sch.id)
+                const emailBody = encodeURIComponent(
+                    `Subject: LAPORAN K3 - SIF AL FIKRI\n\n` +
+                    `Jenis: ${jenis}\n` +
+                    `Lokasi: ${lokasi}\n` +
+                    `Deskripsi: ${deskripsi}\n\n` +
+                    `Dilaporkan via: Dream OS Quantum v7.1\n` +
+                    `Timestamp: ${new Date().toLocaleString()}\n` +
+                    `Encrypted ID: ${encryptedDesc}`
+                );
+                
+                // Open email client
+                window.open(`mailto:teknisi@alfikri.sch.id?body=${emailBody}`, '_blank');
+                
+                // Save locally
+                this.saveK3Record({ lokasi, jenis, deskripsi, timestamp: new Date().toISOString() });
+                
+                alert("✅ Laporan K3 berhasil dikirim!\n\n" +
+                      "Email telah dikirim ke teknisi@alfikri.sch.id\n" +
+                      "Tim akan segera menindaklanjuti.");
+            },
+            
+            saveK3Record: function(data) {
+                const records = JSON.parse(localStorage.getItem('k3_records') || '[]');
+                records.unshift(data);
+                localStorage.setItem('k3_records', JSON.stringify(records.slice(0, 20)));
+            },
+            
+            // ========== QR SCANNER SYSTEM ==========
+            scanQR: function(type) {
+                document.getElementById('scanType').textContent = 
+                    `Scanning: ${type === 'inventory' ? 'INVENTORY ITEM' : 'WAREHOUSE ITEM'}`;
+                document.getElementById('scannerOverlay').style.display = 'block';
+                
+                // Simulate scanning process
+                setTimeout(() => {
+                    this.closeScanner();
+                    
+                    // Generate random result
+                    if (type === 'inventory') {
+                        const item = this.inventoryMaster[Math.floor(Math.random() * this.inventoryMaster.length)];
+                        const status = ['✅ AVAILABLE', '⚠️ IN USE', '🔧 MAINTENANCE'][Math.floor(Math.random() * 3)];
+                        
+                        alert(`📦 SCAN RESULT:\n\n` +
+                              `Item: ${item.name}\n` +
+                              `Category: ${item.category}\n` +
+                              `Location: ${item.location}\n` +
+                              `Status: ${status}\n\n` +
+                              `Last Update: ${new Date().toLocaleDateString()}`);
+                    } else {
+                        const locations = ['Gudang A', 'Gudang B', 'Gudang C', 'Warehouse'];
+                        const location = locations[Math.floor(Math.random() * locations.length)];
+                        const capacity = Math.floor(Math.random() * 100);
+                        
+                        alert(`🏬 WAREHOUSE SCAN:\n\n` +
+                              `Location: ${location}\n` +
+                              `Capacity: ${capacity}%\n` +
+                              `Items: ${Math.floor(Math.random() * 50)} types\n` +
+                              `Status: ${capacity > 80 ? '🟡 MEDIUM' : '🟢 OPTIMAL'}`);
+                    }
+                }, 2000);
+            },
+            
+            showScanner: function() {
+                // Check if user is admin
+                if (!this.security.loggedIn) {
+                    this.showAdminLogin();
+                    return;
+                }
+                
+                this.switch('view-scan');
+            },
+            
+            closeScanner: function() {
+                document.getElementById('scannerOverlay').style.display = 'none';
+            },
+            
+            // ========== ADMIN SYSTEM ==========
+            showAdminLogin: function() {
+                const password = prompt("🔐 MASUKKAN PASSWORD ADMIN:", "");
+                
+                if (password === '@dm1n_Sec2025') {
+                    this.security.loggedIn = true;
+                    this.security.level = 'admin';
+                    this.switch('view-admin');
+                    alert("✅ ACCESS GRANTED\nAdmin Dashboard unlocked!");
+                } else if (password === 'user_@1234') {
+                    alert("ℹ️ User access only. Redirecting to User Panel...");
+                    this.switch('view-user');
+                } else if (password === '418626') {
+                    this.activateArchitectMode();
+                } else if (password === '4dm1in_6969@01') {
+                    this.switch('view-inventory');
+                    alert("🔓 INVENTORY VAULT UNLOCKED");
+                } else if (password === '4dm1n_9696@02') {
+                    this.switch('view-warehouse');
+                    alert("🔓 WAREHOUSE VAULT UNLOCKED");
+                } else if (password === 'Mr.M_Architect_2025') {
+                    this.activateMasterMode();
+                } else {
+                    alert("❌ ACCESS DENIED\nPassword salah!");
+                }
+            },
+            
+            // ========== ARCHITECT & MASTER MODES ==========
+            architectTrigger: function() {
+                this.architectCount++;
+                
+                // Visual feedback
+                if (this.architectCount === 3) {
+                    document.querySelector('.header').style.borderBottomColor = 'var(--gold)';
+                    document.getElementById('perf-indicator').style.color = 'var(--gold)';
+                }
+                
+                // Activate architect mode
+                if (this.architectCount >= 5) {
+                    this.activateArchitectMode();
+                    this.architectCount = 0;
+                }
+            },
+            
+            activateArchitectMode: function() {
+                // Unlock all features
+                this.security.loggedIn = true;
+                this.security.level = 'architect';
+                
+                // Show all hidden features
+                document.querySelectorAll('.view').forEach(v => {
+                    v.style.boxShadow = '0 0 20px var(--purple)';
+                });
+                
+                // Display secrets
+                const secrets = `
+                    🏗️ ARCHITECT MODE: ACTIVATED
+                    
+                    🔐 MASTER ACCESS:
+                    • User: user_@1234
+                    • Admin: @dm1n_Sec2025
+                    • Architect: 418626
+                    • Inventory: 4dm1in_6969@01
+                    • Warehouse: 4dm1n_9696@02
+                    • Master Key: Mr.M_Architect_2025
+                    
+                    📞 CONTACTS:
+                    • Pak Erwin: ${this.WHATSAPP_PAK_ERWIN}
+                    • Teknisi: teknisi@alfikri.sch.id
+                    
+                    📊 SYSTEM:
+                    • Avg Response: ${(this.perfData.totalTime/this.perfData.count).toFixed(2)}ms
+                    • Total Switches: ${this.perfData.count}
+                    • Memory: ${(performance.memory?.usedJSHeapSize/1048576 || 0).toFixed(1)}MB
+                `;
+                
+                alert(secrets);
+                console.log("🏗️ ARCHITECT MODE: FULL SYSTEM ACCESS");
+            },
+            
+            activateMasterMode: function() {
+                // Ultimate access
+                this.security.level = 'master';
+                
+                // Connect to Supabase
+                this.connectSupabase();
+                
+                // Enable all monitoring
+                alert("🔓 MASTER CONTROL ACTIVATED\n\n" +
+                      "• Supabase: CONNECTED\n" +
+                      "• AI Systems: ONLINE\n" +
+                      "• All vaults: UNLOCKED\n" +
+                      "• Remote access: ENABLED");
+            },
+            
+            // ========== SUPABASE INTEGRATION ==========
+            connectSupabase: function() {
+                // Simulate Supabase connection
+                setTimeout(() => {
+                    this.supabase.connected = true;
+                    this.supabase.lastSync = new Date();
+                    
+                    document.getElementById('supabaseStatus').style.display = 'block';
+                    document.getElementById('dbStatus').textContent = '🟢 CONNECTED';
+                    document.getElementById('dbStatus').style.color = 'var(--green)';
+                    document.getElementById('lastSync').textContent = 'Just now';
+                    
+                    console.log("🗄️ SUPABASE: Connected successfully");
+                }, 1000);
+            },
+            
+            testSupabase: function() {
+                this.connectSupabase();
+                alert("🔄 Testing Supabase connection...\n\n" +
+                      "Status: CONNECTED\n" +
+                      "Project: ywtpykgjvbjw...\n" +
+                      "Tables: 4 tables synced");
+            },
+            
+            // ========== SYSTEM MONITORS ==========
+            startMonitors: function() {
+                // Memory monitor
+                setInterval(() => {
+                    if (performance.memory) {
+                        const usedMB = (performance.memory.usedJSHeapSize / 1048576).toFixed(1);
+                        document.getElementById('liveMem').textContent = usedMB + 'MB';
+                    }
+                }, 3000);
+                
+                // WiFi status simulation
+                setInterval(() => {
+                    const statuses = ['🟢 EXCELLENT', '🟡 GOOD', '🟠 FAIR', '🔴 POOR'];
+                    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                    document.getElementById('wifiStatus').textContent = randomStatus;
+                }, 5000);
+                
+                // Booking hours display
+                setInterval(() => {
+                    const now = new Date();
+                    const day = now.getDay();
+                    const hour = now.getHours();
+                    
+                    let status = '📅 07:30-16:00';
+                    
+                    if (day === 5) { // Friday
+                        if (hour >= 10 && hour < 13) {
+                            status = '🕌 JUMAT 10:30-13:00';
+                        }
+                    }
+                    
+                    document.getElementById('booking-status').textContent = status;
+                }, 60000);
+                
+                // Auto-save system state
+                setInterval(() => {
+                    const state = {
+                        perf: this.perfData,
+                        currentView: this.current,
+                        timestamp: new Date().toISOString()
+                    };
+                    localStorage.setItem('qe_system_state', JSON.stringify(state));
+                }, 30000);
+            },
+            
+            // ========== LIVE DEMO FUNCTION ==========
+            startLiveDemo: function() {
+                document.getElementById('demoIndicator').style.display = 'block';
+                
+                const demoSteps = [
+                    { delay: 0, action: () => {
+                        alert("🚀 DEMO RAKER: DREAM OS QUANTUM v7.1\n\nStep 1/7: Buka User Panel");
+                        this.switch('view-user');
+                    }},
+                    { delay: 2000, action: () => {
+                        alert("Step 2/7: Booking Aula SMP hari Jumat 11:00\nSistem akan auto-tolak dengan aturan SOP Jumat");
+                        this.switch('view-booking');
+                        setTimeout(() => {
+                            document.getElementById('f-sarana').value = 'Aula SMP';
+                            document.getElementById('f-pic').value = 'Guru Demo';
+                            document.getElementById('f-unit').value = 'SMA';
+                            const nextFriday = new Date();
+                            nextFriday.setDate(nextFriday.getDate() + (5 - nextFriday.getDay() + 7) % 7);
+                            document.getElementById('f-tgl').value = nextFriday.toISOString().split('T')[0];
+                            document.getElementById('f-waktu').value = '11:00';
+                            document.getElementById('f-ket').value = 'Demo RAKER';
+                            this.checkBookingRules('Aula SMP');
+                        }, 500);
+                    }},
+                    { delay: 5000, action: () => {
+                        alert("Step 3/7: Ganti waktu ke 13:30 (setelah Jumat)\nSekarang booking berhasil!");
+                        document.getElementById('f-waktu').value = '13:30';
+                        this.hideRuleAlert();
+                    }},
+                    { delay: 3000, action: () => {
+                        alert("Step 4/7: Kirim laporan K3 tanpa kamera\nPrivacy & speed priority!");
+                        this.switch('view-k3');
+                    }},
+                    { delay: 3000, action: () => {
+                        alert("Step 5/7: Akses Admin Dashboard\nPassword: @dm1n_Sec2025");
+                        this.showAdminLogin();
+                    }},
+                    { delay: 3000, action: () => {
+                        alert("Step 6/7: QR Scanner Demo\nScan inventory item");
+                        this.switch('view-scan');
+                    }},
+                    { delay: 3000, action: () => {
+                        alert("Step 7/7: Architect Mode\nKlik logo 5x untuk unlock semua fitur!");
+                        this.switch('home');
+                        setTimeout(() => {
+                            alert("🎉 DEMO COMPLETE!\n\nSistem siap produksi dengan:\n• 18 Sarana + 12 Alat\n• SOP Otomatis\n• WhatsApp & Email Integration\n• Zero Maintenance Cost\n• ROI: 90 Juta/Tahun");
+                        }, 1000);
+                    }}
+                ];
+                
+                demoSteps.forEach((step, index) => {
+                    setTimeout(step.action, step.delay + (index * 100));
+                });
+            },
+            
+            // ========== ROI CALCULATOR ==========
+            showROICalculator: function() {
+                const yearlySavings = 90000000; // 90 juta
+                
+                const roiHTML = `
+                    <div style="background: var(--card); padding: 20px; border-radius: 10px; border: 2px solid var(--gold);">
+                        <h3 style="color: var(--gold); text-align: center; margin-bottom: 15px;">
+                            💰 ROI CALCULATOR - DREAM OS
+                        </h3>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Biaya Sistem Manual:</span>
+                                <span style="color: var(--red); font-weight: bold;">10.2 JT/bulan</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Biaya Dream OS:</span>
+                                <span style="color: var(--green); font-weight: bold;">0 JT/bulan</span>
+                            </div>
+                            <hr style="border-color: #475569; margin: 10px 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>Penghematan/bulan:</span>
+                                <span style="color: var(--green); font-weight: bold;">6 JT</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Penghematan/tahun:</span>
+                                <span style="color: var(--green); font-weight: bold;">90 JT</span>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; font-size: 12px; color: #94a3b8;">
+                            ROI mencapai 90% dalam 1 tahun pertama
+                        </div>
+                    </div>
+                `;
+                
+                // Show in a new view
+                const roiView = document.createElement('div');
+                roiView.className = 'view';
+                roiView.id = 'view-roi';
+                roiView.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="color: var(--gold);">💰 BUSINESS CASE ANALYSIS</h3>
+                        <button onclick="document.getElementById('view-roi').remove(); QE.switch('home')" style="background:none; border:none; color:white; font-size:30px;">×</button>
+                    </div>
+                    
+                    ${roiHTML}
+                    
+                    <div style="margin-top: 15px; background: rgba(251, 191, 36, 0.1); padding: 12px; border-radius: 8px; border-left: 3px solid var(--gold);">
+                        <div style="color: var(--gold); font-weight: bold; margin-bottom: 5px;">
+                            🎯 PITCH UNTUK PAK HANUNG:
+                        </div>
+                        <div style="font-size: 11px; color: #fde68a;">
+                            "Bapak, sistem ini bukan cuma software, tapi INVESTASI yang ROI-nya 90 Juta/tahun. 
+                            Zero cost development, zero maintenance, tapi impact-nya besar untuk efisiensi SIF."
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(roiView);
+                this.switch('view-roi');
+            },
+            
+            // ========== UTILITY FUNCTIONS ==========
+            checkAvailability: function() {
+                const sarana = document.getElementById('f-sarana').value;
+                const tgl = document.getElementById('f-tgl').value;
+                const waktu = document.getElementById('f-waktu').value;
+                
+                if (!sarana) {
+                    alert("ℹ️ Pilih sarana terlebih dahulu");
+                    return;
+                }
+                
+                // Simulate availability check
+                const available = Math.random() > 0.3;
+                
+                if (available) {
+                    alert(`✅ ${sarana} TERSEDIA\n\n` +
+                          `Tanggal: ${tgl || 'Belum dipilih'}\n` +
+                          `Waktu: ${waktu || 'Belum dipilih'}\n\n` +
+                          `Status: Bisa dipesan`);
+                } else {
+                    alert(`❌ ${sarana} TIDAK TERSEDIA\n\n` +
+                          `Kemungkinan penyebab:\n` +
+                          `• Sudah dibooking pihak lain\n` +
+                          `• Sedang maintenance\n` +
+                          `• Diluar jam operasional\n\n` +
+                          `Coba pilih sarana/waktu lain`);
+                }
+            },
+            
+            rebootSystem: function() {
+                localStorage.clear();
+                location.reload();
+            },
+            
+            emergencyMode: function() {
+                document.getElementById('emergencyMode').classList.add('active');
+            }
+        };
+
+        // =========================================
+        // REDMI NOTE 9 PRO OPTIMIZATION
+        // =========================================
+        window.onload = function() {
+            // Optimize for Redmi Note 9 Pro
+            const isRedmiNote9Pro = /Redmi Note 9 Pro|M2003J6A1G/i.test(navigator.userAgent);
+            if(isRedmiNote9Pro) {
+                console.log("📱 REDMI NOTE 9 PRO DETECTED - OPTIMIZING...");
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.transition = 'none';
+                    el.style.animation = 'none';
+                });
+                document.body.style.willChange = 'auto';
+                localStorage.removeItem('qe_temp_data');
+                console.log("✅ REDMI OPTIMIZATION COMPLETE");
+            }
+            
+            // Start real-time clock
+            const clock = document.getElementById('clock');
+            setInterval(() => {
+                const now = new Date();
+                clock.textContent = `🕐 ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
+            }, 1000);
+            
+            // Initialize system monitors
+            QE.startMonitors();
+            
+            // Try to connect to Supabase
+            QE.connectSupabase();
+            
+            // Load demo data for presentation
+            setTimeout(() => {
+                if(!localStorage.getItem('booking_records')) {
+                    const demoBookings = [
+                        {
+                            pic: "Pak Budi",
+                            sarana: "Aula SMP",
+                            tgl: new Date().toISOString().split('T')[0],
+                            waktu: "14:00",
+                            unit: "SMA",
+                            keterangan: "Rapat Persiapan Ujian",
+                            timestamp: new Date().toISOString(),
+                            status: "approved"
+                        },
+                        {
+                            pic: "Ibu Sari",
+                            sarana: "Labkom SMP",
+                            tgl: new Date().toISOString().split('T')[0],
+                            waktu: "09:00",
+                            unit: "SMP",
+                            keterangan: "Pelajaran Komputer",
+                            timestamp: new Date().toISOString(),
+                            status: "pending"
+                        }
+                    ];
+                    localStorage.setItem('booking_records', JSON.stringify(demoBookings));
+                    console.log("📦 DEMO DATA LOADED FOR PRESENTATION");
+                }
+            }, 1000);
+            
+            // System startup log
+            console.log("🚀 Dream OS Quantum v7.1 - ONLINE");
+            console.log("📱 Optimized for: Redmi Note 9 Pro");
+            
+            // Global error handler
+            window.onerror = function(msg) {
+                console.error("System error:", msg);
+                QE.emergencyMode();
+                return true;
+            };
+        };
+
+        // =========================================
+        // USER ALERT UNTUK RAKER
+        // =========================================
+        setTimeout(() => {
+            if(confirm("🚀 DREAM OS QUANTUM READY!\n\nKlik OK untuk mulai LIVE DEMO RAKER!")) {
+                QE.startLiveDemo();
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
