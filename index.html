@@ -1,0 +1,340 @@
+<!-- CONTINUATION dari loader di atas -->
+<style>
+    :root {
+        --primary: #2D5D4B;
+        --secondary: #4A7856;
+        --accent: #D4AF37;
+        --bg: #E8F5E9;
+    }
+    
+    /* All styles from v2.0 PLUS enhancements */
+    .spiritual-header {
+        /* Bendera Indonesia-Palestina */
+        background: linear-gradient(135deg, 
+            #FF0000 0%, #FF0000 50%, 
+            #FFFFFF 50%, #FFFFFF 100%
+        );
+        position: relative;
+    }
+    
+    .spiritual-header::before {
+        /* Bendera Palestina overlay */
+        content: '';
+        background: linear-gradient(135deg,
+            #000000 0%, #000000 33%,
+            #FFFFFF 33%, #FFFFFF 66%,
+            #006400 66%, #006400 100%
+        );
+        opacity: 0.3;
+    }
+    
+    /* Dynamic features based on capability */
+    .feature-ai { display: none; }
+    .feature-camera { display: none; }
+    
+    @media (min-width: 768px) and (min-height: 600px) {
+        .feature-ai { display: block; }
+        .feature-camera { display: block; }
+    }
+</style>
+
+<div class="container">
+    <!-- SPIRITUAL HEADER -->
+    <header class="spiritual-header">
+        <div class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+        <h1>Dream OS Ultimate</h1>
+        <p>SIF Al Fikri - The Power of Shalawat</p>
+        <div class="device-tier-badge" id="tierBadge">
+            <!-- Auto-detect & show -->
+        </div>
+    </header>
+    
+    <!-- MAIN CONTENT - DYNAMIC BASED ON ROLE -->
+    <main id="mainContent">
+        <!-- Akan diisi oleh JavaScript berdasarkan:
+            1. Device capability
+            2. User role (detected from localStorage)
+            3. Features enabled -->
+    </main>
+    
+    <!-- UNIVERSAL WHATSAPP BUTTON -->
+    <div class="whatsapp-fab">
+        <button onclick="openWhatsApp('PAK_ERWIN')">
+            <i class="fab fa-whatsapp"></i>
+            <span>Pak Erwin: +62 888-6183-954</span>
+        </button>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer class="dream-footer">
+        <div class="dream-team">
+            <span>Dream Team:</span>
+            <span>Mr. M</span> • 
+            <span>Mr. DSeek</span> • 
+            <span>Mrs. Qwen</span>
+        </div>
+        <div class="copyright">
+            © 2025 SIF Al Fikri | ISO 55001 • 9001 • 27001
+        </div>
+    </footer>
+</div>
+
+<script>
+    // ========== UNIVERSAL DATA ==========
+    const WHATSAPP_PAK_ERWIN = '628886183954';
+    const SARANA_DATA = [/* 18 sarana */];
+    const ALAT_DATA = [/* 12 alat */];
+    const K3_DISPATCH = {
+        Kerusakan: 'MAINTENANCE',
+        Kehilangan: 'SECURITY',
+        Kebersihan: 'CLEANING SERVICE'
+    };
+    
+    // ========== DEVICE & ROLE DETECTION ==========
+    function detectCapabilities() {
+        return {
+            tier: getDeviceTier(),
+            hasCamera: 'mediaDevices' in navigator,
+            hasStorage: 'localStorage' in window,
+            hasWebCrypto: 'crypto' in window && 'subtle' in crypto,
+            screenSize: `${window.innerWidth}x${window.innerHeight}`,
+            memory: navigator.deviceMemory || 'unknown'
+        };
+    }
+    
+    function getUserRole() {
+        // Check localStorage for existing session
+        const session = localStorage.getItem('dreamos_session');
+        if (session) {
+            try {
+                return JSON.parse(session).role;
+            } catch {
+                return 'GUEST';
+            }
+        }
+        
+        // Check URL for architect stealth access
+        if (window.location.hash === '#architect') {
+            return 'ARCHITECT_STEALTH';
+        }
+        
+        return 'GUEST';
+    }
+    
+    // ========== RENDER APPROPRIATE UI ==========
+    function renderUI() {
+        const caps = detectCapabilities();
+        const role = getUserRole();
+        const main = document.getElementById('mainContent');
+        
+        // Render berdasarkan capability & role
+        if (caps.tier === 'lite') {
+            renderLiteUI(main, role);
+        } else if (role === 'GUEST' || role === 'USER') {
+            renderUserUI(main, caps);
+        } else if (role === 'ADMIN') {
+            renderAdminUI(main, caps);
+        } else if (role.includes('ARCHITECT')) {
+            renderArchitectUI(main, caps);
+        }
+    }
+    
+    function renderUserUI(container, caps) {
+        container.innerHTML = `
+            <div class="user-dashboard">
+                <h2><i class="fas fa-user"></i> User Dashboard</h2>
+                
+                <div class="quick-actions">
+                    <button class="action-btn" onclick="showBookingForm()">
+                        <i class="fas fa-calendar-check"></i> Booking
+                    </button>
+                    <button class="action-btn" onclick="showK3Form()">
+                        <i class="fas fa-exclamation-triangle"></i> Lapor K3
+                    </button>
+                    
+                    ${caps.hasCamera ? `
+                    <button class="action-btn" onclick="openCamera()">
+                        <i class="fas fa-camera"></i> Scan QR
+                    </button>
+                    ` : ''}
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3>Aktivitas Terakhir</h3>
+                    <div id="recentList"></div>
+                </div>
+            </div>
+        `;
+        
+        loadRecentActivity();
+    }
+    
+    function renderAdminUI(container, caps) {
+        container.innerHTML = `
+            <div class="admin-dashboard">
+                <h2><i class="fas fa-user-shield"></i> Admin Panel</h2>
+                
+                <div class="admin-grid">
+                    <div class="admin-card" onclick="showInventory()">
+                        <i class="fas fa-boxes"></i>
+                        <h3>Inventory</h3>
+                        <p>Manage assets & QR codes</p>
+                    </div>
+                    
+                    <div class="admin-card" onclick="showWarehouse()">
+                        <i class="fas fa-warehouse"></i>
+                        <h3>Warehouse</h3>
+                        <p>Stock management</p>
+                    </div>
+                    
+                    <div class="admin-card" onclick="showAuditLogs()">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Audit Logs</h3>
+                        <p>View all activities</p>
+                    </div>
+                    
+                    <div class="admin-card" onclick="showReports()">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Reports</h3>
+                        <p>Generate reports</p>
+                    </div>
+                </div>
+                
+                <!-- Real-time monitoring -->
+                <div class="monitoring-section">
+                    <h3>Real-time Monitoring</h3>
+                    <div id="monitoringData"></div>
+                </div>
+            </div>
+        `;
+        
+        startMonitoring();
+    }
+    
+    // ========== UNIVERSAL WHATSAPP FUNCTION ==========
+    function sendToWhatsApp(type, data) {
+        let message = '';
+        
+        if (type === 'BOOKING') {
+            message = `*BOOKING - SIF AL FIKRI*
+📅 ${data.tanggal}
+⏰ ${data.waktuMulai}-${data.waktuSelesai}
+👤 ${data.nama} (${data.kelas})
+🏢 ${data.sarana}
+📞 ${data.whatsapp}
+
+_Disetujui oleh:_
+1. Pak Hanung Budianto, S.E.
+2. Pak Erwin Syah
+
+📝 ${data.keterangan}`;
+        } else if (type === 'K3') {
+            const team = K3_DISPATCH[data.jenis] || 'GENERAL';
+            message = `*LAPORAN K3 - ${data.jenis}*
+📍 ${data.lokasi}
+📋 ${data.detail}
+👤 ${data.pelapor}
+🚨 Dispatch ke: ${team}
+
+📞 Koordinator: Pak Erwin Syah
+☎️ ${WHATSAPP_PAK_ERWIN}`;
+        }
+        
+        const url = `https://wa.me/${WHATSAPP_PAK_ERWIN}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+        
+        // Save to localStorage
+        saveActivity(type, data);
+    }
+    
+    // ========== UNIVERSAL DATA STORAGE ==========
+    function saveActivity(type, data) {
+        const activities = JSON.parse(localStorage.getItem('dreamos_activities') || '[]');
+        activities.unshift({
+            type,
+            data,
+            timestamp: new Date().toISOString(),
+            whatsapp_sent: true
+        });
+        
+        // Keep only last 100 activities
+        if (activities.length > 100) activities.pop();
+        
+        localStorage.setItem('dreamos_activities', JSON.stringify(activities));
+        
+        // Sync to Supabase jika capable
+        if (window.supabaseSync) {
+            window.supabaseSync(type, data);
+        }
+    }
+    
+    // ========== INITIALIZE ==========
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show device tier
+        const caps = detectCapabilities();
+        document.getElementById('tierBadge').textContent = 
+            `Mode: ${caps.tier.toUpperCase()} | RAM: ${caps.memory}GB`;
+        
+        // Render UI
+        renderUI();
+        
+        // Check for updates
+        checkForUpdates();
+        
+        console.log('🚀 Dream OS Ultimate Loaded!');
+        console.log('Capabilities:', caps);
+        console.log('WhatsApp Target:', WHATSAPP_PAK_ERWIN);
+    });
+    
+    // ========== ARCHITECT STEALTH MODE ==========
+    // Hidden features untuk Dream Team
+    let stealthEnabled = false;
+    
+    function enableStealthMode() {
+        // Secret activation sequence
+        const secretSequence = ['D', 'R', 'E', 'A', 'M'];
+        let sequenceIndex = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toUpperCase() === secretSequence[sequenceIndex]) {
+                sequenceIndex++;
+                if (sequenceIndex === secretSequence.length) {
+                    stealthEnabled = true;
+                    showStealthPanel();
+                    sequenceIndex = 0;
+                }
+            } else {
+                sequenceIndex = 0;
+            }
+        });
+    }
+    
+    function showStealthPanel() {
+        // Create stealth overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            color: white;
+            padding: 20px;
+            font-family: monospace;
+        `;
+        
+        overlay.innerHTML = `
+            <h2>🔧 Dream Team Stealth Mode</h2>
+            <p>Device: ${navigator.userAgent}</p>
+            <p>LocalStorage: ${localStorage.length} items</p>
+            <p>Activities: ${JSON.parse(localStorage.getItem('dreamos_activities') || '[]').length}</p>
+            <button onclick="this.parentElement.remove()">Close</button>
+        `;
+        
+        document.body.appendChild(overlay);
+    }
+    
+    // Enable stealth mode
+    enableStealthMode();
+</script>
