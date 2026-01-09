@@ -3,125 +3,55 @@
   "short_name": "DREAM OS",
   "description": "Quantum Bridge ERP System for SIF Al Fikri - The Power Soul of Shalawat",
   
-  /* 🎯 CRITICAL FIXES FOR GITHUB PAGES */
   "scope": "./",
   "start_url": "./index.html",
   "id": "./",
   
-  /* 🎨 DESIGN THEME */
   "theme_color": "#0a0f1e",
   "background_color": "#0a0f1e",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
   
-  /* 🌐 MULTI-LANG SUPPORT */
   "lang": "id-ID",
   "dir": "ltr",
   
-  /* 📱 ICONS OPTIMIZED */
   "icons": [
     {
-      "src": "./assets/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    /* 🎯 REQUIRED ICONS */
-    {
-      "src": "./assets/icon-192x192.png",
+      "src": "./assets/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "./assets/icon-512x512.png",
+      "src": "./assets/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
   
-  /* ⚡ QUICK FALLBACK - JIKA ICON UKURAN LAIN BELUM ADA */
-  "fallback_icons": [
-    {
-      "src": "./assets/icon-192x192.png",
-      "sizes": "any",
-      "type": "image/png"
-    }
-  ],
-  
-  /* 📸 SCREENSHOTS (OPTIONAL - JIKAN BELUM ADA, BISA HAPUS) */
-  "screenshots": [],
-  
-  /* ⚡ SHORTCUTS FOR QUICK ACTIONS */
   "shortcuts": [
     {
       "name": "Booking Sarana",
       "short_name": "Booking",
       "description": "Booking 22 sarana sekolah",
-      "url": "./index.html#booking",
-      "icons": [
-        {
-          "src": "./assets/icon-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "./index.html#booking"
     },
     {
       "name": "Tap-Tap Inventory",
       "short_name": "Inventory",
       "description": "Update status inventory dengan tap",
-      "url": "./index.html#tapTap",
-      "icons": [
-        {
-          "src": "./assets/icon-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "./index.html#tapTap"
     },
     {
       "name": "Admin Dashboard",
       "short_name": "Admin",
       "description": "Real-time monitoring system",
-      "url": "./admin-dashboard.html",
-      "icons": [
-        {
-          "src": "./assets/icon-96x96.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        }
-      ]
+      "url": "./admin-dashboard.html"
     }
   ],
   
-  /* 🏷️ CATEGORIES FOR APP STORES */
   "categories": [
     "productivity",
     "business",
@@ -129,7 +59,6 @@
     "utilities"
   ],
   
-  /* ⚙️ ADVANCED PWA FEATURES */
   "protocol_handlers": [],
   "handle_links": "preferred",
   "launch_handler": {
@@ -145,15 +74,12 @@
     "storage"
   ],
   
-  /* 🚫 NO RELATED APPS */
   "related_applications": [],
   "prefer_related_applications": false,
   
-  /* 🎯 GITHUB PAGES OPTIMIZATION */
   "dir": "ltr",
   "lang": "id-ID",
   
-  /* 🛡️ SECURITY FEATURES */
   "crossorigin": "use-credentials",
   "edge_side_panel": {}
 }
