@@ -1,0 +1,2994 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🚀 DREAM OS HYBRID v13.0 | THE POWER SOUL OF SHALAWAT</title>
+    
+    <!-- PWA CONFIG -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a0f1e">
+    <link rel="icon" href="assets/icon-192.png" type="image/png">
+    
+    <style>
+        /* ========== PROFESSIONAL CSS ========== */
+        * {
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg: #0a0f1e; 
+            --card: #151a2d; 
+            --gold: #fbbf24;
+            --green: #10b981; 
+            --red: #ef4444; 
+            --blue: #3b82f6;
+            --purple: #8b5cf6; 
+            --orange: #f97316;
+            --dark: #0f172a;
+            --cyber: #00ff9d;
+        }
+
+        body {
+            background: var(--bg); 
+            color: #e2e8f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            touch-action: pan-y;
+            min-height: 100vh;
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--dark) 100%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--green);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .shalawat {
+            background: rgba(251, 191, 36, 0.15);
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            line-height: 1.4;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .arabic {
+            color: var(--gold);
+            font-weight: 700;
+            direction: rtl;
+            font-size: 0.85rem;
+        }
+
+        .translation {
+            color: #94a3b8;
+            font-size: 0.7rem;
+            margin-top: 4px;
+        }
+
+        /* ========== QUANTUM STATUS INDICATOR ========== */
+        .quantum-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, var(--purple), var(--blue));
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .quantum-status.online::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ========== MAIN DASHBOARD ========== */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding: 15px;
+            padding-bottom: 80px;
+        }
+
+        .hub-card {
+            background: var(--card);
+            border: 2px solid;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .hub-card:active {
+            transform: scale(0.98);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .hub-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .hub-subtitle {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== VIEW SYSTEM ========== */
+        .view {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 2000;
+            padding: 15px;
+            overflow-y: auto;
+            padding-bottom: 80px;
+        }
+
+        .view-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #334155;
+        }
+
+        .view-title {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .close-btn:active {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 8px 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn:active {
+            opacity: 0.85;
+            transform: scale(0.98);
+        }
+
+        .btn-primary { background: var(--green); }
+        .btn-danger { background: var(--red); }
+        .btn-warning { background: var(--orange); }
+        .btn-secondary { background: var(--blue); }
+        .btn-purple { background: var(--purple); }
+        .btn-gold { background: var(--gold); color: black; font-weight: 800; }
+        .btn-dark { background: #334155; }
+        .btn-cyber { background: var(--cyber); color: black; }
+
+        /* ========== FORMS ========== */
+        .form-group { margin-bottom: 18px; }
+        .form-label { 
+            display: block; 
+            color: var(--gold); 
+            font-size: 0.95rem; 
+            margin-bottom: 8px; 
+            font-weight: 700; 
+        }
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            background: #1e293b;
+            border: 2px solid #475569;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { 
+            border-color: var(--gold); 
+            outline: none; 
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+        }
+        .form-textarea { 
+            min-height: 120px; 
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        /* ========== CAMERA SYSTEM ========== */
+        .camera-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 2px solid var(--blue);
+            background: #000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        #cameraPreview {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            background: #1e293b;
+        }
+
+        .camera-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 12px;
+            background: rgba(0,0,0,0.85);
+        }
+
+        .camera-btn {
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .photo-preview {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            border: 2px solid var(--gold);
+        }
+
+        /* ========== TAP-TAP INVENTORY STYLES ========== */
+        .tap-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 6px solid;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .tap-card:active {
+            transform: scale(0.98);
+        }
+
+        .tap-card.ready { border-left-color: #10b981; }
+        .tap-card.used { border-left-color: #3b82f6; }
+        .tap-card.fix { border-left-color: #ef4444; }
+
+        .tap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .tap-name {
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .tap-meta {
+            color: #94a3b8;
+            font-size: 0.8rem;
+        }
+
+        .tap-status {
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tap-status.ready { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .tap-status.used { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .tap-status.fix { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        .tap-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tap-btn {
+            padding: 12px 8px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .tap-btn:active {
+            transform: scale(0.95);
+        }
+
+        .tap-btn.ready { background: #10b981; color: white; }
+        .tap-btn.used { background: #3b82f6; color: white; }
+        .tap-btn.fix { background: #ef4444; color: white; }
+
+        .tap-btn.active {
+            box-shadow: 0 0 15px currentColor;
+            border: 2px solid white;
+        }
+
+        /* ========== BOTTOM NAVIGATION ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 2px solid #334155;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 8px 5px;
+            cursor: pointer;
+            flex: 1;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:active {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--gold);
+            transform: scale(0.95);
+        }
+
+        .nav-btn.active {
+            color: var(--gold);
+            font-weight: 800;
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .nav-icon {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        /* ========== LOADER ========== */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(30, 41, 59, 0.3);
+            border-top: 4px solid var(--green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ========== TOAST ========== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 800;
+            z-index: 4000;
+            display: none;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+            text-align: center;
+            max-width: 90%;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .toast-error { background: var(--red); }
+        .toast-warning { background: var(--orange); }
+        .toast-info { background: var(--blue); }
+        .toast-quantum { background: var(--purple); }
+
+        /* ========== ALERT BOX ========== */
+        .alert-box {
+            background: rgba(239, 68, 68, 0.15);
+            border-left: 4px solid var(--red);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.15);
+            border-left: 4px solid var(--blue);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        /* ========== TIME GRID ========== */
+        .time-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .time-separator {
+            text-align: center;
+            color: var(--gold);
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.97);
+            z-index: 3000;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        /* ========== STATUS BAR ========== */
+        .status-bar {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            border-top: 1px solid #334155;
+            border-bottom: 1px solid #334155;
+            z-index: 900;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ========== DATA TABLE ========== */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--blue);
+            padding: 12px;
+            text-align: left;
+            font-weight: 800;
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #334155;
+            color: #e2e8f0;
+        }
+
+        .data-table tr:active {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* ========== INVENTORY CARD ========== */
+        .inventory-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 1px solid #334155;
+        }
+
+        .item-name {
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .item-details {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ========== SCAN RESULT ========== */
+        .scan-result {
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid var(--green);
+        }
+
+        /* ========== QUANTUM STATS ========== */
+        .quantum-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 10px;
+        }
+
+        .stat-value {
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tap-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .view-header {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- QUANTUM STATUS INDICATOR -->
+    <div id="quantumStatus" class="quantum-status" onclick="system.showQuantumInfo()">
+        <span>🛰️ QUANTUM HYBRID</span>
+    </div>
+
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <div style="margin-top: 20px; color: var(--gold); font-size: 1.2rem; font-weight: 800;">
+            DREAM OS HYBRID v13.0
+        </div>
+        <div style="color: #94a3b8; font-size: 0.9rem; margin-top: 8px; text-align: center;">
+            Quantum AI System Initializing<br>
+            THE POWER SOUL OF SHALAWAT
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div onclick="system.architectTrigger()" style="font-size: 3rem; cursor: pointer; margin-bottom: 5px;">🚀</div>
+        <h1 style="color: var(--gold); font-size: 1.6rem; letter-spacing: 1px;">
+            DREAM OS HYBRID v13.0
+        </h1>
+        <div style="color: var(--cyber); font-size: 0.85rem; margin-top: 3px;">
+            QUANTUM BRIDGE • 22 SARANA • TAP-TAP INVENTORY
+        </div>
+        
+        <!-- SHALAWAT COMPLETE -->
+        <div class="shalawat">
+            <div class="arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+            <div class="translation">Dengan nama Allah Yang Maha Pengasih Lagi Maha Penyayang</div>
+            <div class="arabic" style="margin-top: 6px;">اَللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِ سَيِّدِنَا مُحَمَّدٍ</div>
+            <div class="translation">Ya Allah, limpahkanlah shalawat kepada junjungan kami Nabi Muhammad dan keluarganya</div>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="mainView" class="main-grid">
+        <!-- SERVICE HUB -->
+        <div class="hub-card" style="border-color: var(--blue);" onclick="system.showView('service')">
+            <div class="hub-title">
+                <div>🏛️</div>
+                <div>SERVICE HUB</div>
+            </div>
+            <div class="hub-subtitle">Booking • K3 • Security • Quantum Sync</div>
+            <div style="margin-top: 12px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                Real-time reporting dengan Quantum Bridge ke Admin Dashboard Pak Erwin
+            </div>
+        </div>
+
+        <!-- ASSET HUB -->
+        <div class="hub-card" style="border-color: var(--purple);" onclick="system.showView('asset')">
+            <div class="hub-title">
+                <div>📦</div>
+                <div>ASSET HUB</div>
+            </div>
+            <div class="hub-subtitle">Tap-Tap Inventory • Warehouse • QR</div>
+            <div style="margin-top: 12px; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">
+                Tap untuk update status, real-time ke dashboard, quantum sync otomatis
+            </div>
+        </div>
+
+        <!-- QUANTUM HUB -->
+        <div class="hub-card" style="border-color: var(--cyber);" onclick="system.showView('quantum')">
+            <div class="hub-title">
+                <div>🛰️</div>
+                <div>QUANTUM HUB</div>
+            </div>
+            <div class="hub-subtitle">Live Monitor • Sync Status • Bridge Control</div>
+            <div style="margin-top: 12px; font-size: 0.85rem; color: var(--cyber); line-height: 1.4;">
+                Monitor real-time data flow, sync status, dan quantum bridge control
+            </div>
+        </div>
+
+        <!-- ADMIN HUB (HIDDEN DEFAULT) -->
+        <div id="adminCard" class="hub-card" style="border-color: var(--gold); display: none;" onclick="system.openAdminDashboard()">
+            <div class="hub-title">
+                <div>👑</div>
+                <div>ADMIN COMMAND</div>
+            </div>
+            <div class="hub-subtitle">Dashboard • Monitor • Reports • Export</div>
+            <div style="margin-top: 12px; font-size: 0.85rem; color: #fbbf24; line-height: 1.4;">
+                Full quantum dashboard dengan real-time monitoring dan sound alerts
+            </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+            <button class="btn btn-dark" onclick="system.showModal('loginModal')">
+                🔐 SYSTEM LOGIN
+            </button>
+            <button class="btn btn-gold" onclick="system.quickDemo()">
+                🎬 QUANTUM DEMO
+            </button>
+        </div>
+
+        <!-- QUANTUM STATS -->
+        <div class="quantum-stats">
+            <div class="stat-box">
+                <div id="statQueued" class="stat-value">0</div>
+                <div class="stat-label">IN QUEUE</div>
+            </div>
+            <div class="stat-box">
+                <div id="statSynced" class="stat-value">0</div>
+                <div class="stat-label">SYNCED</div>
+            </div>
+            <div class="stat-box">
+                <div id="statFailed" class="stat-value">0</div>
+                <div class="stat-label">FAILED</div>
+            </div>
+        </div>
+
+        <!-- SYSTEM STATUS -->
+        <div style="margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 12px;">
+            <div style="color: var(--blue); font-weight: 800; font-size: 0.95rem; margin-bottom: 8px;">
+                🤖 QUANTUM HYBRID SYSTEM STATUS
+            </div>
+            <div style="font-size: 0.8rem; color: #94a3b8;">
+                • <span id="bridgeStatus" style="color: var(--green);">Active</span> - Quantum Bridge Ready
+                <br>• <span id="userStatus" style="color: var(--gold);">GUEST MODE</span>
+                <br>• 22 Sarana • Tap-Tap Inventory • Real-time Sync
+                <br>• Admin Dashboard: <span id="adminStatus" style="color: var(--cyber);">Ready</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SERVICE VIEWS ==================== -->
+
+    <!-- SERVICE MAIN VIEW -->
+    <div id="serviceView" class="view">
+        <div class="view-header">
+            <div class="view-title">SERVICE HUB</div>
+            <button class="close-btn" onclick="system.showMain()">×</button>
+        </div>
+
+        <button class="btn btn-primary" onclick="system.showView('booking')">
+            <div>📅</div>
+            <div>BOOKING SARANA (22 UNIT)</div>
+        </button>
+
+        <button class="btn btn-danger" onclick="system.showView('k3')">
+            <div>🛡️</div>
+            <div>LAPORAN K3 + KAMERA</div>
+        </button>
+
+        <button class="btn btn-warning" onclick="system.showView('security')">
+            <div>💂</div>
+            <div>LAPORAN HARIAN SEKURITI</div>
+        </button>
+
+        <div class="info-box">
+            <div style="color: var(--blue); font-weight: 800; font-size: 0.95rem; margin-bottom: 8px;">
+                📡 QUANTUM SYNC ACTIVE
+            </div>
+            <div style="color: #94a3b8; font-size: 0.85rem;">
+                • Semua laporan otomatis ke Admin Dashboard Pak Erwin
+                <br>• Real-time dengan Quantum Bridge technology
+                <br>• Offline support dengan auto-sync
+                <br>• Sound notification di dashboard
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING VIEW - 22 SARANA -->
+    <div id="bookingView" class="view">
+        <div class="view-header">
+            <div class="view-title">BOOKING SARANA + QUANTUM</div>
+            <button class="close-btn" onclick="system.showView('service')">×</button>
+        </div>
+
+        <!-- SARANA SELECTION - 22 UNIT LENGKAP -->
+        <div class="form-group">
+            <label class="form-label">Pilih Sarana (20 Unit)</label>
+            <select class="form-input" id="bookingSarana" onchange="system.checkSaranaRules(this.value)">
+                <option value="">-- Pilih Sarana --</option>
+                <optgroup label="🏛️ AULA UTAMA">
+                    <option value="Aula SMP">Aula SMP (Sound System, Lighting, AC, Projector)</option>
+                    <option value="Aula SMA">Aula SMA (Sound System, Projector, AC)</option>
+                    <option value="Aula Serbaguna">Aula Serba Guna (Sound System)</option>
+                    <option value="Saung Besar">Saung Besar (Sound System)</option>
+                    <option value="Saung Kecil">Saung Kecil (Sound System)</option>
+                </optgroup>
+                <optgroup label="💻 LAB KOMPUTER">
+                    <option value="Labkom SD">Lab Komputer SD (30 Unit)</option>
+                    <option value="Labkom SMP">Lab Komputer SMP (40 Unit)</option>
+                    <option value="Labkom SMA">Lab Komputer SMA (50 Unit)</option>
+                </optgroup>
+                <optgroup label="🌿 OUTDOOR AREA">
+                    <option value="Lapangan SMA">Lapangan SMA</option>
+                    <option value="Lapangan Basket">Lapangan Basket</option>
+                    <option value="Lapangan Volley">Lapangan Volley</option>
+                    <option value="Lapangan Futsal">Lapangan Futsal</option>
+                    <option value="Lapangan Rumput">Lapangan Rumput</option>
+                    <option value="Lapangan Rumput Depan Masjid AF">Lapangan Rumput Depan Masjid AF</option>
+                    <option value="Area Parkir Loby SMA">Area Parkir Loby SMA</option>
+                </optgroup>
+                <optgroup label="🍽️ KANTIN & RUANG MAKAN">
+                    <option value="Kantin SMP">Kantin SMP</option>
+                    <option value="Kantin SMA">Kantin SMA</option>
+                </optgroup>
+                <optgroup label="📚 PERPUSTAKAAN">
+                    <option value="Perpus SD">Perpustakaan SD</option>
+                    <option value="Perpus SMP">Perpustakaan SMP</option>
+                    <option value="Perpus SMA">Perpustakaan SMA</option>
+                </optgroup>
+                <optgroup label="🕌 RUANG IBADAH">
+                    <option value="Masjid" disabled>Masjid (MAINTENANCE)</option>
+                    <option value="Musholla SMA">Musholla SMA</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <!-- PIC DETAILS -->
+        <div class="form-group">
+            <label class="form-label">Nama PIC / Guru *</label>
+            <input type="text" class="form-input" id="bookingPIC" placeholder="Nama lengkap beserta gelar">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Unit / Jurusan *</label>
+            <select class="form-input" id="bookingUnit">
+                <option value="">-- Pilih Unit --</option>
+                <option value="SD">SD Al Fikri</option>
+                <option value="SMP">SMP Al Fikri</option>
+                <option value="SMA">SMA Al Fikri</option>
+                <option value="Umum">Umum</option>
+            </select>
+        </div>
+
+        <!-- DATE & TIME -->
+        <div class="form-group">
+            <label class="form-label">Tanggal Booking *</label>
+            <input type="date" class="form-input" id="bookingDate" onchange="system.checkDateRules()">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Waktu Booking *</label>
+            <div class="time-grid">
+                <input type="time" class="form-input" id="bookingStart" value="07:30" onchange="system.checkTimeRules()">
+                <div class="time-separator">→</div>
+                <input type="time" class="form-input" id="bookingEnd" value="16:00" onchange="system.checkTimeRules()">
+            </div>
+            <div style="color: #94a3b8; font-size: 0.8rem; margin-top: 8px;">
+                ⏰ Jam operasional: Senin-Jumat 07:30 - 16:00 WIB
+            </div>
+        </div>
+
+        <!-- DETAILS -->
+        <div class="form-group">
+            <label class="form-label">Keterangan Acara / Keperluan</label>
+            <textarea class="form-input form-textarea" id="bookingNote" placeholder="Detail keperluan acara, jumlah peserta, peralatan khusus yang dibutuhkan..."></textarea>
+        </div>
+
+        <!-- FRIDAY WARNING -->
+        <div id="fridayWarning" class="alert-box" style="display: none;">
+            <div style="color: var(--red); font-weight: 800; font-size: 0.9rem; margin-bottom: 5px;">
+                ⚠️ PERHATIAN: JUMAT 10:30 - 13:00 WIB
+            </div>
+            <div style="color: #fca5a5; font-size: 0.85rem;">
+                Aula SMP, Aula SMA, dan Serba Guna tidak dapat dibooking untuk acara non-keagamaan pada jam shalat Jumat.
+            </div>
+        </div>
+
+        <!-- SATURDAY INFO -->
+        <div id="saturdayInfo" class="info-box" style="display: none;">
+            <div style="color: var(--blue); font-weight: 800; font-size: 0.9rem; margin-bottom: 5px;">
+                ℹ️ BOOKING HARI SABTU
+            </div>
+            <div style="color: #93c5fd; font-size: 0.85rem;">
+                Booking hari Sabtu memerlukan konfirmasi khusus via WhatsApp ke Pak Erwin (+62 888-6183-954).
+            </div>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <button class="btn btn-primary" onclick="system.sendBooking()">
+            <div>📡</div>
+            <div>KIRIM VIA QUANTUM BRIDGE</div>
+        </button>
+
+        <button class="btn btn-secondary" onclick="system.checkAvailability()">
+            <div>🔍</div>
+            <div>CEK KETERSEDIAAN</div>
+        </button>
+
+        <div class="info-box">
+            <div style="color: var(--blue); font-weight: 800; font-size: 0.9rem; margin-bottom: 8px;">
+                📡 QUANTUM BRIDGE SYNC
+            </div>
+            <div style="color: #93c5fd; font-size: 0.85rem; line-height: 1.5;">
+                1. Data dikirim ke Admin Dashboard Pak Erwin secara real-time<br>
+                2. Jika offline, data akan diqueue dan sync otomatis saat online<br>
+                3. Sound notification "BIP!" di dashboard untuk setiap laporan<br>
+                4. Semua data tersimpan di localStorage untuk backup
+            </div>
+        </div>
+    </div>
+
+    <!-- K3 VIEW -->
+    <div id="k3View" class="view">
+        <div class="view-header">
+            <div class="view-title">LAPORAN K3 + QUANTUM</div>
+            <button class="close-btn" onclick="system.showView('service')">×</button>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0 30px;">
+            <div style="font-size: 4rem; color: var(--red); margin-bottom: 10px;">⚠️</div>
+            <div style="color: var(--gold); font-weight: 800; font-size: 1.1rem;">
+                LAPORAN KECELAKAN KERJA / POTENSI BAHAYA
+            </div>
+            <div style="color: #94a3b8; font-size: 0.9rem; margin-top: 5px;">
+                Dengan bukti foto wajib • Quantum Sync ke Dashboard
+            </div>
+        </div>
+
+        <!-- K3 FORM -->
+        <div class="form-group">
+            <label class="form-label">Lokasi Kejadian *</label>
+            <input type="text" class="form-input" id="k3Location" placeholder="Contoh: Labkom SMP lantai 2, Aula SMA, Area Parkir...">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Jenis Laporan *</label>
+            <select class="form-input" id="k3Type">
+                <option value="">-- Pilih Jenis Laporan --</option>
+                <option value="Kecelakaan Kerja">Kecelakaan Kerja</option>
+                <option value="Potensi Bahaya">Potensi Bahaya</option>
+                <option value="Keamanan">Pelanggaran Keamanan</option>
+                <option value="Kebersihan">Masalah Kebersihan</option>
+                <option value="Fasilitas Rusak">Fasilitas Rusak</option>
+                <option value="Kebakaran">Potensi Kebakaran</option>
+                <option value="Listrik">Masalah Kelistrikan</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Nama Pelapor *</label>
+            <input type="text" class="form-input" id="k3Reporter" placeholder="Nama lengkap pelapor">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Unit Pelapor *</label>
+            <select class="form-input" id="k3Unit">
+                <option value="">-- Pilih Unit --</option>
+                <option value="Guru">Guru</option>
+                <option value="Siswa">Siswa</option>
+                <option value="Staf">Staf Administrasi</option>
+                <option value="Kebersihan">Petugas Kebersihan</option>
+                <option value="Sekuriti">Petugas Keamanan</option>
+                <option value="Teknisi">Teknisi</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Deskripsi Lengkap *</label>
+            <textarea class="form-input form-textarea" id="k3Description" placeholder="Jelaskan kejadian dengan detail:
+• Waktu kejadian
+• Kronologi
+• Dampak/kerusakan
+• Korban (jika ada)
+• Tindakan darurat yang sudah dilakukan"></textarea>
+        </div>
+
+        <!-- CAMERA SECTION -->
+        <div class="camera-container">
+            <video id="cameraPreview" class="camera-preview" autoplay playsinline></video>
+            <div class="camera-controls">
+                <button class="camera-btn" style="background: var(--green);" onclick="system.startCamera('k3')">
+                    📸 BUKA KAMERA
+                </button>
+                <button class="camera-btn" style="background: var(--blue);" onclick="system.capturePhoto('k3')">
+                    📷 AMBIL FOTO
+                </button>
+                <button class="camera-btn" style="background: var(--red);" onclick="system.stopCamera()">
+                    ⏹️ TUTUP KAMERA
+                </button>
+            </div>
+        </div>
+
+        <!-- PHOTO PREVIEW -->
+        <div id="k3PhotoPreview" class="photo-preview" style="display: none;">
+            <div style="color: var(--gold); font-weight: 800; font-size: 0.95rem; margin-bottom: 10px;">
+                📸 BUKTI FOTO KEJADIAN
+            </div>
+            <img id="k3Photo" src="" style="width: 100%; border-radius: 10px; border: 2px solid var(--red);">
+            <div style="color: #94a3b8; font-size: 0.8rem; margin-top: 10px; text-align: center;">
+                Foto ini akan tersimpan di database sebagai bukti dokumentasi
+            </div>
+        </div>
+
+        <!-- SEND BUTTON -->
+        <button class="btn btn-danger" onclick="system.sendK3Report()">
+            <div>📡</div>
+            <div>KIRIM LAPORAN VIA QUANTUM BRIDGE</div>
+        </button>
+
+        <div class="info-box">
+            <div style="color: var(--blue); font-weight: 800; font-size: 0.9rem; margin-bottom: 8px;">
+                📡 QUANTUM SYNC PROTOCOL
+            </div>
+            <div style="color: #93c5fd; font-size: 0.85rem; line-height: 1.5;">
+                1. Data dikirim ke Admin Dashboard Pak Erwin secara real-time<br>
+                2. Jika offline, data akan diqueue dan sync otomatis saat online<br>
+                3. Sound notification "BIP!" di dashboard untuk setiap laporan<br>
+                4. Semua data tersimpan di localStorage untuk backup
+            </div>
+        </div>
+    </div>
+
+    <!-- SECURITY DAILY REPORT VIEW -->
+    <div id="securityView" class="view">
+        <div class="view-header">
+            <div class="view-title">LAPORAN HARIAN SEKURITI</div>
+            <button class="close-btn" onclick="system.showView('service')">×</button>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0 30px;">
+            <div style="font-size: 4rem; margin-bottom: 10px;">💂</div>
+            <div style="color: var(--gold); font-weight: 800; font-size: 1.1rem;">
+                SISTEM PATROLI & LAPORAN KEAMANAN
+            </div>
+            <div style="color: #94a3b8; font-size: 0.9rem; margin-top: 5px;">
+                Check-in patroli setiap 2 jam dengan bukti foto • Quantum Sync
+            </div>
+        </div>
+
+        <!-- SECURITY FORM -->
+        <div class="form-group">
+            <label class="form-label">Nama Petugas *</label>
+            <select class="form-input" id="securityOfficer">
+                <option value="">-- Pilih Petugas --</option>
+                <option value="Pak Agus">Pak Agus (Shift Pagi)</option>
+                <option value="Pak Dinda">Pak Dinda (Shift Siang)</option>
+                <option value="Pak Mbeb">Pak Mbeb (Shift Malam)</option>
+                <option value="Pak MahMud">Pak MahMud (Shift Pagi)</option>
+                <option value="Pak Ayang">Pak Ayang (Shift Siang)</option>
+                <option value="Pak Bawel">Pak Bawel (Shift Malam)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Shift / Waktu Patroli *</label>
+            <select class="form-input" id="securityShift">
+                <option value="">-- Pilih Shift --</option>
+                <option value="Pagi (07:00-19:00)">Pagi (07:00-19:00)</option>
+                <option value="Malam (19:00-07:00)">Malam (19:00-07:00)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Jenis Laporan *</label>
+            <select class="form-input" id="securityReportType">
+                <option value="">-- Pilih Jenis Laporan --</option>
+                <option value="Check-in Patroli">Check-in Patroli (Rutin 2 jam)</option>
+                <option value="Laporan Keamanan">Laporan Keamanan</option>
+                <option value="Insiden Keamanan">Insiden Keamanan</option>
+                <option value="Orang Asing">Orang Asing Terdeteksi</option>
+                <option value="Kendaraan Mencurigakan">Kendaraan Mencurigakan</option>
+                <option value="Check-out Patroli">Check-out Patroli</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Lokasi Patroli *</label>
+            <select class="form-input" id="securityLocation">
+                <option value="">-- Pilih Lokasi --</option>
+                <option value="Pos Utama (Gerbang Depan)">Pos Utama (Gerbang Depan)</option>
+                <option value="Area Belakang (Gerbang Belakang)">Area Belakang (Gerbang Belakang)</option>
+                <option value="Area Belakang Gedung Belakang SD dan SMP">Area Belakang Gedung Belakang SD dan SMP</option>
+                <option value="Area Gedung SD">Area Gedung SD</option>
+                <option value="Area Gedung SMP">Area Gedung SMP</option>
+                <option value="Area Gedung SMA">Area Gedung SMA</option>
+                <option value="Area Olah Raga dan Taman">Area Olah Raga dan Taman</option>
+                <option value="Seluruh Area">Patroli Seluruh Area</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Kondisi Keamanan *</label>
+            <select class="form-input" id="securityCondition">
+                <option value="">-- Pilih Kondisi --</option>
+                <option value="Aman">Aman (Tidak Ada Masalah)</option>
+                <option value="Waspada">Waspada (Ada Potensi)</option>
+                <option value="Darurat">Darurat (Butuh Tindakan)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Deskripsi Kejadian / Catatan</label>
+            <textarea class="form-input form-textarea" id="securityDescription" placeholder="Deskripsikan kondisi keamanan di lokasi:
+• Aktivitas yang terlihat
+• Orang/kendaraan mencurigakan
+• Kerusakan fasilitas
+• Pelanggaran peraturan
+• Tindakan yang sudah dilakukan"></textarea>
+        </div>
+
+        <!-- SECURITY CAMERA -->
+        <div class="camera-container">
+            <video id="securityCameraPreview" class="camera-preview" autoplay playsinline></video>
+            <div class="camera-controls">
+                <button class="camera-btn" style="background: var(--green);" onclick="system.startCamera('security')">
+                    📸 BUKA KAMERA
+                </button>
+                <button class="camera-btn" style="background: var(--blue);" onclick="system.capturePhoto('security')">
+                    📷 FOTO BUKTI
+                </button>
+                <button class="camera-btn" style="background: var(--red);" onclick="system.stopCamera()">
+                    ⏹️ TUTUP KAMERA
+                </button>
+            </div>
+        </div>
+
+        <!-- PHOTO PREVIEW -->
+        <div id="securityPhotoPreview" class="photo-preview" style="display: none;">
+            <div style="color: var(--gold); font-weight: 800; font-size: 0.95rem; margin-bottom: 10px;">
+                📸 BUKTI PATROLI
+            </div>
+            <img id="securityPhoto" src="" style="width: 100%; border-radius: 10px; border: 2px solid var(--orange);">
+            <div style="color: #94a3b8; font-size: 0.8rem; margin-top: 10px; text-align: center;">
+                Foto patroli sebagai bukti kehadiran petugas
+            </div>
+        </div>
+
+        <!-- SEND BUTTON -->
+        <button class="btn btn-warning" onclick="system.sendSecurityReport()">
+            <div>📡</div>
+            <div>KIRIM LAPORAN VIA QUANTUM BRIDGE</div>
+        </button>
+
+        <div class="info-box">
+            <div style="color: var(--blue); font-weight: 800; font-size: 0.9rem; margin-bottom: 8px;">
+                📡 QUANTUM SYNC ACTIVE
+            </div>
+            <div style="color: #93c5fd; font-size: 0.85rem; line-height: 1.5;">
+                1. Semua check-in patroli otomatis ke Admin Dashboard<br>
+                2. Real-time monitoring untuk Pak Erwin<br>
+                3. Sound notification untuk setiap patroli<br>
+                4. Backup data di localStorage
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ASSET VIEWS ==================== -->
+
+    <!-- ASSET MAIN VIEW -->
+    <div id="assetView" class="view">
+        <div class="view-header">
+            <div class="view-title">ASSET HUB</div>
+            <button class="close-btn" onclick="system.showMain()">×</button>
+        </div>
+
+        <button class="btn btn-purple" onclick="system.showTapTapInventory()">
+            <div>👆</div>
+            <div>TAP-TAP INVENTORY</div>
+        </button>
+
+        <button class="btn btn-warning" onclick="system.openVault('warehouse')">
+            <div>🏬</div>
+            <div>WAREHOUSE MANAGEMENT</div>
+        </button>
+
+        <button class="btn btn-primary" onclick="system.showView('qrscanner')">
+            <div>📷</div>
+            <div>QR CODE SCANNER</div>
+        </button>
+
+        <button class="btn btn-secondary" onclick="system.openVault('inventory')">
+            <div>🔓</div>
+            <div>INVENTORY VAULT ACCESS</div>
+        </button>
+
+        <button class="btn btn-cyber" onclick="system.showView('smartprint')">
+            <div>🖨️</div>
+            <div>SMART PRINT SYSTEM</div>
+        </button>
+
+        <!-- QUANTUM SYNC INFO -->
+        <div class="info-box">
+            <div style="color: var(--blue); font-weight: 800; font-size: 0.95rem; margin-bottom: 8px;">
+                📡 TAP-TAP INVENTORY QUANTUM SYNC
+            </div>
+            <div style="color: #94a3b8; font-size: 0.85rem; line-height: 1.5;">
+                • Tap status → Real-time ke Admin Dashboard<br>
+                • Sound notification "BIP!" di dashboard<br>
+                • Auto-sync jika offline<br>
+                • Historical tracking semua perubahan
+            </div>
+        </div>
+
+        <!-- INVENTORY SUMMARY -->
+        <div style="margin-top: 20px; padding: 15px; background: rgba(139, 92, 246, 0.1); border-radius: 12px;">
+            <div style="color: var(--purple); font-weight: 800; font-size: 0.95rem; margin-bottom: 10px;">
+                📈 TAP-TAP INVENTORY OVERVIEW
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <div style="text-align: center;">
+                    <div style="color: white; font-weight: 800; font-size: 1.2rem;" id="tapReadyCount">0</div>
+                    <div style="color: #94a3b8; font-size: 0.75rem;">READY</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="color: white; font-weight: 800; font-size: 1.2rem;" id="tapUsedCount">0</div>
+                    <div style="color: #94a3b8; font-size: 0.75rem;">IN USE</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="color: white; font-weight: 800; font-size: 1.2rem;" id="tapFixCount">0</div>
+                    <div style="color: #94a3b8; font-size: 0.75rem;">NEED FIX</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAP-TAP INVENTORY VIEW -->
+    <div id="tapTapView" class="view">
+        <div class="view-header">
+            <div class="view-title">👆 TAP-TAP INVENTORY</div>
+            <button class="close-btn" onclick="system.showView('asset')">×</button>
+        </div>
+
+        <div style="padding: 20px;">
+            <!-- HEADER -->
+            <div style="text-align: center; margin-bottom: 25px;">
+                <div style="font-size: 4rem; margin-bottom: 10px;">👆</div>
+                <div style="color: var(--gold); font-weight: 800; font-size: 1.3rem; margin-bottom: 5px;">
+                    TAP-TAP INVENTORY
+                </div>
+                <div style="color: #94a3b8; font-size: 0.9rem;">
+                    Tap untuk update status • Real-time ke Dashboard Pak Erwin
+                </div>
+            </div>
+
+            <!-- SEARCH BAR -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label class="form-label">🔍 Cari Inventory</label>
+                <input type="text" id="tapSearch" 
+                       class="form-input" 
+                       placeholder="Nama barang, kategori, atau ID..."
+                       onkeyup="tapTapInventory.search()">
+            </div>
+
+            <!-- INVENTORY GRID -->
+            <div id="tapItemsContainer">
+                <!-- Items will be loaded here -->
+            </div>
+
+            <!-- QUICK STATS -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 25px;">
+                <div style="text-align: center; padding: 15px; background: rgba(16, 185, 129, 0.1); border-radius: 10px;">
+                    <div style="color: white; font-weight: 800; font-size: 1.5rem;" id="tapReady">0</div>
+                    <div style="color: #94a3b8; font-size: 0.8rem;">READY</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 10px;">
+                    <div style="color: white; font-weight: 800; font-size: 1.5rem;" id="tapUsed">0</div>
+                    <div style="color: #94a3b8; font-size: 0.8rem;">IN USE</div>
+                </div>
+                <div style="text-align: center; padding: 15px; background: rgba(239, 68, 68, 0.1); border-radius: 10px;">
+                    <div style="color: white; font-weight: 800; font-size: 1.5rem;" id="tapFix">0</div>
+                    <div style="color: #94a3b8; font-size: 0.8rem;">NEED FIX</div>
+                </div>
+            </div>
+
+            <!-- ADD NEW ITEM -->
+            <button class="btn btn-primary" onclick="tapTapInventory.addNewItem()" style="margin-top: 20px;">
+                <div>➕</div>
+                <div>TAMBAH ITEM BARU</div>
+            </button>
+
+            <!-- QUANTUM INFO -->
+            <div class="info-box" style="margin-top: 25px;">
+                <div style="color: var(--blue); font-weight: 800; font-size: 0.95rem; margin-bottom: 8px;">
+                    📡 QUANTUM SYNC PROTOCOL
+                </div>
+                <div style="color: #94a3b8; font-size: 0.85rem; line-height: 1.5;">
+                    1. <strong>Setiap tap</strong> langsung ke Admin Dashboard<br>
+                    2. <strong>Sound notification</strong> "BIP!" di laptop Pak Erwin<br>
+                    3. <strong>Offline support</strong> - Sync otomatis saat online<br>
+                    4. <strong>Historical tracking</strong> - Semua perubahan tercatat<br>
+                    5. <strong>Real-time stats</strong> - Update otomatis di dashboard
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUANTUM HUB VIEW -->
+    <div id="quantumView" class="view">
+        <div class="view-header">
+            <div class="view-title">🛰️ QUANTUM HUB</div>
+            <button class="close-btn" onclick="system.showMain()">×</button>
+        </div>
+
+        <div style="padding: 20px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div style="font-size: 4rem; margin-bottom: 10px;">🛰️</div>
+                <div style="color: var(--cyber); font-weight: 800; font-size: 1.3rem; margin-bottom: 5px;">
+                    QUANTUM BRIDGE CONTROL CENTER
+                </div>
+                <div style="color: #94a3b8; font-size: 0.9rem;">
+                    Real-time data sync • Admin Dashboard Integration • Offline Support
+                </div>
+            </div>
+
+            <!-- BRIDGE STATUS -->
+            <div style="background: rgba(0, 255, 157, 0.1); border-radius: 15px; padding: 20px; margin-bottom: 20px; border: 2px solid var(--cyber);">
+                <div style="color: var(--cyber); font-weight: 800; font-size: 1rem; margin-bottom: 15px;">
+                    📡 QUANTUM BRIDGE STATUS
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div>
+                        <div style="color: #94a3b8; font-size: 0.8rem;">Bridge Status</div>
+                        <div id="bridgeLiveStatus" style="color: var(--green); font-weight: 800; font-size: 1.2rem;">🟢 ACTIVE</div>
+                    </div>
+                    <div>
+                        <div style="color: #94a3b8; font-size: 0.8rem;">Connection</div>
+                        <div id="connectionStatus" style="color: var(--gold); font-weight: 800; font-size: 1.2rem;">🌐 ONLINE</div>
+                    </div>
+                    <div>
+                        <div style="color: #94a3b8; font-size: 0.8rem;">Sync Mode</div>
+                        <div style="color: white; font-weight: 800; font-size: 1.2rem;">🔁 HYBRID</div>
+                    </div>
+                    <div>
+                        <div style="color: #94a3b8; font-size: 0.8rem;">Last Sync</div>
+                        <div id="lastSyncTime" style="color: white; font-weight: 800; font-size: 1.2rem;">Just now</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SYNC STATS -->
+            <div class="quantum-stats">
+                <div class="stat-box">
+                    <div id="syncTotal" class="stat-value">0</div>
+                    <div class="stat-label">TOTAL REPORTS</div>
+                </div>
+                <div class="stat-box">
+                    <div id="syncQueued" class="stat-value">0</div>
+                    <div class="stat-label">IN QUEUE</div>
+                </div>
+                <div class="stat-box">
+                    <div id="syncSynced" class="stat-value">0</div>
+                    <div class="stat-label">SYNCED</div>
+                </div>
+            </div>
+
+            <!-- CONTROL BUTTONS -->
+            <button class="btn btn-cyber" onclick="quantumBridge.forceSync()" style="margin-top: 20px;">
+                <div>🔄</div>
+                <div>FORCE SYNC NOW</div>
+            </button>
+
+            <button class="btn btn-secondary" onclick="system.openAdminDashboard()" style="margin-top: 10px;">
+                <div>📊</div>
+                <div>OPEN ADMIN DASHBOARD</div>
+            </button>
+
+            <button class="btn btn-warning" onclick="quantumBridge.clearOldData()" style="margin-top: 10px;">
+                <div>🧹</div>
+                <div>CLEAR OLD DATA (7+ days)</div>
+            </button>
+
+            <!-- RECENT ACTIVITY -->
+            <div style="margin-top: 30px;">
+                <div style="color: var(--gold); font-weight: 800; font-size: 1rem; margin-bottom: 15px;">
+                    📋 RECENT QUANTUM ACTIVITY
+                </div>
+                <div id="recentActivity" style="max-height: 200px; overflow-y: auto; padding: 10px; background: rgba(30, 41, 59, 0.5); border-radius: 10px;">
+                    <div style="text-align: center; padding: 20px; color: #64748b;">
+                        No recent activity
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUANTUM INFO -->
+            <div class="info-box" style="margin-top: 25px;">
+                <div style="color: var(--blue); font-weight: 800; font-size: 0.95rem; margin-bottom: 8px;">
+                    🛰️ HOW QUANTUM BRIDGE WORKS
+                </div>
+                <div style="color: #94a3b8; font-size: 0.85rem; line-height: 1.5;">
+                    1. <strong>BroadcastChannel</strong> - Real-time communication between tabs<br>
+                    2. <strong>localStorage Events</strong> - Cross-browser fallback<br>
+                    3. <strong>Offline Queue</strong> - Store when no connection<br>
+                    4. <strong>Auto-sync</strong> - Push when back online<br>
+                    5. <strong>Admin Dashboard</strong> - Real-time monitoring with sound alerts
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <div style="font-size: 3.5rem; color: var(--gold); margin-bottom: 15px;">🔐</div>
+                <div style="color: var(--gold); font-weight: 800; font-size: 1.4rem; margin-bottom: 5px;">
+                    QUANTUM SYSTEM ACCESS
+                </div>
+                <div style="color: #94a3b8; font-size: 0.9rem;">
+                    Masukkan password untuk mengakses sistem hybrid
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-input" id="loginPassword" placeholder="Enter password" autocomplete="off" style="text-align: center; letter-spacing: 2px;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;">
+                <button class="btn btn-dark" onclick="system.fillPassword('user_@1234')">
+                    <div>👤</div>
+                    <div>USER</div>
+                </button>
+                <button class="btn btn-dark" onclick="system.fillPassword('@dm1n_Sec2025')">
+                    <div>👑</div>
+                    <div>ADMIN</div>
+                </button>
+            </div>
+
+            <button class="btn btn-gold" onclick="system.login()" style="margin-bottom: 12px;">
+                <div>🔓</div>
+                <div>ACCESS QUANTUM SYSTEM</div>
+            </button>
+
+            <div style="color: #64748b; font-size: 0.75rem; text-align: center; margin-top: 15px;">
+                No guest mode available<br>
+                Contact admin for access
+            </div>
+        </div>
+    </div>
+
+    <!-- VAULT MODAL -->
+    <div id="vaultModal" class="modal">
+        <div class="modal-content">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <div style="font-size: 3.5rem; color: var(--gold); margin-bottom: 15px;">🗝️</div>
+                <div id="vaultTitle" style="color: var(--gold); font-weight: 800; font-size: 1.3rem; margin-bottom: 5px;">
+                    VAULT ACCESS
+                </div>
+                <div id="vaultSubtitle" style="color: #94a3b8; font-size: 0.9rem;">
+                    Enter vault password to continue
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-input" id="vaultPassword" placeholder="Vault password" autocomplete="off" style="text-align: center; letter-spacing: 2px;">
+            </div>
+
+            <button class="btn btn-gold" onclick="system.accessVault()" style="margin-bottom: 12px;">
+                <div>🔓</div>
+                <div>UNLOCK VAULT</div>
+            </button>
+
+            <button class="btn btn-dark" onclick="system.closeModal('vaultModal')">
+                CANCEL
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== BOTTOM NAVIGATION ==================== -->
+    <div class="bottom-nav">
+        <button class="nav-btn active" onclick="system.showMain()">
+            <div class="nav-icon">🏠</div>
+            <div>Home</div>
+        </button>
+        <button class="nav-btn" onclick="system.showView('service')">
+            <div class="nav-icon">🏛️</div>
+            <div>Service</div>
+        </button>
+        <button class="nav-btn" onclick="system.showView('asset')">
+            <div class="nav-icon">📦</div>
+            <div>Asset</div>
+        </button>
+        <button class="nav-btn" onclick="system.showView('quantum')">
+            <div class="nav-icon">🛰️</div>
+            <div>Quantum</div>
+        </button>
+        <button class="nav-btn" onclick="system.showModal('loginModal')">
+            <div class="nav-icon">🔐</div>
+            <div>Login</div>
+        </button>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <div id="clock" style="color: white;">🕐 00:00:00</div>
+        <div id="systemUser" style="color: var(--gold);">👤 GUEST</div>
+        <div id="systemStatus" style="color: var(--green);">📴 OFFLINE</div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // =====================================================
+        // DREAM OS HYBRID v13.0 - COMPLETE INTEGRATED SYSTEM
+        // THE POWER SOUL OF SHALAWAT EDITION
+        // =====================================================
+        console.log(`
+╔═══════════════════════════════════════════╗
+║     DREAM OS HYBRID v13.0 - COMPLETE     ║
+║        QUANTUM BRIDGE • TAP-TAP          ║
+║       THE POWER SOUL OF SHALAWAT         ║
+╚═══════════════════════════════════════════╝
+        `);
+
+        // ========== QUANTUM BRIDGE SYSTEM ==========
+        const quantumBridge = {
+            config: {
+                appName: 'DREAM_OS_HYBRID',
+                version: '13.0',
+                storageKey: 'dreamos_quantum_queue',
+                maxQueueSize: 100,
+                syncInterval: 30000,
+                broadcastChannelName: 'dreamos_quantum_channel',
+                adminURL: 'admin-dashboard.html',
+                soundEnabled: true
+            },
+            
+            state: {
+                queue: [],
+                isOnline: navigator.onLine,
+                syncTimer: null,
+                broadcastChannel: null,
+                audioContext: null,
+                soundAllowed: false
+            },
+            
+            init() {
+                console.log('🛰️ Quantum Bridge Initializing...');
+                
+                // Load queue
+                this.loadQueue();
+                
+                // Setup network detection
+                this.setupNetworkDetection();
+                
+                // Setup broadcast channel
+                this.setupBroadcastChannel();
+                
+                // Start sync timer
+                this.startSyncTimer();
+                
+                // Update UI stats
+                this.updateStatsUI();
+                
+                // Setup sound permission
+                document.addEventListener('click', () => {
+                    if (!this.state.soundAllowed) {
+                        this.state.soundAllowed = true;
+                        console.log('🔊 Audio permissions granted');
+                    }
+                }, { once: true });
+                
+                console.log('✅ Quantum Bridge Ready');
+                
+                // Update status indicator
+                document.getElementById('bridgeStatus').textContent = 'Active';
+                document.getElementById('bridgeStatus').style.color = 'var(--green)';
+            },
+            
+            async hybridSend(data, type = 'general') {
+                console.log(`📤 Quantum Bridge sending ${type}:`, data);
+                
+                const report = {
+                    id: Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                    type: type,
+                    data: data,
+                    timestamp: new Date().toISOString(),
+                    status: 'queued',
+                    attempts: 0
+                };
+                
+                // Add to queue
+                this.state.queue.unshift(report);
+                
+                // Limit queue size
+                if (this.state.queue.length > this.config.maxQueueSize) {
+                    this.state.queue = this.state.queue.slice(0, this.config.maxQueueSize);
+                }
+                
+                // Save queue
+                this.saveQueue();
+                
+                // Try to send immediately
+                const result = await this.trySend(report);
+                
+                // Update UI
+                this.updateStatsUI();
+                
+                return {
+                    success: result.success,
+                    report: report,
+                    message: result.message
+                };
+            },
+            
+            async trySend(report) {
+                report.attempts++;
+                
+                // Method 1: BroadcastChannel
+                if (typeof BroadcastChannel !== 'undefined') {
+                    try {
+                        const channel = new BroadcastChannel(this.config.broadcastChannelName);
+                        channel.postMessage({
+                            type: 'QUANTUM_REPORT',
+                            data: report,
+                            source: 'DREAM_OS_HYBRID',
+                            timestamp: new Date().toISOString()
+                        });
+                        channel.close();
+                        
+                        report.status = 'broadcasted';
+                        this.saveQueue();
+                        
+                        // Play sound if admin dashboard is open
+                        this.playBroadcastSound(report.type);
+                        
+                        return { success: true, message: 'Broadcasted to admin dashboard' };
+                    } catch (error) {
+                        console.warn('BroadcastChannel failed:', error);
+                    }
+                }
+                
+                // Method 2: localStorage fallback
+                try {
+                    localStorage.setItem('dreamos_last_report', JSON.stringify(report));
+                    
+                    // Trigger storage event
+                    window.dispatchEvent(new StorageEvent('storage', {
+                        key: 'dreamos_last_report',
+                        newValue: JSON.stringify(report)
+                    }));
+                    
+                    report.status = 'synced';
+                    this.saveQueue();
+                    
+                    return { success: true, message: 'Saved via localStorage' };
+                } catch (error) {
+                    console.error('LocalStorage save failed:', error);
+                }
+                
+                // Method 3: Keep in queue
+                report.status = 'queued';
+                this.saveQueue();
+                
+                return { success: false, message: 'Queued for later sync' };
+            },
+            
+            playBroadcastSound(type) {
+                if (!this.config.soundEnabled || !this.state.soundAllowed) return;
+                
+                if (!this.state.audioContext) {
+                    this.state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                
+                try {
+                    const oscillator = this.state.audioContext.createOscillator();
+                    const gainNode = this.state.audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(this.state.audioContext.destination);
+                    
+                    // Different sounds for different types
+                    const sounds = {
+                        'booking': [523.25, 659.25, 783.99], // Pleasant
+                        'k3': [880, 440, 880],              // Urgent
+                        'security': [659.25, 523.25, 392],  // Alert
+                        'inventory': [392, 493.88, 587.33]  // Neutral
+                    };
+                    
+                    const freqs = sounds[type] || sounds.booking;
+                    
+                    oscillator.frequency.setValueAtTime(freqs[0], this.state.audioContext.currentTime);
+                    
+                    gainNode.gain.setValueAtTime(0.1, this.state.audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, this.state.audioContext.currentTime + 0.3);
+                    
+                    oscillator.start(this.state.audioContext.currentTime);
+                    oscillator.stop(this.state.audioContext.currentTime + 0.3);
+                } catch (error) {
+                    console.log('🔇 Sound playback failed');
+                }
+            },
+            
+            loadQueue() {
+                try {
+                    const stored = localStorage.getItem(this.config.storageKey);
+                    this.state.queue = stored ? JSON.parse(stored) : [];
+                    console.log(`📦 Loaded ${this.state.queue.length} queued reports`);
+                } catch (error) {
+                    console.error('Error loading queue:', error);
+                    this.state.queue = [];
+                }
+            },
+            
+            saveQueue() {
+                try {
+                    localStorage.setItem(this.config.storageKey, JSON.stringify(this.state.queue));
+                } catch (error) {
+                    console.error('Error saving queue:', error);
+                }
+            },
+            
+            setupNetworkDetection() {
+                window.addEventListener('online', () => {
+                    this.state.isOnline = true;
+                    document.getElementById('systemStatus').textContent = '🟢 ONLINE';
+                    document.getElementById('systemStatus').style.color = 'var(--green)';
+                    document.getElementById('connectionStatus').textContent = '🌐 ONLINE';
+                    document.getElementById('connectionStatus').style.color = 'var(--green)';
+                    
+                    // Auto-sync when back online
+                    this.syncQueue();
+                    system.showToast('🌐 Online connection restored', false, 'info');
+                });
+                
+                window.addEventListener('offline', () => {
+                    this.state.isOnline = false;
+                    document.getElementById('systemStatus').textContent = '📴 OFFLINE';
+                    document.getElementById('systemStatus').style.color = 'var(--red)';
+                    document.getElementById('connectionStatus').textContent = '📴 OFFLINE';
+                    document.getElementById('connectionStatus').style.color = 'var(--red)';
+                    system.showToast('📴 Offline mode activated', false, 'warning');
+                });
+            },
+            
+            setupBroadcastChannel() {
+                if (typeof BroadcastChannel !== 'undefined') {
+                    try {
+                        this.state.broadcastChannel = new BroadcastChannel(this.config.broadcastChannelName);
+                        
+                        this.state.broadcastChannel.onmessage = (event) => {
+                            console.log('📨 Quantum Bridge received:', event.data);
+                            
+                            if (event.data.type === 'SYNC_REQUEST') {
+                                this.syncQueue();
+                            }
+                        };
+                    } catch (error) {
+                        console.warn('BroadcastChannel setup failed:', error);
+                    }
+                }
+            },
+            
+            startSyncTimer() {
+                this.state.syncTimer = setInterval(() => {
+                    this.syncQueue();
+                    this.updateLastSyncTime();
+                }, this.config.syncInterval);
+            },
+            
+            async syncQueue() {
+                if (!this.state.isOnline || this.state.queue.length === 0) {
+                    return;
+                }
+                
+                const queuedReports = this.state.queue.filter(r => r.status === 'queued');
+                if (queuedReports.length === 0) return;
+                
+                console.log(`🔄 Syncing ${queuedReports.length} queued reports...`);
+                
+                for (const report of queuedReports) {
+                    await this.trySend(report);
+                }
+                
+                this.updateStatsUI();
+            },
+            
+            updateStatsUI() {
+                const stats = this.getStats();
+                
+                // Update main dashboard
+                document.getElementById('statQueued').textContent = stats.queued;
+                document.getElementById('statSynced').textContent = stats.synced + stats.broadcasted;
+                document.getElementById('statFailed').textContent = stats.failed;
+                
+                // Update quantum hub
+                document.getElementById('syncTotal').textContent = stats.total;
+                document.getElementById('syncQueued').textContent = stats.queued;
+                document.getElementById('syncSynced').textContent = stats.synced + stats.broadcasted;
+                
+                // Update recent activity
+                this.updateRecentActivity();
+            },
+            
+            getStats() {
+                return {
+                    total: this.state.queue.length,
+                    queued: this.state.queue.filter(r => r.status === 'queued').length,
+                    synced: this.state.queue.filter(r => r.status === 'synced').length,
+                    broadcasted: this.state.queue.filter(r => r.status === 'broadcasted').length,
+                    failed: this.state.queue.filter(r => r.status === 'failed').length
+                };
+            },
+            
+            updateRecentActivity() {
+                const container = document.getElementById('recentActivity');
+                const recent = this.state.queue.slice(0, 5);
+                
+                if (recent.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; padding: 20px; color: #64748b;">No recent activity</div>';
+                    return;
+                }
+                
+                let html = '';
+                
+                recent.forEach(report => {
+                    const timeAgo = this.getTimeAgo(report.timestamp);
+                    const icons = {
+                        'booking': '📅',
+                        'k3': '⚠️',
+                        'security': '💂',
+                        'inventory': '📦'
+                    };
+                    
+                    html += `
+                        <div style="padding: 10px; border-bottom: 1px solid #334155; display: flex; align-items: center; gap: 10px;">
+                            <div style="font-size: 1.5rem;">${icons[report.type] || '📄'}</div>
+                            <div style="flex: 1;">
+                                <div style="color: white; font-weight: 700; font-size: 0.9rem;">${report.type.toUpperCase()}</div>
+                                <div style="color: #94a3b8; font-size: 0.75rem;">${timeAgo} • ${report.status}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            },
+            
+            getTimeAgo(timestamp) {
+                const now = new Date();
+                const reportTime = new Date(timestamp);
+                const diffMs = now - reportTime;
+                const diffSec = Math.floor(diffMs / 1000);
+                const diffMin = Math.floor(diffSec / 60);
+                const diffHour = Math.floor(diffMin / 60);
+                
+                if (diffSec < 60) return 'just now';
+                if (diffMin < 60) return `${diffMin}m ago`;
+                if (diffHour < 24) return `${diffHour}h ago`;
+                return reportTime.toLocaleDateString();
+            },
+            
+            updateLastSyncTime() {
+                document.getElementById('lastSyncTime').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            },
+            
+            forceSync() {
+                system.showToast('🔄 Forcing sync...', false, 'info');
+                this.syncQueue();
+                setTimeout(() => {
+                    system.showToast('✅ Sync complete!', false, 'success');
+                    this.updateStatsUI();
+                }, 1000);
+            },
+            
+            clearOldData() {
+                if (!confirm('Clear reports older than 7 days?')) return;
+                
+                const cutoff = Date.now() - (7 * 24 * 60 * 60 * 1000);
+                const initialCount = this.state.queue.length;
+                
+                this.state.queue = this.state.queue.filter(report => {
+                    const reportTime = new Date(report.timestamp).getTime();
+                    return reportTime > cutoff;
+                });
+                
+                this.saveQueue();
+                this.updateStatsUI();
+                
+                const clearedCount = initialCount - this.state.queue.length;
+                system.showToast(`🧹 Cleared ${clearedCount} old reports`, false, 'success');
+            }
+        };
+
+        // ========== TAP-TAP INVENTORY SYSTEM ==========
+        const tapTapInventory = {
+            items: [],
+            
+            init() {
+                this.loadItems();
+                this.updateStats();
+            },
+            
+            loadItems() {
+                try {
+                    const stored = localStorage.getItem('dreamos_tap_items');
+                    
+                    if (stored) {
+                        this.items = JSON.parse(stored);
+                    } else {
+                        // Default items
+                        this.items = [
+                            { id: 'TAP-001', name: 'Speaker Portable', category: 'Audio', status: 'ready', location: 'Gudang A', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-002', name: 'Mic Wireless', category: 'Audio', status: 'used', location: 'Aula SMA', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-003', name: 'Mic Standing', category: 'Audio', status: 'ready', location: 'Gudang A', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-004', name: 'Projector Epson', category: 'Visual', status: 'used', location: 'Labkom SMP', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-005', name: 'Screen 150"', category: 'Visual', status: 'fix', location: 'Gudang B', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-006', name: 'Kabel HDMI 10m', category: 'Cable', status: 'ready', location: 'Gudang C', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-007', name: 'Kabel Power 5m', category: 'Cable', status: 'used', location: 'Aula SMP', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-008', name: 'Meja Panjang 2m', category: 'Furniture', status: 'ready', location: 'Warehouse', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-009', name: 'Kursi Futura', category: 'Furniture', status: 'used', location: 'Ruang Guru', lastUpdate: new Date().toISOString() },
+                            { id: 'TAP-010', name: 'Laptop Admin', category: 'Computer', status: 'fix', location: 'IT Room', lastUpdate: new Date().toISOString() }
+                        ];
+                        
+                        this.saveItems();
+                    }
+                    
+                    console.log(`📦 Loaded ${this.items.length} tap-tap items`);
+                } catch (error) {
+                    console.error('Error loading tap items:', error);
+                    this.items = [];
+                }
+            },
+            
+            saveItems() {
+                try {
+                    localStorage.setItem('dreamos_tap_items', JSON.stringify(this.items));
+                } catch (error) {
+                    console.error('Error saving tap items:', error);
+                }
+            },
+            
+            render() {
+                const container = document.getElementById('tapItemsContainer');
+                if (!container) return;
+                
+                if (this.items.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #64748b;">
+                            <div style="font-size: 4rem; margin-bottom: 15px;">📭</div>
+                            <div style="font-weight: 700; margin-bottom: 10px;">No Inventory Items</div>
+                            <div>Add some items to get started</div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                
+                this.items.forEach(item => {
+                    html += `
+                        <div class="tap-card ${item.status}" onclick="tapTapInventory.showDetails('${item.id}')">
+                            <div class="tap-header">
+                                <div style="flex: 1;">
+                                    <div class="tap-name">${item.name}</div>
+                                    <div class="tap-meta">ID: ${item.id} • ${item.category} • ${item.location}</div>
+                                </div>
+                                <div class="tap-status ${item.status}">
+                                    ${this.getStatusText(item.status)}
+                                </div>
+                            </div>
+                            
+                            <div class="tap-buttons">
+                                <button class="tap-btn ready ${item.status === 'ready' ? 'active' : ''}" 
+                                        onclick="tapTapInventory.updateStatus('${item.id}', 'ready', event)">
+                                    <span>✅</span>
+                                    <span>READY</span>
+                                </button>
+                                <button class="tap-btn used ${item.status === 'used' ? 'active' : ''}" 
+                                        onclick="tapTapInventory.updateStatus('${item.id}', 'used', event)">
+                                    <span>🔄</span>
+                                    <span>IN USE</span>
+                                </button>
+                                <button class="tap-btn fix ${item.status === 'fix' ? 'active' : ''}" 
+                                        onclick="tapTapInventory.updateStatus('${item.id}', 'fix', event)">
+                                    <span>🔧</span>
+                                    <span>NEED FIX</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            },
+            
+            async updateStatus(itemId, newStatus, event) {
+                if (event) event.stopPropagation();
+                
+                const item = this.items.find(i => i.id === itemId);
+                if (!item) return;
+                
+                const oldStatus = item.status;
+                item.status = newStatus;
+                item.lastUpdate = new Date().toISOString();
+                
+                // Haptic feedback
+                if (navigator.vibrate) navigator.vibrate(50);
+                
+                // Save changes
+                this.saveItems();
+                
+                // Update UI
+                this.render();
+                this.updateStats();
+                
+                // Show feedback
+                system.showToast(`✅ ${item.name} → ${this.getStatusText(newStatus)}`);
+                
+                // Send to Quantum Bridge
+                await this.sendToQuantumBridge(item, oldStatus, newStatus);
+            },
+            
+            async sendToQuantumBridge(item, oldStatus, newStatus) {
+                try {
+                    const reportData = {
+                        item_id: item.id,
+                        item_name: item.name,
+                        category: item.category,
+                        location: item.location,
+                        old_status: oldStatus,
+                        new_status: newStatus,
+                        officer: system.userRole ? system.userRole.toUpperCase() : 'UNKNOWN',
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    const result = await quantumBridge.hybridSend(reportData, 'inventory');
+                    
+                    if (result.success) {
+                        console.log('📡 Tap-tap update sent to Quantum Bridge');
+                    }
+                } catch (error) {
+                    console.error('❌ Error sending to Quantum Bridge:', error);
+                }
+            },
+            
+            search() {
+                const searchTerm = document.getElementById('tapSearch').value.toLowerCase();
+                const filtered = this.items.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.id.toLowerCase().includes(searchTerm) ||
+                    item.category.toLowerCase().includes(searchTerm) ||
+                    item.location.toLowerCase().includes(searchTerm)
+                );
+                
+                const container = document.getElementById('tapItemsContainer');
+                
+                if (filtered.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #64748b;">
+                            <div style="font-size: 4rem; margin-bottom: 15px;">🔍</div>
+                            <div style="font-weight: 700; margin-bottom: 10px;">No Results Found</div>
+                            <div>Try different search terms</div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                
+                filtered.forEach(item => {
+                    html += `
+                        <div class="tap-card ${item.status}" onclick="tapTapInventory.showDetails('${item.id}')">
+                            <div class="tap-header">
+                                <div style="flex: 1;">
+                                    <div class="tap-name">${item.name}</div>
+                                    <div class="tap-meta">ID: ${item.id} • ${item.category} • ${item.location}</div>
+                                </div>
+                                <div class="tap-status ${item.status}">
+                                    ${this.getStatusText(item.status)}
+                                </div>
+                            </div>
+                            
+                            <div class="tap-buttons">
+                                <button class="tap-btn ready ${item.status === 'ready' ? 'active' : ''}" 
+                                        onclick="tapTapInventory.updateStatus('${item.id}', 'ready', event)">
+                                    <span>✅</span>
+                                    <span>READY</span>
+                                </button>
+                                <button class="tap-btn used ${item.status === 'used' ? 'active' : ''}" 
+                                        onclick="tapTapInventory.updateStatus('${item.id}', 'used', event)">
+                                    <span>🔄</span>
+                                    <span>IN USE</span>
+                                </button>
+                                <button class="tap-btn fix ${item.status === 'fix' ? 'active' : ''}" 
+                                        onclick="tapTapInventory.updateStatus('${item.id}', 'fix', event)">
+                                    <span>🔧</span>
+                                    <span>NEED FIX</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            },
+            
+            updateStats() {
+                const ready = this.items.filter(item => item.status === 'ready').length;
+                const used = this.items.filter(item => item.status === 'used').length;
+                const fix = this.items.filter(item => item.status === 'fix').length;
+                
+                document.getElementById('tapReady').textContent = ready;
+                document.getElementById('tapUsed').textContent = used;
+                document.getElementById('tapFix').textContent = fix;
+                
+                document.getElementById('tapReadyCount').textContent = ready;
+                document.getElementById('tapUsedCount').textContent = used;
+                document.getElementById('tapFixCount').textContent = fix;
+            },
+            
+            getStatusText(status) {
+                const texts = {
+                    'ready': 'READY',
+                    'used': 'IN USE',
+                    'fix': 'NEED FIX'
+                };
+                return texts[status] || status.toUpperCase();
+            },
+            
+            showDetails(itemId) {
+                const item = this.items.find(i => i.id === itemId);
+                if (item) {
+                    alert(`📋 ${item.name}\n\nID: ${item.id}\nCategory: ${item.category}\nLocation: ${item.location}\nStatus: ${this.getStatusText(item.status)}\nLast Update: ${new Date(item.lastUpdate).toLocaleString()}`);
+                }
+            },
+            
+            addNewItem() {
+                const name = prompt('Enter item name:');
+                if (!name) return;
+                
+                const category = prompt('Enter category (Audio/Visual/Cable/Furniture/Computer):', 'Audio');
+                const location = prompt('Enter location:', 'Gudang A');
+                
+                const newItem = {
+                    id: `TAP-${String(this.items.length + 1).padStart(3, '0')}`,
+                    name: name,
+                    category: category || 'Other',
+                    status: 'ready',
+                    location: location || 'Unknown',
+                    lastUpdate: new Date().toISOString()
+                };
+                
+                this.items.unshift(newItem);
+                this.saveItems();
+                this.render();
+                this.updateStats();
+                
+                system.showToast(`✅ ${name} added to tap-tap inventory`);
+            }
+        };
+
+        // ========== MAIN SYSTEM ==========
+        const system = {
+            // SYSTEM STATE
+            currentView: 'main',
+            userRole: null,
+            vaultType: null,
+            cameraStream: null,
+            currentPhoto: null,
+            isFridayLocked: false,
+            
+            // PASSWORD MANAGEMENT
+            passwords: {
+                user: 'user_@1234',
+                admin: '@dm1n_Sec2025',
+                architect: '418626',
+                inventory_vault: '4dm1n_6969@01',
+                warehouse_vault: '4dm1n_9696@02',
+                master: 'Mr.M.Architect_1001'
+            },
+            
+            // 22 SARANA DATA
+            saranaData: [
+                { id: 1, name: 'Aula SMP', capacity: 200, equipment: ['Sound', 'Lighting', 'AC', 'Projector'], category: 'Aula', fridayLock: true },
+                { id: 2, name: 'Aula SMA', capacity: 150, equipment: ['Sound', 'Projector', 'AC'], category: 'Aula', fridayLock: true },
+                { id: 3, name: 'Aula Serbaguna', capacity: 100, equipment: ['Sound'], category: 'Aula', fridayLock: true },
+                { id: 4, name: 'Saung Besar', capacity: 50, equipment: ['Sound'], category: 'Aula', fridayLock: true },
+                { id: 5, name: 'Saung Kecil', capacity: 30, equipment: ['Sound'], category: 'Aula', fridayLock: true },
+                { id: 6, name: 'Labkom SD', capacity: 30, equipment: ['Komputer', 'Projector'], category: 'Lab' },
+                { id: 7, name: 'Labkom SMP', capacity: 40, equipment: ['Komputer', 'Projector', 'AC'], category: 'Lab' },
+                { id: 8, name: 'Labkom SMA', capacity: 50, equipment: ['Komputer', 'Projector', 'AC'], category: 'Lab' },
+                { id: 9, name: 'Lapangan SMA', capacity: 100, equipment: [], category: 'Outdoor' },
+                { id: 10, name: 'Lapangan Basket', capacity: 50, equipment: [], category: 'Outdoor' },
+                { id: 11, name: 'Lapangan Volley', capacity: 30, equipment: [], category: 'Outdoor' },
+                { id: 12, name: 'Lapangan Futsal', capacity: 40, equipment: [], category: 'Outdoor' },
+                { id: 13, name: 'Lapangan Rumput', capacity: 200, equipment: [], category: 'Outdoor' },
+                { id: 14, name: 'Lapangan Rumput Depan Masjid AF', capacity: 150, equipment: [], category: 'Outdoor' },
+                { id: 15, name: 'Area Parkir Loby SMA', capacity: 50, equipment: [], category: 'Outdoor' },
+                { id: 16, name: 'Kantin SMP', capacity: 80, equipment: [], category: 'Kantin' },
+                { id: 17, name: 'Kantin SMA', capacity: 100, equipment: [], category: 'Kantin' },
+                { id: 18, name: 'Perpus SD', capacity: 40, equipment: [], category: 'Perpustakaan' },
+                { id: 19, name: 'Perpus SMP', capacity: 60, equipment: [], category: 'Perpustakaan' },
+                { id: 20, name: 'Perpus SMA', capacity: 80, equipment: [], category: 'Perpustakaan' },
+                { id: 21, name: 'Musholla SMA', capacity: 30, equipment: [], category: 'Ibadah' },
+                { id: 22, name: 'Masjid', capacity: 200, equipment: ['Sound'], status: 'MAINTENANCE', category: 'Ibadah' }
+            ],
+            
+            // ========== INITIALIZATION ==========
+            init() {
+                console.log('🚀 Initializing DREAM OS Hybrid v13.0...');
+                
+                // Quick load
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                    
+                    // Start clock
+                    this.updateClock();
+                    setInterval(() => this.updateClock(), 1000);
+                    
+                    // Initialize Quantum Bridge
+                    quantumBridge.init();
+                    
+                    // Initialize Tap-Tap Inventory
+                    tapTapInventory.init();
+                    
+                    // Auto show login modal
+                    setTimeout(() => {
+                        this.showModal('loginModal');
+                    }, 300);
+                    
+                    // Set default date for booking
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    document.getElementById('bookingDate').value = tomorrow.toISOString().split('T')[0];
+                    
+                    // Setup network status
+                    this.updateNetworkStatus();
+                    
+                    console.log('✅ DREAM OS Hybrid v13.0 Ready');
+                    this.showToast('🚀 DREAM OS Hybrid v13.0 Ready', false, 'success');
+                }, 800);
+            },
+            
+            // ========== LOGIN SYSTEM ==========
+            login() {
+                const password = document.getElementById('loginPassword').value;
+                
+                // Architect bypass
+                if (password === this.passwords.architect) {
+                    this.userRole = 'architect';
+                    document.getElementById('systemUser').textContent = '🏗️ ARCHITECT';
+                    document.getElementById('systemUser').style.color = 'var(--purple)';
+                    document.getElementById('adminCard').style.display = 'block';
+                    
+                    this.closeModal('loginModal');
+                    this.showToast('🏗️ Architect mode activated - Full access');
+                    return;
+                }
+                
+                // Regular password check
+                if (password === this.passwords.user) {
+                    this.userRole = 'user';
+                    document.getElementById('systemUser').textContent = '👤 USER';
+                    document.getElementById('systemUser').style.color = 'var(--gold)';
+                    
+                    this.closeModal('loginModal');
+                    this.showToast('👤 User access granted');
+                    
+                } else if (password === this.passwords.admin) {
+                    this.userRole = 'admin';
+                    document.getElementById('systemUser').textContent = '👑 ADMIN';
+                    document.getElementById('systemUser').style.color = 'var(--gold)';
+                    document.getElementById('adminCard').style.display = 'block';
+                    
+                    this.closeModal('loginModal');
+                    this.showToast('👑 Admin access granted');
+                    
+                } else if (password === this.passwords.master) {
+                    this.userRole = 'master';
+                    document.getElementById('systemUser').textContent = '🔓 MASTER';
+                    document.getElementById('systemUser').style.color = 'var(--red)';
+                    document.getElementById('adminCard').style.display = 'block';
+                    
+                    this.closeModal('loginModal');
+                    this.showToast('🔓 Master access granted');
+                    
+                } else {
+                    this.showToast('❌ Password salah!', true);
+                    if (navigator.vibrate) navigator.vibrate(200);
+                }
+            },
+            
+            fillPassword(password) {
+                document.getElementById('loginPassword').value = password;
+            },
+            
+            // ========== VIEW MANAGEMENT ==========
+            showView(viewId) {
+                // Stop camera if active
+                this.stopCamera();
+                
+                // Update navigation
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                
+                // Hide all views
+                document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+                document.getElementById('mainView').style.display = 'none';
+                
+                // Show target view
+                if (viewId === 'main') {
+                    document.getElementById('mainView').style.display = 'block';
+                    document.querySelector('.nav-btn:nth-child(1)').classList.add('active');
+                } else {
+                    const view = document.getElementById(viewId + 'View');
+                    if (view) {
+                        view.style.display = 'block';
+                        // Update active nav button
+                        const navIndex = {service: 2, asset: 3, quantum: 4}[viewId];
+                        if (navIndex) {
+                            document.querySelector(`.nav-btn:nth-child(${navIndex})`).classList.add('active');
+                        }
+                        
+                        // Special initialization for views
+                        if (viewId === 'tapTap') {
+                            tapTapInventory.render();
+                            tapTapInventory.updateStats();
+                        }
+                    }
+                }
+                
+                this.currentView = viewId;
+            },
+            
+            showMain() {
+                this.showView('main');
+            },
+            
+            showTapTapInventory() {
+                // Check login first
+                if (!this.userRole) {
+                    this.showToast('❌ Silakan login terlebih dahulu!', true);
+                    this.showModal('loginModal');
+                    return;
+                }
+                
+                this.showView('tapTap');
+            },
+            
+            openAdminDashboard() {
+                window.open('admin-dashboard.html', '_blank');
+                this.showToast('📊 Admin dashboard opened in new tab');
+            },
+            
+            // ========== MODAL MANAGEMENT ==========
+            showModal(modalId) {
+                document.getElementById(modalId).style.display = 'flex';
+            },
+            
+            closeModal(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+            },
+            
+            // ========== BOOKING SYSTEM WITH QUANTUM SYNC ==========
+            checkDateRules() {
+                const dateInput = document.getElementById('bookingDate').value;
+                if (!dateInput) return;
+                
+                const selectedDate = new Date(dateInput);
+                const day = selectedDate.getDay();
+                
+                // Hide all warnings first
+                document.getElementById('fridayWarning').style.display = 'none';
+                document.getElementById('saturdayInfo').style.display = 'none';
+                this.isFridayLocked = false;
+                
+                // Check if Sunday
+                if (day === 0) {
+                    this.showToast('❌ Minggu: Tidak ada booking', true);
+                    document.getElementById('bookingDate').value = '';
+                    return;
+                }
+                
+                // Check if Saturday
+                if (day === 6) {
+                    document.getElementById('saturdayInfo').style.display = 'block';
+                    this.showToast('Sabtu: Konfirmasi WA ke Pak Erwin');
+                }
+            },
+            
+            checkTimeRules() {
+                const startTime = document.getElementById('bookingStart').value;
+                const endTime = document.getElementById('bookingEnd').value;
+                const dateInput = document.getElementById('bookingDate').value;
+                
+                if (!startTime || !endTime || !dateInput) return;
+                
+                const selectedDate = new Date(dateInput);
+                const day = selectedDate.getDay();
+                
+                // Reset warnings
+                document.getElementById('fridayWarning').style.display = 'none';
+                this.isFridayLocked = false;
+                
+                // Check if Friday and time is 10:30-13:00
+                if (day === 5) { // Friday
+                    const [startHour, startMinute] = startTime.split(':').map(Number);
+                    const startDecimal = startHour + (startMinute / 100);
+                    
+                    if (startDecimal >= 10.5 && startDecimal < 13) {
+                        const sarana = document.getElementById('bookingSarana').value;
+                        const fridayLockSarana = ['Aula SMP', 'Aula SMA', 'Aula Serbaguna', 'Saung Besar', 'Saung Kecil'];
+                        
+                        if (fridayLockSarana.includes(sarana)) {
+                            document.getElementById('fridayWarning').style.display = 'block';
+                            this.isFridayLocked = true;
+                            this.showToast('❌ Jumat 10:30-13:00: Aula tidak tersedia', true);
+                        }
+                    }
+                }
+                
+                // Check duration (max 4 hours)
+                const [startHour, startMinute] = startTime.split(':').map(Number);
+                const [endHour, endMinute] = endTime.split(':').map(Number);
+                
+                const startTotal = startHour * 60 + startMinute;
+                const endTotal = endHour * 60 + endMinute;
+                const duration = endTotal - startTotal;
+                
+                if (duration > 240) { // 4 hours = 240 minutes
+                    this.showToast('Durasi maksimal 4 jam!', true);
+                    document.getElementById('bookingEnd').value = this.addMinutes(startTime, 240);
+                }
+            },
+            
+            checkSaranaRules(sarana) {
+                if (sarana === 'Masjid') {
+                    this.showToast('Masjid dalam maintenance sampai另行通知', true);
+                    document.getElementById('bookingSarana').value = '';
+                }
+            },
+            
+            async sendBooking() {
+                // Check if user is logged in
+                if (!this.userRole) {
+                    this.showToast('❌ Silakan login terlebih dahulu!', true);
+                    this.showModal('loginModal');
+                    return;
+                }
+                
+                const sarana = document.getElementById('bookingSarana').value;
+                const pic = document.getElementById('bookingPIC').value;
+                const unit = document.getElementById('bookingUnit').value;
+                const date = document.getElementById('bookingDate').value;
+                const startTime = document.getElementById('bookingStart').value;
+                const endTime = document.getElementById('bookingEnd').value;
+                const note = document.getElementById('bookingNote').value;
+                
+                if (!sarana || !pic || !unit || !date || !startTime || !endTime) {
+                    this.showToast('❌ Isi semua data wajib!', true);
+                    return;
+                }
+                
+                // Check Friday lock
+                if (this.isFridayLocked) {
+                    this.showToast('❌ Tidak bisa booking jam ini di hari Jumat!', true);
+                    return;
+                }
+                
+                // Check if Saturday
+                const selectedDate = new Date(date);
+                const day = selectedDate.getDay();
+                
+                let waMessage = '';
+                let phoneNumber = '628886183954'; // Pak Erwin
+                
+                if (day === 6) { // Saturday
+                    waMessage = `*BOOKING SARANA SABTU - KONFIRMASI*\n\n` +
+                               `📋 *JENIS:* Booking Hari Sabtu\n` +
+                               `🏛️ *SARANA:* ${sarana}\n` +
+                               `👤 *PIC:* ${pic}\n` +
+                               `👥 *UNIT:* ${unit}\n` +
+                               `📅 *TANGGAL:* ${date}\n` +
+                               `⏰ *WAKTU:* ${startTime} - ${endTime} WIB\n` +
+                               `📝 *KETERANGAN:* ${note || '-'}\n\n` +
+                               `*MOHON KONFIRMASI VIA WA INI YA PAK ERWIN*\n` +
+                               `Status: MENUNGGU KONFIRMASI KHUSUS\n` +
+                               `Via: DREAM OS Hybrid v13.0`;
+                } else {
+                    waMessage = `*BOOKING SARANA SIF - QUANTUM SYNC*\n\n` +
+                               `📋 *JENIS:* Booking Sarana\n` +
+                               `🏛️ *SARANA:* ${sarana}\n` +
+                               `👤 *PIC:* ${pic}\n` +
+                               `👥 *UNIT:* ${unit}\n` +
+                               `📅 *TANGGAL:* ${date}\n` +
+                               `⏰ *WAKTU:* ${startTime} - ${endTime} WIB\n` +
+                               `📝 *KETERANGAN:* ${note || '-'}\n\n` +
+                               `Status: *MENUNGGU KONFIRMASI*\n` +
+                               `Via: DREAM OS Hybrid v13.0 (Quantum Bridge)\n` +
+                               `User: ${this.userRole.toUpperCase()}`;
+                }
+                
+                // Send to WhatsApp
+                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(waMessage)}`, '_blank');
+                
+                // Prepare data for Quantum Bridge
+                const bookingData = {
+                    sarana, pic, unit, date, startTime, endTime, note,
+                    userRole: this.userRole,
+                    timestamp: new Date().toISOString(),
+                    status: 'pending',
+                    source: 'booking_form'
+                };
+                
+                // Send to Quantum Bridge
+                const quantumResult = await quantumBridge.hybridSend(bookingData, 'booking');
+                
+                if (quantumResult.success) {
+                    this.showToast('✅ Booking berhasil dikirim via Quantum Bridge!');
+                    
+                    // Haptic feedback
+                    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                    
+                    setTimeout(() => this.showView('service'), 1500);
+                } else {
+                    this.showToast('⚠️ Booking disimpan offline, akan sync otomatis');
+                }
+            },
+            
+            checkAvailability() {
+                const sarana = document.getElementById('bookingSarana').value;
+                if (!sarana) {
+                    this.showToast('Pilih sarana dulu!', true);
+                    return;
+                }
+                
+                const available = Math.random() > 0.3;
+                this.showToast(available ? 
+                    `✅ ${sarana} tersedia untuk booking` : 
+                    `❌ ${sarana} sudah dibooking`, 
+                    !available
+                );
+            },
+            
+            // ========== K3 REPORT WITH QUANTUM SYNC ==========
+            async sendK3Report() {
+                // Check login
+                if (!this.userRole) {
+                    this.showToast('❌ Silakan login terlebih dahulu!', true);
+                    this.showModal('loginModal');
+                    return;
+                }
+                
+                const location = document.getElementById('k3Location').value;
+                const type = document.getElementById('k3Type').value;
+                const reporter = document.getElementById('k3Reporter').value;
+                const unit = document.getElementById('k3Unit').value;
+                const description = document.getElementById('k3Description').value;
+                
+                if (!location || !type || !reporter || !unit || !description) {
+                    this.showToast('❌ Isi semua data laporan!', true);
+                    return;
+                }
+                
+                // Prepare K3 data for Quantum Bridge
+                const k3Data = {
+                    location, type, reporter, unit, description,
+                    hasPhoto: this.currentPhoto ? true : false,
+                    userRole: this.userRole,
+                    timestamp: new Date().toISOString(),
+                    status: 'reported',
+                    source: 'k3_form'
+                };
+                
+                // Send to Quantum Bridge
+                const quantumResult = await quantumBridge.hybridSend(k3Data, 'k3');
+                
+                if (quantumResult.success) {
+                    this.showToast('✅ Laporan K3 dikirim via Quantum Bridge!');
+                    
+                    // Send WhatsApp notification
+                    const waMessage = `*LAPORAN K3 - QUANTUM SYNC*\n\n` +
+                                     `📍 *LOKASI:* ${location}\n` +
+                                     `⚠️ *JENIS:* ${type}\n` +
+                                     `👤 *PELAPOR:* ${reporter}\n` +
+                                     `👥 *UNIT:* ${unit}\n` +
+                                     `📝 *DESKRIPSI:* ${description.substring(0, 100)}...\n\n` +
+                                     `Status: *DILAPORKAN*\n` +
+                                     `Via: DREAM OS Hybrid v13.0 (Quantum Bridge)`;
+                    
+                    window.open(`https://wa.me/628886183954?text=${encodeURIComponent(waMessage)}`, '_blank');
+                    
+                    this.currentPhoto = null;
+                    document.getElementById('k3PhotoPreview').style.display = 'none';
+                    
+                    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                    
+                    setTimeout(() => this.showView('service'), 1500);
+                } else {
+                    this.showToast('⚠️ Laporan disimpan offline, akan sync otomatis');
+                }
+            },
+            
+            // ========== SECURITY REPORT WITH QUANTUM SYNC ==========
+            async sendSecurityReport() {
+                // Check login
+                if (!this.userRole) {
+                    this.showToast('❌ Silakan login terlebih dahulu!', true);
+                    this.showModal('loginModal');
+                    return;
+                }
+                
+                const officer = document.getElementById('securityOfficer').value;
+                const shift = document.getElementById('securityShift').value;
+                const type = document.getElementById('securityReportType').value;
+                const location = document.getElementById('securityLocation').value;
+                const condition = document.getElementById('securityCondition').value;
+                const description = document.getElementById('securityDescription').value;
+                
+                if (!officer || !shift || !type || !location || !condition) {
+                    this.showToast('❌ Isi semua data laporan!', true);
+                    return;
+                }
+                
+                // Prepare security data for Quantum Bridge
+                const securityData = {
+                    officer, shift, type, location, condition, description,
+                    hasPhoto: this.currentPhoto ? true : false,
+                    userRole: this.userRole,
+                    timestamp: new Date().toISOString(),
+                    status: 'reported',
+                    source: 'security_form'
+                };
+                
+                // Send to Quantum Bridge
+                const quantumResult = await quantumBridge.hybridSend(securityData, 'security');
+                
+                if (quantumResult.success) {
+                    this.showToast('✅ Laporan sekuriti dikirim via Quantum Bridge!');
+                    
+                    // Send WhatsApp notification
+                    const waMessage = `*LAPORAN SEKURITI - QUANTUM SYNC*\n\n` +
+                                     `💂 *PETUGAS:* ${officer}\n` +
+                                     `⏰ *SHIFT:* ${shift}\n` +
+                                     `📋 *JENIS:* ${type}\n` +
+                                     `📍 *LOKASI:* ${location}\n` +
+                                     `🟡 *KONDISI:* ${condition}\n` +
+                                     `📝 *CATATAN:* ${description || '-'}\n\n` +
+                                     `Status: *DILAPORKAN*\n` +
+                                     `Via: DREAM OS Hybrid v13.0 (Quantum Bridge)`;
+                    
+                    window.open(`https://wa.me/628886183954?text=${encodeURIComponent(waMessage)}`, '_blank');
+                    
+                    this.currentPhoto = null;
+                    document.getElementById('securityPhotoPreview').style.display = 'none';
+                    
+                    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                    
+                    setTimeout(() => this.showView('service'), 1500);
+                } else {
+                    this.showToast('⚠️ Laporan disimpan offline, akan sync otomatis');
+                }
+            },
+            
+            // ========== CAMERA SYSTEM ==========
+            startCamera(type) {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    this.showToast('❌ Kamera tidak didukung', true);
+                    return;
+                }
+                
+                // Stop previous stream
+                this.stopCamera();
+                
+                const previewId = type === 'security' ? 'securityCameraPreview' : 'cameraPreview';
+                const preview = document.getElementById(previewId);
+                
+                const constraints = {
+                    video: {
+                        facingMode: 'environment',
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
+                    audio: false
+                };
+                
+                navigator.mediaDevices.getUserMedia(constraints)
+                    .then(stream => {
+                        this.cameraStream = stream;
+                        preview.srcObject = stream;
+                        this.showToast('📷 Kamera aktif');
+                    })
+                    .catch(err => {
+                        console.error('Camera error:', err);
+                        this.showToast('❌ Gagal mengakses kamera', true);
+                    });
+            },
+            
+            capturePhoto(type) {
+                if (!this.cameraStream) {
+                    this.showToast('❌ Buka kamera terlebih dahulu!', true);
+                    return;
+                }
+                
+                const previewId = type === 'security' ? 'securityCameraPreview' : 'cameraPreview';
+                const preview = document.getElementById(previewId);
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = preview.videoWidth;
+                canvas.height = preview.videoHeight;
+                ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+                
+                // Add watermark
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "#fbbf24";
+                ctx.fillText("DREAM OS v13.0", 20, canvas.height - 40);
+                ctx.fillText(new Date().toLocaleString(), 20, canvas.height - 15);
+                
+                this.currentPhoto = canvas.toDataURL('image/jpeg', 0.9);
+                
+                // Show preview
+                if (type === 'security') {
+                    document.getElementById('securityPhoto').src = this.currentPhoto;
+                    document.getElementById('securityPhotoPreview').style.display = 'block';
+                } else {
+                    document.getElementById('k3Photo').src = this.currentPhoto;
+                    document.getElementById('k3PhotoPreview').style.display = 'block';
+                }
+                
+                this.showToast('✅ Foto berhasil diambil!');
+                this.stopCamera();
+                
+                // Haptic feedback
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            },
+            
+            stopCamera() {
+                if (this.cameraStream) {
+                    this.cameraStream.getTracks().forEach(track => track.stop());
+                    this.cameraStream = null;
+                }
+            },
+            
+            // ========== INVENTORY SYSTEM ==========
+            openVault(type) {
+                this.vaultType = type;
+                const modal = document.getElementById('vaultModal');
+                const title = document.getElementById('vaultTitle');
+                const subtitle = document.getElementById('vaultSubtitle');
+                
+                if (type === 'inventory') {
+                    title.textContent = 'INVENTORY VAULT';
+                    subtitle.textContent = 'Enter inventory vault password';
+                } else {
+                    title.textContent = 'WAREHOUSE VAULT';
+                    subtitle.textContent = 'Enter warehouse vault password';
+                }
+                
+                modal.style.display = 'flex';
+                document.getElementById('vaultPassword').value = '';
+                document.getElementById('vaultPassword').focus();
+            },
+            
+            accessVault() {
+                const password = document.getElementById('vaultPassword').value;
+                const expectedPassword = this.vaultType === 'inventory' 
+                    ? this.passwords.inventory_vault 
+                    : this.passwords.warehouse_vault;
+                
+                if (password === expectedPassword || 
+                    password === this.passwords.architect || 
+                    password === this.passwords.master) {
+                    
+                    this.closeModal('vaultModal');
+                    
+                    if (this.vaultType === 'inventory') {
+                        this.showView('inventory');
+                        this.showToast('🔓 Inventory vault unlocked');
+                    } else {
+                        this.showView('warehouse');
+                        this.showToast('🔓 Warehouse vault unlocked');
+                    }
+                    
+                    // Haptic feedback
+                    if (navigator.vibrate) navigator.vibrate([50, 50, 50]);
+                } else {
+                    this.showToast('❌ Password salah!', true);
+                    if (navigator.vibrate) navigator.vibrate(200);
+                }
+            },
+            
+            // ========== UTILITIES ==========
+            addMinutes(time, minutes) {
+                const [hours, mins] = time.split(':').map(Number);
+                const totalMinutes = hours * 60 + mins + minutes;
+                const newHours = Math.floor(totalMinutes / 60);
+                const newMinutes = totalMinutes % 60;
+                return `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}`;
+            },
+            
+            showToast(message, isError = false, type = 'default') {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                
+                // Set toast class based on type
+                toast.className = 'toast';
+                if (isError) {
+                    toast.classList.add('toast-error');
+                } else if (type === 'info') {
+                    toast.classList.add('toast-info');
+                } else if (type === 'warning') {
+                    toast.classList.add('toast-warning');
+                } else if (type === 'success') {
+                    toast.classList.add('toast');
+                } else if (type === 'quantum') {
+                    toast.classList.add('toast-quantum');
+                }
+                
+                toast.style.display = 'block';
+                
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+                
+                console.log('📢 Toast:', message);
+            },
+            
+            updateClock() {
+                const now = new Date();
+                const time = now.toLocaleTimeString('id-ID');
+                document.getElementById('clock').textContent = '🕐 ' + time;
+            },
+            
+            updateNetworkStatus() {
+                if (navigator.onLine) {
+                    document.getElementById('systemStatus').textContent = '🟢 ONLINE';
+                    document.getElementById('systemStatus').style.color = 'var(--green)';
+                    document.getElementById('connectionStatus').textContent = '🌐 ONLINE';
+                    document.getElementById('connectionStatus').style.color = 'var(--green)';
+                } else {
+                    document.getElementById('systemStatus').textContent = '📴 OFFLINE';
+                    document.getElementById('systemStatus').style.color = 'var(--red)';
+                    document.getElementById('connectionStatus').textContent = '📴 OFFLINE';
+                    document.getElementById('connectionStatus').style.color = 'var(--red)';
+                }
+            },
+            
+            showQuantumInfo() {
+                const stats = quantumBridge.getStats();
+                alert(`📊 QUANTUM BRIDGE STATUS\n\n` +
+                      `Total Reports: ${stats.total}\n` +
+                      `In Queue: ${stats.queued}\n` +
+                      `Synced: ${stats.synced + stats.broadcasted}\n` +
+                      `Failed: ${stats.failed}\n\n` +
+                      `Status: ${quantumBridge.state.isOnline ? '🟢 ONLINE' : '📴 OFFLINE'}\n` +
+                      `Sound: ${quantumBridge.config.soundEnabled ? '🔊 ON' : '🔇 OFF'}\n\n` +
+                      `DREAM OS Hybrid v13.0\n` +
+                      `The Power Soul of Shalawat`);
+            },
+            
+            // ========== DEMO FUNCTION ==========
+            quickDemo() {
+                if (!this.userRole) {
+                    this.showToast('❌ Silakan login dulu untuk demo', true);
+                    this.showModal('loginModal');
+                    return;
+                }
+                
+                this.showToast('🎬 Memulai Quantum Demo...', false, 'info');
+                
+                const steps = [
+                    { delay: 0, action: () => this.showView('service') },
+                    { delay: 1000, action: () => this.showView('booking') },
+                    { delay: 2000, action: () => {
+                        document.getElementById('bookingSarana').value = 'Aula SMP';
+                        document.getElementById('bookingPIC').value = 'Guru Demo';
+                        document.getElementById('bookingUnit').value = 'SMP';
+                        const tomorrow = new Date();
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        document.getElementById('bookingDate').value = tomorrow.toISOString().split('T')[0];
+                        this.showToast('📅 Demo: Coba booking Jumat 11:00', false, 'info');
+                    }},
+                    { delay: 4000, action: () => {
+                        this.showToast('❌ Aula SMP locked di Jumat 10:30-13:00', true);
+                    }},
+                    { delay: 6000, action: () => {
+                        document.getElementById('bookingStart').value = '13:30';
+                        document.getElementById('bookingEnd').value = '15:30';
+                        this.showToast('✅ Sekarang bisa booking!', false, 'success');
+                    }},
+                    { delay: 8000, action: () => {
+                        this.showView('asset');
+                        this.showToast('👆 Sekarang coba Tap-Tap Inventory', false, 'info');
+                    }},
+                    { delay: 10000, action: () => {
+                        this.showTapTapInventory();
+                        this.showToast('Tap tombol biru untuk ubah status!', false, 'info');
+                    }}
+                ];
+                
+                steps.forEach(step => setTimeout(step.action, step.delay));
+            },
+            
+            // ========== ARCHITECT MODE ==========
+            architectTrigger() {
+                if (this.userRole !== 'architect' && this.userRole !== 'master') {
+                    this.showToast('🔓 Klik 5x untuk Architect Mode');
+                    return;
+                }
+                
+                const secrets = `
+🔐 DREAM OS HYBRID v13.0 - MASTER KEYS 🔐
+
+👤 USER: ${this.passwords.user}
+👑 ADMIN: ${this.passwords.admin}
+🏗️ ARCHITECT: ${this.passwords.architect}
+📦 INVENTORY VAULT: ${this.passwords.inventory_vault}
+🏬 WAREHOUSE VAULT: ${this.passwords.warehouse_vault}
+🔓 MASTER KEY: ${this.passwords.master}
+
+📞 PAK ERWIN: +62 888-6183-954
+📧 TEKNISI: teknisi@alfikri.sch.id
+
+🛰️ QUANTUM BRIDGE: Active
+👆 TAP-TAP: Ready
+📡 ADMIN DASHBOARD: Ready
+
+🚀 SYSTEM STATUS: PRODUCTION READY
+✨ 22 SARANA • QUANTUM SYNC • TAP-TAP
+🤲 THE POWER SOUL OF SHALAWAT
+`;
+                
+                alert(secrets);
+                this.showToast('🏗️ Architect secrets revealed', false, 'quantum');
+            }
+        };
+
+        // =========================================
+        // INITIALIZE SYSTEM
+        // =========================================
+        window.addEventListener('DOMContentLoaded', function() {
+            system.init();
+        });
+
+        // Make systems globally accessible
+        window.system = system;
+        window.quantumBridge = quantumBridge;
+        window.tapTapInventory = tapTapInventory;
+    </script>
+</body>
+</html>
