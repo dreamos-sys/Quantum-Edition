@@ -56,11 +56,6 @@
 
 ## 🔧 Penggunaan
 
-### Login
-- **User**: `user_@1234`
-- **Admin**: `@dm1n_Sec2025`
-- **Architect**: `418626`
-
 ### Demo Flow
 1. Buka `index.html` di browser
 2. Login sebagai user/admin
