@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>✅ Cek Ikon DREAM OS</h1>
+
+<button onclick="checkIcons()">CHECK ICONS</button>
+
+<div id="result" style="margin-top:20px;padding:15px;background:#f5f5f5;"></div>
+
+<script>
+async function checkIcons() {
+  const icons = [
+    { name: 'icon-192.png', path: './assets/icon-192.png' },
+    { name: 'icon-512.png', path: './assets/icon-512.png' }
+  ];
+  
+  let results = '';
+  
+  for (const icon of icons) {
+    try {
+      const response = await fetch(icon.path);
+      if (response.ok) {
+        results += `<p style="color:green;">✅ ${icon.name} FOUND (${response.status})</p>`;
+      } else {
+        results += `<p style="color:red;">❌ ${icon.name} NOT FOUND (${response.status})</p>`;
+      }
+    } catch (error) {
+      results += `<p style="color:red;">❌ ${icon.name} ERROR: ${error.message}</p>`;
+    }
+  }
+  
+  document.getElementById('result').innerHTML = `
+    <h3>Hasil Cek:</h3>
+    ${results}
+    <hr>
+    <p><strong>Path yang dicek:</strong></p>
+    <p>./assets/icon-192.png</p>
+    <p>./assets/icon-512.png</p>
+  `;
+}
+</script>
+</body>
+</html>
