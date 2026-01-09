@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DREAM OS PWA Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #0a0f1e; color: white; }
+        .test-box { background: rgba(255,255,255,0.1); padding: 15px; margin: 10px 0; border-radius: 10px; }
+        .success { color: #4CAF50; }
+        .error { color: #f44336; }
+        .warning { color: #FF9800; }
+    </style>
+</head>
+<body>
+    <h1>📱 DREAM OS PWA TEST</h1>
+    
+    <div class="test-box">
+        <h3>🔗 File URLs Test:</h3>
+        <div id="fileTests"></div>
+    </div>
+    
+    <div class="test-box">
+        <h3>🛠️ PWA Features Test:</h3>
+        <div id="pwaTests"></div>
+    </div>
+    
+    <div class="test-box">
+        <h3>🎯 Installation Test:</h3>
+        <button onclick="installPWA()" style="padding: 15px; background: #fbbf24; color: black; border: none; font-weight: bold; cursor: pointer;">
+            📲 INSTALL DREAM OS NOW
+        </button>
+        <div id="installResult"></div>
+    </div>
+    
+    <script>
+        // Test file availability
+        const files = [
+            { name: 'index.html', url: './index.html' },
+            { name: 'manifest.json', url: './manifest.json' },
+            { name: 'sw.js', url: './sw.js' },
+            { name: 'icon-192.png', url: './assets/icon-192.png' },
+            { name: 'icon-512.png', url: './assets/icon-512.png' }
+        ];
+        
+        async function testFiles() {
+            const container = document.getElementById('fileTests');
+            container.innerHTML = '';
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch(file.url);
+                    const status = response.ok ? '✅' : '❌';
+                    const color = response.ok ? 'success' : 'error';
+                    container.innerHTML += `<div class="${color}">${status} ${file.name} - ${response.status}</div>`;
+                } catch (error) {
+                    container.innerHTML += `<div class="error">❌ ${file.name} - ${error.message}</div>`;
+                }
+            }
+        }
+        
+        // Test PWA features
+        function testPWAFEatures() {
+            const container = document.getElementById('pwaTests');
+            container.innerHTML = '';
+            
+            const tests = [
+                { name: 'Service Worker', test: 'serviceWorker' in navigator },
+                { name: 'Web App Manifest', test: 'manifest' in document.createElement('link') },
+                { name: 'BeforeInstallPrompt', test: 'BeforeInstallPromptEvent' in window },
+                { name: 'Running as PWA', test: window.matchMedia('(display-mode: standalone)').matches }
+            ];
+            
+            tests.forEach(test => {
+                const status = test.test ? '✅' : '⚠️';
+                const color = test.test ? 'success' : 'warning';
+                container.innerHTML += `<div class="${color}">${status} ${test.name}</div>`;
+            });
+        }
+        
+        // PWA Installation
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installResult').innerHTML = 
+                '<div class="success">✅ Ready to install as PWA!</div>';
+        });
+        
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installResult').innerHTML = 
+                            '<div class="success">🎉 DREAM OS installed successfully!</div>';
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                document.getElementById('installResult').innerHTML = 
+                    '<div class="warning">⚠️ Installation not available. Try Chrome menu → "Install DREAM OS"</div>';
+            }
+        }
+        
+        // Run tests
+        testFiles();
+        testPWAFEatures();
+        
+        // Auto-test on load
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => {
+                    console.log('✅ Service Worker registered:', reg);
+                    document.getElementById('pwaTests').innerHTML += 
+                        '<div class="success">✅ Service Worker Registered</div>';
+                })
+                .catch(err => {
+                    console.error('❌ Service Worker failed:', err);
+                    document.getElementById('pwaTests').innerHTML += 
+                        `<div class="error">❌ Service Worker Failed: ${err.message}</div>`;
+                });
+        }
+    </script>
+</body>
+</html>
