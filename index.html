@@ -822,7 +822,7 @@
 
         <!-- SARANA SELECTION - 22 UNIT LENGKAP -->
         <div class="form-group">
-            <label class="form-label">Pilih Sarana (20 Unit)</label>
+            <label class="form-label">Pilih Sarana (22 Unit)</label>
             <select class="form-input" id="bookingSarana" onchange="system.checkSaranaRules(this.value)">
                 <option value="">-- Pilih Sarana --</option>
                 <optgroup label="🏛️ AULA UTAMA">
@@ -1088,18 +1088,10 @@
 
         <!-- SECURITY FORM -->
         <div class="form-group">
-            <label class="form-label">Nama Petugas *</label>
-            <select class="form-input" id="securityOfficer">
-                <option value="">-- Pilih Petugas --</option>
-                <option value="Pak Agus">Pak Agus (Shift Pagi)</option>
-                <option value="Pak Dinda">Pak Dinda (Shift Siang)</option>
-                <option value="Pak Mbeb">Pak Mbeb (Shift Malam)</option>
-                <option value="Pak MahMud">Pak MahMud (Shift Pagi)</option>
-                <option value="Pak Ayang">Pak Ayang (Shift Siang)</option>
-                <option value="Pak Bawel">Pak Bawel (Shift Malam)</option>
-            </select>
+            <label class="form-label">Nama Petugas 1 / Sekuriti *</label>
+            <input type="text" class="form-input" id="bookingPIC" placeholder="Nama lengkap ">
         </div>
-
+            
         <div class="form-group">
             <label class="form-label">Shift / Waktu Patroli *</label>
             <select class="form-input" id="securityShift">
@@ -1118,7 +1110,7 @@
                 <option value="Insiden Keamanan">Insiden Keamanan</option>
                 <option value="Orang Asing">Orang Asing Terdeteksi</option>
                 <option value="Kendaraan Mencurigakan">Kendaraan Mencurigakan</option>
-                <option value="Check-out Patroli">Check-out Patroli</option>
+                <option value="Ct Patroli">Check-out Patroli</option>
             </select>
         </div>
 
