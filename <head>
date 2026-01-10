@@ -1,0 +1,24 @@
+<!-- iOS Splash Screen -->
+<link rel="apple-touch-startup-image" 
+      href="./assets/splash-iphone5.png"
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" 
+      href="./assets/splash-iphone6.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" 
+      href="./assets/splash-iphonex.png"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+<link rel="apple-touch-startup-image" 
+      href="./assets/splash-ipad.png"
+      media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+
+<!-- Maskable Icons for Android -->
+<link rel="icon" type="image/png" sizes="192x192" href="./assets/icon-maskable-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./assets/icon-maskable-512.png">
+
+<!-- Theme Color for Different Browsers -->
+<meta name="theme-color" content="#0a0f1e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0a0f1e" media="(prefers-color-scheme: light)">
+<meta name="msapplication-TileColor" content="#0a0f1e">
+<meta name="msapplication-navbutton-color" content="#0a0f1e">
+<meta name="apple-mobile-web-app-title" content="DREAM OS">
