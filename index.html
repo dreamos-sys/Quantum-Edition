@@ -2805,61 +2805,7 @@
             }
         }
 
-        // --- TARUH DI SEKITAR BARIS 2800-an (Sebelum Init) ---
-function handleShortcuts() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const shortcut = urlParams.get('shortcut');
-
-    if (shortcut) {
-        // Kasih delay dikit biar DOM & State kelar load dulu
-        setTimeout(() => {
-            switch(shortcut) {
-                case 'booking': openModule('booking'); break;
-                case 'k3': openModule('k3'); break;
-                case 'scanner': openScanner(); break;
-                default: console.log("Quantum Bridge: Shortcut not found");
-            }
-        }, 800); 
-    }
-}
-
-        // ========== INITIALIZATION ==========
-        function initSystem() {
-            console.log('🚀 Initializing DREAM OS v13.0...');
-            
-            // Check existing session
-            const loggedIn = sessionStorage.getItem('dreamos_logged_in');
-            const userRole = sessionStorage.getItem('dreamos_user_role');
-            const deviceId = sessionStorage.getItem('dreamos_device_id');
-            
-            if (loggedIn === 'true' && userRole && deviceId) {
-                // Verify device again
-                const deviceCheck = DeviceSecurity.verifyDevice();
-                
-                if (deviceCheck.id === deviceId || userRole === 'architect') {
-                    // Device matched or architect bypass
-                    document.getElementById('loginGate').style.display = 'none';
-                    document.getElementById('mainApp').style.display = 'block';
-                    
-                    // Update state
-                    STATE.userRole = userRole;
-                    
-                    // Update UI
-                    const roleIcons = {
-                        'user': 'user',
-                        'admin': 'crown',
-                        'security': 'shield-alt',
-                        'hrd': 'users',
-                        'inventory_vault': 'key',
-                        'warehouse_vault': 'warehouse',
-                        'master': 'star',
-                        'architect': 'ghost'
-                    };
-                    
-                    document.getElementById('userRoleBadge').innerHTML = 
-                        `<i class="fas fa-${roleIcons[userRole] || 'user'}"></i> ${userRole.toUpperCase()}`;
-                    
-                    // 1. MODULE DEVICE SECURITY
+        // ========== 1. MODULE DEVICE SECURITY ==========
 const DeviceSecurity = {
     generateDeviceId: function() {
         const navigator_info = window.navigator.userAgent;
@@ -2879,7 +2825,7 @@ const DeviceSecurity = {
     }
 };
 
-// 2. ROUTER SHORTCUT PWA
+// ========== 2. ROUTER & UTILS ==========
 function handleShortcuts() {
     const urlParams = new URLSearchParams(window.location.search);
     const shortcut = urlParams.get('shortcut');
@@ -2892,7 +2838,19 @@ function handleShortcuts() {
     }
 }
 
-// 3. INITIALIZATION SYSTEM
+function togglePassword(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (input && input.type === "password") {
+        input.type = "text";
+        icon.className = "fas fa-eye-slash";
+    } else if (input) {
+        input.type = "password";
+        icon.className = "fas fa-eye";
+    }
+}
+
+// ========== 3. INITIALIZATION SYSTEM ==========
 function initSystem() {
     console.log('🚀 Initializing DREAM OS v13.0...');
     const deviceCheck = DeviceSecurity.verifyDevice();
@@ -2909,11 +2867,14 @@ function initSystem() {
             STATE.userRole = userRole;
             
             if (userRole === 'architect') {
-                document.getElementById('ghostMenu').style.display = 'block';
-                document.getElementById('deviceStatus').style.display = 'flex';
-                document.getElementById('deviceStatus').innerHTML = `<i class="fas fa-ghost"></i> Ghost Mode`;
+                if(document.getElementById('ghostMenu')) document.getElementById('ghostMenu').style.display = 'block';
+                const devStatus = document.getElementById('deviceStatus');
+                if(devStatus) {
+                    devStatus.style.display = 'flex';
+                    devStatus.innerHTML = `<i class="fas fa-ghost"></i> Ghost Mode`;
+                }
             }
-            startInactivityTimer();
+            if(window.startInactivityTimer) startInactivityTimer();
             updateSmartGreeting();
             fetchWeather();
             updateAuditTimestamp();
@@ -2924,8 +2885,9 @@ function initSystem() {
         }
     } else {
         document.getElementById('loginGate').style.display = 'flex';
-        document.getElementById('deviceId').textContent = deviceCheck.id;
-        if (deviceCheck.status === 'NEW_DEVICE') {
+        const devIdDisplay = document.getElementById('deviceId');
+        if(devIdDisplay) devIdDisplay.textContent = deviceCheck.id;
+        if (deviceCheck.status === 'NEW_DEVICE' && document.getElementById('deviceTag')) {
             document.getElementById('deviceTag').innerHTML += ' <span style="color:var(--warning);">(NEW DEVICE)</span>';
         }
     }
@@ -2934,73 +2896,61 @@ function initSystem() {
 }
 
 function updateConnectionStatus() {
+    const connStatus = document.getElementById('connectionStatus');
+    const syncStatus = document.getElementById('syncStatus');
     if (navigator.onLine) {
-        document.getElementById('connectionStatus').textContent = '🟢 Online';
-        document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync"></i> Online';
+        if(connStatus) connStatus.textContent = '🟢 Online';
+        if(syncStatus) syncStatus.innerHTML = '<i class="fas fa-sync"></i> Online';
     } else {
-        document.getElementById('connectionStatus').textContent = '📶 Offline';
-        document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud"></i> Offline';
+        if(connStatus) connStatus.textContent = '📶 Offline';
+        if(syncStatus) syncStatus.innerHTML = '<i class="fas fa-cloud"></i> Offline';
     }
 }
 
-// 4. GLOBAL EXPORTS & LISTENERS
+// ========== 4. GLOBAL EXPORTS & LISTENERS ==========
 window.openModule = openModule;
-window.showDashboard = showDashboard;
-window.showSettings = showSettings;
-window.triggerSOS = triggerSOS;
-window.sendShalawat = sendShalawat;
-window.startVoiceCommand = startVoiceCommand;
-window.showQuantumDashboard = showQuantumDashboard;
-window.fillPassword = fillPassword;
+window.togglePassword = togglePassword;
 window.gateLogin = gateLogin;
-window.unlockSession = unlockSession;
 window.openScanner = openScanner;
 
 document.addEventListener('DOMContentLoaded', initSystem);
 
-// Long Press Fingerprint/Shalawat Button buat Voice di HP
+// Long Press Shalawat Button
 let longPressTimer;
 document.addEventListener('touchstart', (e) => {
     if(e.target.classList.contains('shalawat-btn')) {
         longPressTimer = setTimeout(() => {
-            startVoiceCommand();
+            if(window.startVoiceCommand) startVoiceCommand();
             if (navigator.vibrate) navigator.vibrate(50);
-        }, 2000);
+        }, 1500);
     }
 });
 document.addEventListener('touchend', () => clearTimeout(longPressTimer));
 
-window.addEventListener('online', updateConnectionStatus);
-window.addEventListener('offline', updateConnectionStatus);
-
-document.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.code === 'Space') { e.preventDefault(); startVoiceCommand(); }
-    if (e.code === 'Escape') triggerSOS();
-});
-
-setInterval(updateAuditTimestamp, 60000);
-setInterval(fetchWeather, 1800000);
-
-// Ghost Console Access (Secret: Click bottom-right corner 5 times)
+// Ghost Console (Pojok Kanan Bawah 5x)
 let ghostClickCount = 0;
 document.addEventListener('click', (e) => {
-    if(e.clientX > window.innerWidth - 50 && e.clientY > window.innerHeight - 50) {
+    if(e.clientX > window.innerWidth - 60 && e.clientY > window.innerHeight - 60) {
         ghostClickCount++;
         if(ghostClickCount === 5) {
             const pin = prompt("🔐 Ghost Console Password:");
             if(pin === "234") {
-                alert("👻 Ghost Console Activated!\n\nBookings: " + STATE.bookingData.length + 
-                      "\nK3 Reports: " + STATE.k3Data.length + 
-                      "\nShalawat Count: " + STATE.shalawatCount);
+                alert(`👻 GHOST MODE\nDevice: ${STATE.deviceId}\nRole: ${STATE.userRole}`);
             }
             ghostClickCount = 0;
         }
     } else {
-        setTimeout(() => { ghostClickCount = 0; }, 3000);
+        setTimeout(() => { ghostClickCount = 0; }, 2000);
     }
 });
 
+window.addEventListener('online', updateConnectionStatus);
+window.addEventListener('offline', updateConnectionStatus);
+setInterval(updateAuditTimestamp, 60000);
+setInterval(fetchWeather, 1800000);
+
 console.log('✅ DREAM OS ISO Gold Ready to Launch!');
-    </script>
+</script>
 </body>
 </html>
+
