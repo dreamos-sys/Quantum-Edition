@@ -1,0 +1,28 @@
+{
+  "name": "Dream OS v13.1.2",
+  "short_name": "DreamOS",
+  "description": "Sistem Manajemen Al-Fikri oleh Mr. M Architect",
+  "start_url": "/Quantum-Edition/",
+  "scope": "/Quantum-Edition/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#00C897",
+  "background_color": "#0A0F2C",
+  "icons": [
+    {
+      "src": "/Quantum-Edition/assets/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/Quantum-Edition/assets/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/Quantum-Edition/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
