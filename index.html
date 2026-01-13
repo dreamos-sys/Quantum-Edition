@@ -402,8 +402,8 @@
 
   <!-- SCRIPTS -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
-  <script type="module">
-    // ========== SUPABASE ==========
+<script type="module">
+  // ========== SUPABASE ==========
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
   
   const supabaseUrl = 'https://pzsabdxnadpwqlirzjgg.supabase.co';
@@ -450,32 +450,6 @@
       webgl: webglInfo
     }));
   }
-
-  // ... (lanjutkan semua fungsi lainnya: isWorkHours, checkAccess, loginAdmin, submitToSupabase, dll)
-    // ✅ SUDAH DIISI OTOMATIS DARI DATA LU!
-    const supabaseUrl = 'https://pzsabdxnadpwqlirzjgg.supabase.co';
-    const supabaseAnonKey = 'sb_publishable_mvF2dA76kr82_79SYpgwyg_zNobsFJ2';
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-    // ========== FINGERPRINT ==========
-    function getDeviceFingerprint() {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      let webglInfo = '';
-      if (ctx) {
-        webglInfo = ctx.getParameter(ctx.VERSION) + '|' + 
-                   ctx.getParameter(ctx.RENDERER) + '|' + 
-                   ctx.getParameter(ctx.VENDOR);
-      }
-      return btoa(JSON.stringify({
-        userAgent: navigator.userAgent,
-        platform: navigator.platform,
-        language: navigator.language,
-        screen: `${screen.width}x${screen.height}`,
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        webgl: webglInfo
-      }));
-    }
 
     // ========== JAM OPERASIONAL ==========
     function isWorkHours() {
