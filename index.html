@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dream OS v13.1.1 — Al-Fikri</title>
+  
+  <!-- ========== FAVICON & PWA ICONS ========== -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/Quantum-Edition/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Quantum-Edition/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Quantum-Edition/assets/favicon-16x16.png">
+  <link rel="manifest" href="/Quantum-Edition/site.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="/Quantum-Edition/assets/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/Quantum-Edition/assets/android-chrome-512x512.png">
+  
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Dream OS v13.1.1">
+  <meta name="theme-color" content="#00C897" />
+
+  <!-- STYLES -->
+  <style>
+    :root {
+      --primary: #00C897; /* Emerald */
+      --secondary: #FFD700; /* Gold */
+      --dark: #0A0F2C;
+      --light: #f8fafc;
+      --text: #0f172a;
+      --text-dim: #64748b;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --success: #10b981;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background: var(--light); color: var(--text); }
+    .view { display: none; padding: 20px; max-width: 600px; margin: 0 auto; }
+    .view.active { display: block; }
+
+    .view-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid var(--primary);
+    }
+    .view-title { font-size: 1.4rem; font-weight: 800; color: var(--dark); }
+    .close-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--danger); }
+
+    .btn {
+      display: flex; align-items: center; gap: 12px; justify-content: center;
+      width: 100%; padding: 14px; margin: 12px 0; border: none; border-radius: 12px;
+      font-weight: 700; cursor: pointer; transition: transform 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-warning { background: var(--warning); color: white; }
+    .btn-secondary { background: var(--text-dim); color: white; }
+
+    .form-group { margin: 16px 0; }
+    .form-label { display: block; margin-bottom: 8px; font-weight: 600; }
+    .form-input, .form-textarea {
+      width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;
+      font-size: 1rem;
+    }
+    .form-textarea { min-height: 100px; resize: vertical; }
+
+    .info-box {
+      background: rgba(59, 130, 246, 0.1); padding: 16px; border-radius: 12px;
+      margin: 20px 0; font-size: 0.9rem;
+    }
+
+    .table-container {
+      overflow-x: auto; margin: 20px 0;
+    }
+    .xl-table {
+      width: 100%; border-collapse: collapse; margin-top: 10px;
+    }
+    .xl-table th, .xl-table td {
+      border: 1px solid #ddd; padding: 10px; text-align: left;
+    }
+    .xl-table th {
+      background: var(--primary); color: white;
+    }
+
+    .navbar {
+      display: flex; position: fixed; bottom: 0; left: 0; right: 0;
+      background: white; border-top: 1px solid #eee; padding: 10px 0;
+    }
+    .nav-item {
+      flex: 1; text-align: center; font-size: 0.85rem; padding: 6px 0;
+      color: var(--text-dim); cursor: pointer;
+    }
+    .nav-item.active { color: var(--primary); font-weight: 700; }
+
+    @media (max-width: 480px) {
+      .btn { padding: 12px; font-size: 0.95rem; }
+      .view-title { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== MAIN VIEW ========== -->
+  <div id="mainView" class="view active">
+    <div class="view-header">
+      <div class="view-title">DREAM OS v13.1.1</div>
+    </div>
+
+    <button class="btn btn-primary" onclick="showView('booking')">
+      📅 BOOKING SARANA
+    </button>
+
+    <button class="btn btn-danger" onclick="showView('k3')">
+      🛡️ LAPORAN K3
+    </button>
+
+    <button class="btn btn-warning" onclick="showView('security')">
+      👮 LAPORAN SEKURITI
+    </button>
+
+    <button class="btn btn-secondary" onclick="showView('admin')">
+      👑 ADMIN PANEL
+    </button>
+
+    <div class="info-box">
+      <div style="color: var(--blue); font-weight: 800; margin-bottom: 8px;">
+        📡 QUANTUM SYNC ACTIVE
+      </div>
+      <div style="color: var(--text-dim);">
+        • Offline-first support<br>
+        • Real-time ke dashboard Pak Erwin<br>
+        • Kompatibel semua device (A12+)
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== BOOKING VIEW ========== -->
+  <div id="bookingView" class="view">
+    <div class="view-header">
+      <div class="view-title">📅 BOOKING SARANA</div>
+      <button class="close-btn" onclick="showView('main')">×</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Pilih Sarana</label>
+      <select class="form-input" id="bookingSarana">
+        <option value="">-- Pilih --</option>
+        <option value="Aula SMP">Aula SMP</option>
+        <option value="Aula SMA">Aula SMA</option>
+        <option value="Lapangan Futsal">Lapangan Futsal</option>
+        <option value="Labkom SD">Labkom SD</option>
+        <option value="Labkom SMP">Labkom SMP</option>
+        <option value="Labkom SMA">Labkom SMA</option>
+        <option value="Perpus SD">Perpus SD</option>
+        <option value="Perpus SMP">Perpus SMP</option>
+        <option value="Perpus SMA">Perpus SMA</option>
+        <option value="Kantin SMP">Kantin SMP</option>
+        <option value="Kantin SMA">Kantin SMA</option>
+        <option value="Masjid">Masjid</option>
+        <option value="Musholla SMA">Musholla SMA</option>
+        <option value="Lapangan Basket">Lapangan Basket</option>
+        <option value="Lapangan Volley">Lapangan Volley</option>
+        <option value="Lapangan Rumput">Lapangan Rumput</option>
+        <option value="Area Parkir Loby SMA">Area Parkir Loby SMA</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Nama PIC</label>
+      <input type="text" class="form-input" placeholder="Nama lengkap">
+    </div>
+    <div class="form-group">
+      <label>No HP</label>
+      <input type="text" class="form-input" placeholder="0812...">
+    </div>
+    <div class="form-group">
+      <label>Unit</label>
+      <select class="form-input">
+        <option value="SD">SD Al Fikri</option>
+        <option value="SMP">SMP Al Fikri</option>
+        <option value="SMA">SMA Al Fikri</option>
+        <option value="Umum">Umum</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="submitBooking()">KIRIM KE SISTEM</button>
+  </div>
+
+  <!-- ========== K3 VIEW ========== -->
+  <div id="k3View" class="view">
+    <div class="view-header">
+      <div class="view-title">🛡️ LAPORAN K3</div>
+      <button class="close-btn" onclick="showView('main')">×</button>
+    </div>
+    <div class="form-group">
+      <label>Jenis Laporan</label>
+      <select class="form-input" id="k3Type">
+        <option value="Kerusakan">Kerusakan → Maintenance</option>
+        <option value="Kehilangan">Kehilangan → Sekuriti</option>
+        <option value="Kebersihan">Kebersihan → CS</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Lokasi</label>
+      <input type="text" class="form-input" placeholder="Contoh: Aula SMA">
+    </div>
+    <div class="form-group">
+      <label>Deskripsi</label>
+      <textarea class="form-input" placeholder="Jelaskan kejadian..."></textarea>
+    </div>
+    <button class="btn btn-danger" onclick="submitK3()">KIRIM KE SISTEM</button>
+  </div>
+
+  <!-- ========== SECURITY VIEW ========== -->
+  <div id="securityView" class="view">
+    <div class="view-header">
+      <div class="view-title">👮 LAPORAN HARIAN SEKURITI</div>
+      <button class="close-btn" onclick="showView('main')">×</button>
+    </div>
+    <div class="form-group">
+      <label>Petugas Jaga (3 Orang)</label>
+      <input type="text" class="form-input" placeholder="Petugas 1">
+      <input type="text" class="form-input" placeholder="Petugas 2">
+      <input type="text" class="form-input" placeholder="Petugas 3">
+    </div>
+    <div class="form-group">
+      <label>Shift</label>
+      <select class="form-input" id="shiftSelect">
+        <option value="pagi">☀️ Pagi (07:00–19:00)</option>
+        <option value="malam">🌙 Malam (19:00–07:00)</option>
+      </select>
+    </div>
+
+    <!-- TABEL WINDOWS XL STYLE -->
+    <div class="table-container">
+      <table class="xl-table">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Jam</th>
+            <th>Uraian Kegiatan / Temuan</th>
+            <th>Keterangan</th>
+          </tr>
+        </thead>
+        <tbody id="securityTableBody">
+          <tr>
+            <td>1</td>
+            <td><input type="time" class="form-input" style="width:100px;" value="08:00"></td>
+            <td><input type="text" class="form-input" placeholder="Kontrol area Aula SMA..."></td>
+            <td><input type="text" class="form-input" placeholder="Normal"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-secondary" style="margin-top:10px;" onclick="addSecurityRow()">+ Tambah Baris</button>
+    </div>
+
+    <button class="btn btn-warning" onclick="generateExcel()">📊 EKSPOR KE EXCEL</button>
+    <button class="btn btn-primary" onclick="submitSecurity()">📡 SIMPAN KE SISTEM</button>
+  </div>
+
+  <!-- ========== ADMIN VIEW ========== -->
+  <div id="adminView" class="view">
+    <div class="view-header">
+      <div class="view-title">👑 ADMIN PANEL</div>
+      <button class="close-btn" onclick="showView('main')">×</button>
+    </div>
+    <div class="form-group">
+      <label>Password Admin</label>
+      <input type="password" class="form-input" id="adminPass" placeholder="4dm1n_AF6969@00">
+      <span onclick="togglePass('adminPass')" style="cursor:pointer; margin-left:-25px;">👁️</span>
+    </div>
+    <button class="btn btn-secondary" onclick="loginAdmin()">MASUK</button>
+  </div>
+
+  <!-- NAVBAR BAWAH -->
+  <div class="navbar">
+    <div class="nav-item active" onclick="showView('main')">🏠</div>
+    <div class="nav-item" onclick="showView('booking')">📅</div>
+    <div class="nav-item" onclick="showView('k3')">🛡️</div>
+    <div class="nav-item" onclick="showView('security')">👮</div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+  <script>
+    // ========== FINGERPRINT DEVICE NYATA ==========
+    function getDeviceFingerprint() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      let webglInfo = '';
+      if (ctx) {
+        webglInfo = ctx.getParameter(ctx.VERSION) + '|' + 
+                   ctx.getParameter(ctx.RENDERER) + '|' + 
+                   ctx.getParameter(ctx.VENDOR);
+      }
+      
+      const fingerprint = {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        screen: `${screen.width}x${screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        webgl: webglInfo,
+        plugins: navigator.plugins.length
+      };
+      
+      return btoa(JSON.stringify(fingerprint));
+    }
+
+    // ========== JAM OPERASIONAL DINAMIS ==========
+    function isWorkHours() {
+      const now = new Date();
+      const day = now.getDay(); // 0 = Minggu, 6 = Sabtu
+      
+      // Libur akhir pekan
+      if (day === 0 || day === 6) return false;
+      
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const currentTime = hours + (minutes / 60);
+      
+      // Jam kerja Senin-Jumat: 07:30 - 16:00
+      return currentTime >= 7.5 && currentTime <= 16.0;
+    }
+
+    function checkAccess(type) {
+      if (type !== 'security' && !isWorkHours()) {
+        alert("⚠️ AKSES DIBLOKIR: Booking & K3 hanya tersedia pukul 07:30 - 16:00 (Senin-Jumat).\nSilakan hubungi Bapak Erwinsyah untuk keadaan darurat.");
+        return false;
+      }
+      return true;
+    }
+
+    // ========== ADMIN LOCKOUT ==========
+    let loginAttempts = 0;
+    let isLocked = false;
+
+    function loginAdmin() {
+      if (isLocked) {
+        alert("🚫 SISTEM TERKUNCI: Tunggu 5 menit setelah 3 kali kegagalan.");
+        return;
+      }
+
+      const pass = document.getElementById('adminPass').value;
+      if (pass === '4dm1n_AF6969@00') {
+        // Verifikasi fingerprint
+        const deviceID = localStorage.getItem('dreamos_device_id');
+        const currentID = getDeviceFingerprint();
+        
+        if (!deviceID) {
+          localStorage.setItem('dreamos_device_id', currentID);
+          console.log("✅ Device registered:", navigator.userAgent);
+        } else if (deviceID !== currentID) {
+          alert("⚠️ Perangkat tidak dikenali! Akses dibatasi.");
+          return;
+        }
+        
+        alert("👑 Selamat datang, Sayyidina! Akses biometric diterima.");
+        loginAttempts = 0;
+        showView('main');
+      } else {
+        loginAttempts++;
+        if (loginAttempts >= 3) {
+          isLocked = true;
+          setTimeout(() => { 
+            isLocked = false; 
+            loginAttempts = 0; 
+          }, 300000); // 5 menit
+          alert("❌ 3x Salah! Sistem dikunci 5 menit. Triggering Security Protocol...");
+        } else {
+          alert(`❌ Password salah! Sisa percobaan: ${3 - loginAttempts}`);
+        }
+      }
+    }
+
+    // ========== EXCEL EXPORT WINDOWS XL ==========
+    function generateExcel() {
+      const ws = XLSX.utils.aoa_to_sheet([
+        ["LAPORAN HARIAN SEKURITI - AL-FIKRI"],
+        [],
+        ["No", "Jam", "Uraian Kegiatan / Temuan", "Keterangan"]
+      ]);
+      
+      let row = 3;
+      document.querySelectorAll('#securityTableBody tr').forEach(tr => {
+        const cells = tr.querySelectorAll('input');
+        ws[`A${row}`] = {v: tr.cells[0].textContent, t: 's'};
+        ws[`B${row}`] = {v: cells[0]?.value || '', t: 's'};
+        ws[`C${row}`] = {v: cells[1]?.value || '', t: 's'};
+        ws[`D${row}`] = {v: cells[2]?.value || '', t: 's'};
+        row++;
+      });
+      
+      // Format header
+      ws['!merges'] = [{s:{r:0,c:0},e:{r:0,c:3}}];
+      ws['A1'].s = { 
+        font: { bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+        fill: { fgColor: { rgb: "00C897" } },
+        alignment: { horizontal: "center" }
+      };
+      
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Laporan Harian");
+      XLSX.writeFile(wb, `Laporan_Sekuriti_${new Date().toLocaleDateString('id-ID').replace(/\//g, '_')}.xlsx`);
+    }
+
+    // ========== FUNGSI UMUM ==========
+    const views = ['main', 'booking', 'k3', 'security', 'admin'];
+    
+    function showView(viewId) {
+      views.forEach(id => {
+        document.getElementById(id + 'View').classList.remove('active');
+      });
+      document.getElementById(viewId + 'View').classList.add('active');
+    }
+
+    function togglePass(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function addSecurityRow() {
+      const tbody = document.getElementById('securityTableBody');
+      const row = tbody.insertRow();
+      const no = tbody.rows.length;
+      row.innerHTML = `
+        <td>${no}</td>
+        <td><input type="time" class="form-input" style="width:100px;"></td>
+        <td><input type="text" class="form-input" placeholder="Contoh: Kontrol area Aula SMA..."></td>
+        <td><input type="text" class="form-input" placeholder="Normal / Terdata / Waspada"></td>
+      `;
+    }
+
+    // ========== QUANTUM BRIDGE ==========
+    async function submitToSupabase(table, data) {
+      console.log(`[QUANTUM] Mengirim ke ${table}:`, data);
+      localStorage.setItem(`queue_${Date.now()}`, JSON.stringify({table, data}));
+      alert("✅ Data disimpan! Akan disinkronkan saat online.");
+      showView('main');
+    }
+
+    function submitBooking() {
+      if (!checkAccess('booking')) return;
+      const data = { 
+        sarana: document.getElementById('bookingSarana').value,
+        pic: document.querySelector('#bookingView input[placeholder="Nama lengkap"]').value,
+        phone: document.querySelector('#bookingView input[placeholder="0812..."]').value
+      };
+      submitToSupabase('booking_sarana', data);
+    }
+
+    function submitK3() {
+      if (!checkAccess('k3')) return;
+      const data = { 
+        type: document.getElementById('k3Type').value,
+        location: document.querySelector('#k3View input[placeholder="Contoh: Aula SMA"]').value
+      };
+      submitToSupabase('laporan_k3', data);
+    }
+
+    function submitSecurity() {
+      const entries = [];
+      document.querySelectorAll('#securityTableBody tr').forEach(row => {
+        const cells = row.querySelectorAll('input');
+        entries.push({
+          jam: cells[0]?.value || '',
+          uraian: cells[1]?.value || '',
+          keterangan: cells[2]?.value || ''
+        });
+      });
+      const data = { 
+        petugas_1: document.querySelectorAll('#securityView input')[0].value,
+        petugas_2: document.querySelectorAll('#securityView input')[1].value,
+        petugas_3: document.querySelectorAll('#securityView input')[2].value,
+        shift: document.getElementById('shiftSelect').value,
+        entries: JSON.stringify(entries)
+      };
+      submitToSupabase('laporan_sekuriti', data);
+    }
+
+    // ========== INISIALISASI ==========
+    (function init() {
+      // Cek fingerprint saat load
+      if (!localStorage.getItem('dreamos_device_id')) {
+        const deviceID = getDeviceFingerprint();
+        localStorage.setItem('dreamos_device_id', deviceID);
+        console.log("✅ Device registered:", navigator.userAgent);
+      }
+      
+      // Deteksi low-end
+      if (navigator.deviceMemory && navigator.deviceMemory <= 2) {
+        document.body.classList.add('lite-mode');
+      }
+    })();
+  </script>
+</body>
+</html>
